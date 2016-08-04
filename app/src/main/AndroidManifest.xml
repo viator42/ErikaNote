@@ -22,7 +22,17 @@
         <service
             android:name=".service.ScheduleService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <receiver android:name=".receiver.ScheduleReceiver">
+            <intent-filter>
+                <action android:name="com.ai.android.intents.testbc" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activity.DevActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
