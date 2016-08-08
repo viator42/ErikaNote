@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 import com.viator42.erikanote.fragment.HomeFragment;
+import com.viator42.erikanote.fragment.IncomeSpendFragment;
 import com.viator42.erikanote.fragment.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentTransaction fragmentTransaction;
     private Fragment homeFragment = null;
     private Fragment scheduleFragment = null;
+    private Fragment incomeSpendFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,20 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager = getFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container, scheduleFragment);
+                fragmentTransaction.commit();
+                break;
+
+            case R.id.nav_income_spend:
+                if(incomeSpendFragment == null)
+                {
+                    incomeSpendFragment = new IncomeSpendFragment();
+                    Bundle bundle = new Bundle();
+                    incomeSpendFragment.setArguments(bundle);
+                }
+
+                fragmentManager = getFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, incomeSpendFragment);
                 fragmentTransaction.commit();
                 break;
 

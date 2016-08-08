@@ -13,4 +13,10 @@ public class CommonUtils {
         return cal;
     }
 
+    //字符串是否为空值
+    public static boolean isValueEmpty(String str)
+    {
+        return str == null || str.isEmpty() || str.equals("null");
+    }
+
 }
