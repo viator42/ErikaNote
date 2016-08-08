@@ -33,6 +33,10 @@
         <activity
             android:name=".activity.DevActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.InsertScheduleActivity"
+            android:label="@string/title_activity_insert_schedule"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

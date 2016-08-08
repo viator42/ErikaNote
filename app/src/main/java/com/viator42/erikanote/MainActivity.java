@@ -1,8 +1,9 @@
 package com.viator42.erikanote;
 
-import android.content.Intent;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,12 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.RelativeLayout;
 
-import com.viator42.erikanote.activity.DevActivity;
+import com.viator42.erikanote.fragment.HomeFragment;
+import com.viator42.erikanote.fragment.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private RelativeLayout containerLayout;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private Fragment homeFragment = null;
+    private Fragment scheduleFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,18 +31,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                Intent intent = new Intent(MainActivity.this, DevActivity.class);
-                startActivity(intent);
-
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,6 +40,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        containerLayout = (RelativeLayout) findViewById(R.id.container);
 
 //        Intent intent = new Intent(MainActivity.this, ScheduleService.class);
 //        startService(intent);
@@ -92,9 +89,31 @@ public class MainActivity extends AppCompatActivity
         switch (id)
         {
             case R.id.nav_home:
+                if(homeFragment == null)
+                {
+                    homeFragment = new HomeFragment();
+                    Bundle bundle = new Bundle();
+                    homeFragment.setArguments(bundle);
+                }
+
+                fragmentManager = getFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, homeFragment);
+                fragmentTransaction.commit();
                 break;
 
             case R.id.nav_schedule:
+                if(scheduleFragment == null)
+                {
+                    scheduleFragment = new ScheduleFragment();
+                    Bundle bundle = new Bundle();
+                    scheduleFragment.setArguments(bundle);
+                }
+
+                fragmentManager = getFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, scheduleFragment);
+                fragmentTransaction.commit();
                 break;
 
         }
