@@ -3,6 +3,7 @@ package com.viator42.erikanote;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import com.viator42.erikanote.activity.SettingsActivity;
 import com.viator42.erikanote.fragment.HomeFragment;
 import com.viator42.erikanote.fragment.IncomeFragment;
 import com.viator42.erikanote.fragment.IncomeSpendFragment;
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

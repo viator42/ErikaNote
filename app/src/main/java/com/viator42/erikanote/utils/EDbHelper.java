@@ -33,9 +33,11 @@ public class EDbHelper extends SQLiteOpenHelper {
         db.execSQL("create table if not exists income_spend("
                 + "id integer auto_increment primary key,"
                 + "create_time integer,"
+                + "name varchar(45),"
+                + "comment varchar(128),"
                 + "money double,"
-                + "type integer,"
-                + "due_time integer)");
+                + "income_spend integer,"
+                + "type integer)");
 
         db.execSQL("create table if not exists schedule("
                 + "id integer auto_increment primary key,"
