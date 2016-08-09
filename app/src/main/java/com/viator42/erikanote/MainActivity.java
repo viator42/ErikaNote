@@ -3,6 +3,7 @@ package com.viator42.erikanote;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,11 +16,16 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 import com.viator42.erikanote.fragment.HomeFragment;
+import com.viator42.erikanote.fragment.IncomeFragment;
 import com.viator42.erikanote.fragment.IncomeSpendFragment;
 import com.viator42.erikanote.fragment.ScheduleFragment;
+import com.viator42.erikanote.fragment.SpendFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        IncomeFragment.OnFragmentInteractionListener,
+        SpendFragment.OnFragmentInteractionListener
+{
     private RelativeLayout containerLayout;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -137,5 +143,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
