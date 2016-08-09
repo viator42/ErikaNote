@@ -142,4 +142,24 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:id="@+id/cancel"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="添加"
+            android:id="@+id/confirm"
+            android:layout_weight="1" />
+    </LinearLayout>
+
 </TableLayout>

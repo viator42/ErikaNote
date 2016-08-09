@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.receiver.ScheduleReceiver;
 import com.viator42.erikanote.utils.CommonUtils;
@@ -19,11 +20,13 @@ public class DevActivity extends AppCompatActivity {
     private Button alarmOnceBtn;
     private Button alarmLaterBtn;
     private Button alarmRepeateBtn;
+    private AppContext appContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dev);
+        appContext = (AppContext) getApplicationContext();
 
         alarmLaterBtn = (Button) findViewById(R.id.alarm_later);
         alarmLaterBtn.setOnClickListener(new View.OnClickListener() {
@@ -36,10 +39,10 @@ public class DevActivity extends AppCompatActivity {
                 bundle.putString("msg", "this is an instance message");
                 intent.putExtras(bundle);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(DevActivity.this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC,
+                appContext.alarmManager.set(AlarmManager.RTC,
                         cal.getTimeInMillis(),
                         pendingIntent);
+
             }
         });
 

@@ -1,5 +1,9 @@
 package com.viator42.erikanote.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,9 +21,13 @@ import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.Schedule;
+import com.viator42.erikanote.receiver.ScheduleReceiver;
+import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 import com.viator42.erikanote.widget.DateTimePickerDialog;
 import com.viator42.erikanote.widget.PickerCompleteListener;
+
+import java.util.Calendar;
 
 public class InsertScheduleActivity extends AppCompatActivity {
     private AppContext appContext;
@@ -38,6 +46,8 @@ public class InsertScheduleActivity extends AppCompatActivity {
     private RadioButton dailyRadioButton;
     private RadioButton weeklyRadioButton;
     private RadioButton monthlyRadioButton;
+    private Button cancelBtn;
+    private Button confirmBtn;
     private int incomeSpend = StaticValues.INCOME;
     private int type = StaticValues.TYPE_ONCE;
     private int feq = StaticValues.DAILY;
@@ -145,8 +155,14 @@ public class InsertScheduleActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        cancelBtn = (Button) findViewById(R.id.cancel);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Schedule schedule = new Schedule();
@@ -170,8 +186,36 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 if(!schedule.insertValidation())
                 {
                     Snackbar.make(view, schedule.msg, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                            .setAction("Action", null).show();
                     return;
+                }
+                //添加Alarm
+                Intent intent = new Intent(InsertScheduleActivity.this, ScheduleReceiver.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("obj", schedule);
+                intent.putExtras(bundle);
+                switch (schedule.type)
+                {
+                    case StaticValues.TYPE_ONCE:
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                InsertScheduleActivity.this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+                        appContext.alarmManager.set(AlarmManager.RTC,
+                                schedule.alarmTime,
+                                pendingIntent);
+
+                        break;
+
+                    case StaticValues.TYPE_REPEAT:
+//                        PendingIntent pi = PendingIntent.getBroadcast(DevActivity.this,1, intent, 0);
+//                        // Schedule the alarm!
+//                        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//
+//                        am.setRepeating(AlarmManager.RTC_WAKEUP,
+//                                cal.getTimeInMillis(),
+//                                5*1000, //5 secs
+//                                pi);
+
+                        break;
                 }
 
                 schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
@@ -185,6 +229,12 @@ public class InsertScheduleActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                 }
 
+            }
+        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
 
