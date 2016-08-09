@@ -19,4 +19,10 @@ public class CommonUtils {
         return str == null || str.isEmpty() || str.equals("null");
     }
 
+    //当前时间
+    public static long getCurrentTimestamp()
+    {
+        return System.currentTimeMillis();
+    }
+
 }

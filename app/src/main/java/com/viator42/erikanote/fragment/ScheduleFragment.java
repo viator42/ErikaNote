@@ -10,11 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
+import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
-import com.viator42.erikanote.activity.DevActivity;
+import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.activity.InsertScheduleActivity;
+import com.viator42.erikanote.adapter.ScheduleAdapter;
+import com.viator42.erikanote.model.Schedule;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,9 +42,11 @@ public class ScheduleFragment extends Fragment {
 //    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private RelativeLayout warningLayout;
+    private ViewGroup warningLayout;
     private ListView listView;
     private FloatingActionButton floatingActionButton;
+    private ArrayList<Schedule> scheduleList;
+    private AppContext appContext;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -64,6 +73,7 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appContext = (AppContext) getActivity().getApplicationContext();
         if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
@@ -71,10 +81,17 @@ public class ScheduleFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        reload();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-        warningLayout = (RelativeLayout) view.findViewById(R.id.warning);
+        warningLayout = (ViewGroup) view.findViewById(R.id.warning);
+        warningLayout.setVisibility(View.GONE);
         listView = (ListView) view.findViewById(R.id.list);
 
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -133,6 +150,34 @@ public class ScheduleFragment extends Fragment {
 
     private void reload()
     {
+        scheduleList = new ScheduleAction().list(appContext.eDbHelper);
+        if(!scheduleList.isEmpty())
+        {
+            List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+            for (Schedule schedule: scheduleList)
+            {
+                Map line = new HashMap();
+                line.put("id", schedule.id);
+                line.put("name", schedule.name);
+                line.put("comment", schedule.comment);
+                line.put("money", schedule.money);
+                line.put("type", schedule.type);
+                line.put("alarmTime", schedule.alarmTime);
+                line.put("feq", schedule.feq);
+                line.put("feqValue", schedule.feqValue);
+                line.put("createTime", schedule.createTime);
+
+                list.add(line);
+            }
+
+            ScheduleAdapter adapter = new ScheduleAdapter(list, getActivity());
+            listView.setAdapter(adapter);
+
+        }
+        else
+        {
+            warningLayout.setVisibility(View.VISIBLE);
+        }
 
     }
 

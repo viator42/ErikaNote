@@ -14,39 +14,40 @@ public class EDbHelper extends SQLiteOpenHelper {
 
     public EDbHelper(Context context, String name)
     {
-        this(context, name, null, 0);
+        this(context, name, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table if not exists user("
                 + "id integer auto_increment primary key,"
-                + "username varchar(64)"
-                + "username password(128)"
-                + "imie varchar(128)"
-                + "balance double"
-                + "total_income double"
-                + "total_spend double"
-                + "register_time integer"
-                + "last_login_time integer");
+                + "username varchar(64),"
+                + "password varchar(128),"
+                + "imie varchar(128),"
+                + "balance double,"
+                + "total_income double,"
+                + "total_spend double,"
+                + "register_time integer,"
+                + "last_login_time integer)");
 
         db.execSQL("create table if not exists income_spend("
                 + "id integer auto_increment primary key,"
-                + "create_time integer"
-                + "money double"
-                + "type integer"
-                + "due_time integer");
+                + "create_time integer,"
+                + "money double,"
+                + "type integer,"
+                + "due_time integer)");
 
         db.execSQL("create table if not exists schedule("
                 + "id integer auto_increment primary key,"
-                + "type integer"
-                + "money double"
-                + "name varchar(45)"
-                + "comment varchar(128)"
-                + "create_time integer"
-                + "feq integer"
-                + "feq_time integer"
-                + "alarm_time integer");
+                + "type integer,"
+                + "money double,"
+                + "name varchar(45),"
+                + "comment varchar(128),"
+                + "create_time integer,"
+                + "income_spend integer,"
+                + "feq integer,"
+                + "feq_value integer,"
+                + "alarm_time integer)");
     }
 
     @Override

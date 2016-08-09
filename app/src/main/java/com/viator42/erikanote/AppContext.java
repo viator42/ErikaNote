@@ -8,7 +8,7 @@ import com.viator42.erikanote.utils.EDbHelper;
  * Created by Administrator on 2016/8/2.
  */
 public class AppContext extends Application {
-    private EDbHelper eDbHelper;
+    public EDbHelper eDbHelper;
 
     @Override
     public void onCreate() {
