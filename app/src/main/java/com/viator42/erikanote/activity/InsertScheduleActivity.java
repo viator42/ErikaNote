@@ -2,25 +2,45 @@ package com.viator42.erikanote.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
+import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.Schedule;
+import com.viator42.erikanote.utils.StaticValues;
 import com.viator42.erikanote.widget.DateTimePickerDialog;
 import com.viator42.erikanote.widget.PickerCompleteListener;
 
 public class InsertScheduleActivity extends AppCompatActivity {
+    private AppContext appContext;
     private EditText nameEditText;
     private EditText commentEditText;
     private EditText moneyEditText;
     private TextView alarmTimeTextView;
     private Button alarmTimeSetBtn;
     private DateTimePickerDialog dateTimePickerDialog = null;
+    private ViewGroup onceContainer;
+    private ViewGroup repeatContainer;
+    private RadioButton incomeRadioButton;
+    private RadioButton spendRadioButton;
+    private RadioButton onceRadioButton;
+    private RadioButton repeatRadioButton;
+    private RadioButton dailyRadioButton;
+    private RadioButton weeklyRadioButton;
+    private RadioButton monthlyRadioButton;
+    private int incomeSpend = StaticValues.INCOME;
+    private int type = StaticValues.TYPE_ONCE;
+    private int feq = StaticValues.DAILY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +48,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        appContext = (AppContext) getApplicationContext();
         nameEditText = (EditText) findViewById(R.id.name);
         commentEditText = (EditText) findViewById(R.id.comment);
         moneyEditText = (EditText) findViewById(R.id.money);
@@ -52,26 +72,140 @@ public class InsertScheduleActivity extends AppCompatActivity {
             }
         });
 
+        onceContainer = (ViewGroup) findViewById(R.id.once_container);
+        repeatContainer = (ViewGroup) findViewById(R.id.repeat_container);
+        incomeRadioButton = (RadioButton) findViewById(R.id.income);
+        incomeRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    incomeSpend = StaticValues.INCOME;
+                }
+            }
+        });
+        spendRadioButton = (RadioButton) findViewById(R.id.spend);
+        spendRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    incomeSpend = StaticValues.SPEND;
+                }
+            }
+        });
+        onceRadioButton = (RadioButton) findViewById(R.id.once);
+        onceRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    changeScheduleType(StaticValues.TYPE_ONCE);
+                }
+            }
+        });
+        repeatRadioButton = (RadioButton) findViewById(R.id.repeat);
+        repeatRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    changeScheduleType(StaticValues.TYPE_REPEAT);
+                }
+            }
+        });
+        dailyRadioButton = (RadioButton) findViewById(R.id.daily);
+        dailyRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    feq = StaticValues.DAILY;
+                }
+            }
+        });
+        weeklyRadioButton = (RadioButton) findViewById(R.id.weekly);
+        weeklyRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    feq = StaticValues.WEEKLY;
+                }
+            }
+        });
+        monthlyRadioButton = (RadioButton) findViewById(R.id.monthly);
+        monthlyRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    feq = StaticValues.MONTHLY;
+                }
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-
                 Schedule schedule = new Schedule();
                 schedule.name = nameEditText.getText().toString();
                 schedule.comment = commentEditText.getText().toString();
                 schedule.money = Double.valueOf(moneyEditText.getText().toString());
-                schedule.alarmTime = dateTimePickerDialog.getTimestamp();
+                schedule.type = type;
+                switch (type)
+                {
+                    case StaticValues.TYPE_ONCE:
+                        schedule.alarmTime = dateTimePickerDialog.getTimestamp();
+
+                        break;
+                    case StaticValues.TYPE_REPEAT:
+                        schedule.feq = feq;
+
+                        break;
+
+                }
+
+                if(!schedule.insertValidation())
+                {
+                    Snackbar.make(view, schedule.msg, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                    return;
+                }
+
+                schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
+                if(schedule != null && schedule.success)
+                {
+                    finish();
+                }
+                else
+                {
+                    Snackbar.make(view, "添加失败", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
 
             }
         });
 
+    }
 
+    private void changeScheduleType(int type)
+    {
+        this.type = type;
+        switch (type)
+        {
+            case StaticValues.TYPE_ONCE:
+                onceContainer.setVisibility(View.VISIBLE);
+                repeatContainer.setVisibility(View.GONE);
+                break;
 
+            case StaticValues.TYPE_REPEAT:
+                repeatContainer.setVisibility(View.VISIBLE);
+                onceContainer.setVisibility(View.GONE);
+                break;
 
-
+        }
     }
 
 }

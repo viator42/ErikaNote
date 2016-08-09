@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.viator42.erikanote.model.Schedule;
+import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.EDbHelper;
 
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ public class ScheduleAction {
             contentValues.put("money", schedule.money);
             contentValues.put("name", schedule.name);
             contentValues.put("comment", schedule.comment);
-            contentValues.put("create_time", schedule.createTime);
+            contentValues.put("create_time", CommonUtils.getCurrentTimestamp());
             contentValues.put("feq", schedule.feq);
-            contentValues.put("feq_time", schedule.feqTime);
+            contentValues.put("feq_value", schedule.feqValue);
             contentValues.put("alarm_time", schedule.alarmTime);
 
             SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
-            schedule.id = sqLiteDatabase.insert("goods_view_history", null, contentValues);
+            schedule.id = sqLiteDatabase.insert("schedule", null, contentValues);
             schedule.success = true;
 
         }catch (Exception e)
@@ -53,7 +54,7 @@ public class ScheduleAction {
             schedule.comment = cursor.getString(cursor.getColumnIndex("comment"));
             schedule.createTime = cursor.getLong(cursor.getColumnIndex("create_time"));
             schedule.feq = cursor.getInt(cursor.getColumnIndex("feq"));
-            schedule.feqTime = cursor.getInt(cursor.getColumnIndex("feq_time"));
+            schedule.feqValue = cursor.getInt(cursor.getColumnIndex("feq_value"));
             schedule.alarmTime = cursor.getInt(cursor.getColumnIndex("alarm_time"));
 
             result.add(schedule);

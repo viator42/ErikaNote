@@ -32,6 +32,9 @@ public class DevActivity extends AppCompatActivity {
                 //设置alarm
                 Calendar cal = CommonUtils.getTimeAfterInSecs(10);
                 Intent intent =  new Intent(DevActivity.this, ScheduleReceiver.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("msg", "this is an instance message");
+                intent.putExtras(bundle);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(DevActivity.this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC,
