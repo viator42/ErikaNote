@@ -45,8 +45,11 @@
         <activity
             android:name=".activity.InsertIncomeSpendActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.IncomeSpendActivity"
+            android:label="@string/title_activity_income_spend"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

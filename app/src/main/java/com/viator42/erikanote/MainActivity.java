@@ -16,10 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import com.viator42.erikanote.activity.IncomeSpendActivity;
 import com.viator42.erikanote.activity.SettingsActivity;
 import com.viator42.erikanote.fragment.HomeFragment;
 import com.viator42.erikanote.fragment.IncomeSpendListFragment;
-import com.viator42.erikanote.fragment.IncomeSpendFragment;
 import com.viator42.erikanote.fragment.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -127,17 +127,19 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_income_spend:
-                if(incomeSpendFragment == null)
-                {
-                    incomeSpendFragment = new IncomeSpendFragment();
-                    Bundle bundle = new Bundle();
-                    incomeSpendFragment.setArguments(bundle);
-                }
-
-                fragmentManager = getFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, incomeSpendFragment);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(MainActivity.this, IncomeSpendActivity.class);
+                startActivity(intent);
+//                if(incomeSpendFragment == null)
+//                {
+//                    incomeSpendFragment = new IncomeSpendFragment();
+//                    Bundle bundle = new Bundle();
+//                    incomeSpendFragment.setArguments(bundle);
+//                }
+//
+//                fragmentManager = getFragmentManager();
+//                fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.container, incomeSpendFragment);
+//                fragmentTransaction.commit();
                 break;
 
         }
