@@ -2,6 +2,7 @@ package com.viator42.erikanote.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,19 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
     @Override
     public IncomeSpendAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_spend_item, parent,false);
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
+        view.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+            }
+        });
+
         ViewHolder vh = new ViewHolder(view);
         return vh;
     }

@@ -20,6 +20,9 @@ public class StaticValues {
     public final static int REMOVE_TYPE_FRESH = 1;
     public final static int REMOVE_TYPE_USED = 2;
 
+    public final static int CONTEXT_MENU_ITEM_EDIT = 1;
+    public final static int CONTEXT_MENU_ITEM_REMOVE = 2;
+
     public final static int PAGE_COUNT = 20;
 
 }
