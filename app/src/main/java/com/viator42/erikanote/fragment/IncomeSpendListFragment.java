@@ -16,7 +16,6 @@ import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
 import com.viator42.erikanote.adapter.IncomeSpendAdapter;
 import com.viator42.erikanote.model.IncomeSpend;
-import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +38,7 @@ public class IncomeSpendListFragment extends Fragment {
     private AppContext appContext;
     private ArrayList<IncomeSpend> incomeSpends;
     private ArrayList<Map<String,Object>> listData = null;
+    private int type;
 
     public IncomeSpendListFragment() {
         // Required empty public constructor
@@ -49,8 +49,11 @@ public class IncomeSpendListFragment extends Fragment {
      * this fragment using the provided parameters.
      */
     // TODO: Rename and change types and number of parameters
-    public static IncomeSpendListFragment newInstance(String param1, String param2) {
+    public static IncomeSpendListFragment newInstance(int param1) {
         IncomeSpendListFragment fragment = new IncomeSpendListFragment();
+        Bundle args = new Bundle();
+        args.putInt("type", param1);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -58,6 +61,9 @@ public class IncomeSpendListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appContext = (AppContext) getActivity().getApplicationContext();
+        if (getArguments() != null) {
+            type = getArguments().getInt("type");
+        }
     }
 
     @Override
@@ -67,6 +73,8 @@ public class IncomeSpendListFragment extends Fragment {
         listView = (RecyclerView) view.findViewById(R.id.list_view);
         layoutManager = new LinearLayoutManager(getActivity());
         listView.setLayoutManager(layoutManager);
+
+        reload();
 
         return view;
     }
@@ -113,7 +121,7 @@ public class IncomeSpendListFragment extends Fragment {
     private void reload()
     {
         IncomeSpend params = new IncomeSpend();
-        params.incomeSpend = StaticValues.INCOME;
+        params.incomeSpend = type;
         incomeSpends = new IncomeSpendAction().list(appContext.eDbHelper, params);
 
         if(listData == null)

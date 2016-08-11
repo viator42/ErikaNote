@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.viator42.erikanote.R;
+import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,18 @@ public class IncomeSpendFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         TabAdapter adapter = new TabAdapter(activity.getSupportFragmentManager());
-        adapter.addFragment(new IncomeFragment(), "Income");
-        adapter.addFragment(new SpendFragment(), "Spend");
+
+        IncomeSpendListFragment incomeFragment = new IncomeSpendListFragment();
+        Bundle incomeBundle = new Bundle();
+        incomeBundle.putInt("type", StaticValues.INCOME);
+        incomeFragment.setArguments(incomeBundle);
+        adapter.addFragment(incomeFragment, "Income");
+
+        IncomeSpendListFragment spendFragment = new IncomeSpendListFragment();
+        Bundle spendBundle = new Bundle();
+        spendBundle.putInt("type", StaticValues.SPEND);
+        spendFragment.setArguments(spendBundle);
+        adapter.addFragment(spendFragment, "Spend");
 //        adapter.addFragment(new TabFragment(), "Category 3");
         viewPager.setAdapter(adapter);
     }

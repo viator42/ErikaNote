@@ -18,15 +18,13 @@ import android.widget.RelativeLayout;
 
 import com.viator42.erikanote.activity.SettingsActivity;
 import com.viator42.erikanote.fragment.HomeFragment;
-import com.viator42.erikanote.fragment.IncomeFragment;
+import com.viator42.erikanote.fragment.IncomeSpendListFragment;
 import com.viator42.erikanote.fragment.IncomeSpendFragment;
 import com.viator42.erikanote.fragment.ScheduleFragment;
-import com.viator42.erikanote.fragment.SpendFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        IncomeFragment.OnFragmentInteractionListener,
-        SpendFragment.OnFragmentInteractionListener
+        IncomeSpendListFragment.OnFragmentInteractionListener
 {
     private RelativeLayout containerLayout;
     private FragmentManager fragmentManager;

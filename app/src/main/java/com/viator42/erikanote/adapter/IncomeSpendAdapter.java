@@ -1,10 +1,10 @@
 package com.viator42.erikanote.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.viator42.erikanote.R;
@@ -16,9 +16,58 @@ import java.util.Map;
 /**
  * Created by viator42 on 16/8/9.
  */
-public class IncomeSpendAdapter extends BaseAdapter {
+public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.ViewHolder> {
     //填充数据的List
-    List<Map<String,Object>> list =new ArrayList<Map<String,Object>>();
+    private List<Map<String,Object>> list =new ArrayList<Map<String,Object>>();
+    private Context context;
+
+    public IncomeSpendAdapter(Context context, List<Map<String,Object>> list)
+    {
+        this.list = list;
+        this.context = context;
+    }
+
+    @Override
+    public IncomeSpendAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_spend_item, parent,false);
+        ViewHolder vh = new ViewHolder(view);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(IncomeSpendAdapter.ViewHolder holder, int position) {
+        holder.name.setText(list.get(position).get("name").toString());
+        holder.type.setText(list.get(position).get("type").toString());
+        holder.money.setText(list.get(position).get("money").toString());
+        holder.createTime.setText(list.get(position).get("createTime").toString());
+        holder.comment.setText(list.get(position).get("comment").toString());
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        TextView type;
+        TextView name;
+        TextView money;
+        TextView createTime;
+        TextView comment;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            name = (TextView)itemView.findViewById(R.id.name);
+            type = (TextView) itemView.findViewById(R.id.type);
+            money = (TextView) itemView.findViewById(R.id.money);
+            createTime = (TextView) itemView.findViewById(R.id.create_time);
+            comment = (TextView) itemView.findViewById(R.id.comment);
+
+        }
+    }
+
+    /*
+
 
     //用来导入布局
     private LayoutInflater inflater =null;
@@ -53,11 +102,7 @@ public class IncomeSpendAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.income_spend_item, null);
 
-            holder.name = (TextView)convertView.findViewById(R.id.name);
-            holder.type = (TextView) convertView.findViewById(R.id.type);
-            holder.money = (TextView) convertView.findViewById(R.id.money);
-            holder.createTime = (TextView) convertView.findViewById(R.id.create_time);
-            holder.comment = (TextView) convertView.findViewById(R.id.comment);
+
 
             //为view设置标签
             convertView.setTag(holder);
@@ -82,12 +127,9 @@ public class IncomeSpendAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
-        TextView type;
-        TextView name;
-        TextView money;
-        TextView createTime;
-        TextView comment;
 
-    }
+    */
+
+
+
 }
