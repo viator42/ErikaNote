@@ -16,6 +16,8 @@ import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
 import com.viator42.erikanote.adapter.IncomeSpendAdapter;
 import com.viator42.erikanote.model.IncomeSpend;
+import com.viator42.erikanote.utils.CommonUtils;
+import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class IncomeSpendListFragment extends Fragment {
     private ArrayList<IncomeSpend> incomeSpends;
     private ArrayList<Map<String,Object>> listData = null;
     private int type;
+    private int currentCount = 0;
 
     public IncomeSpendListFragment() {
         // Required empty public constructor
@@ -73,7 +76,14 @@ public class IncomeSpendListFragment extends Fragment {
         listView = (RecyclerView) view.findViewById(R.id.list_view);
         layoutManager = new LinearLayoutManager(getActivity());
         listView.setLayoutManager(layoutManager);
-
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                reload();
+            }
+        });
         reload();
 
         return view;
@@ -120,10 +130,21 @@ public class IncomeSpendListFragment extends Fragment {
 
     private void reload()
     {
+        listView.removeAllViewsInLayout();
+        listData = null;
+
+        load();
+    }
+
+    public void load()
+    {
         IncomeSpend params = new IncomeSpend();
         params.incomeSpend = type;
-        incomeSpends = new IncomeSpendAction().list(appContext.eDbHelper, params);
+        params.min = currentCount;
+        params.max = StaticValues.PAGE_COUNT;
 
+        incomeSpends = new IncomeSpendAction().list(appContext.eDbHelper, params);
+        swipeRefreshLayout.setRefreshing(false);
         if(listData == null)
         {
             listData = new ArrayList<Map<String,Object>>();
@@ -135,8 +156,9 @@ public class IncomeSpendListFragment extends Fragment {
             line.put("id", incomeSpend.id);
             line.put("name", incomeSpend.name);
             line.put("type", incomeSpend.type);
+            line.put("incomeSpend", incomeSpend.getIncomeSpendName());
             line.put("money", incomeSpend.money);
-            line.put("createTime", incomeSpend.createTime);
+            line.put("createTime", CommonUtils.timestampToDatetime(incomeSpend.createTime));
             line.put("comment", incomeSpend.comment);
 
             listData.add(line);
@@ -152,7 +174,6 @@ public class IncomeSpendListFragment extends Fragment {
         {
             incomeSpendAdapter.notifyDataSetChanged();
         }
-
     }
 
 }

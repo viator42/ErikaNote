@@ -54,6 +54,17 @@ public class MainActivity extends AppCompatActivity
 //        Intent intent = new Intent(MainActivity.this, ScheduleService.class);
 //        startService(intent);
 
+        if(homeFragment == null)
+        {
+            homeFragment = new HomeFragment();
+            Bundle bundle = new Bundle();
+            homeFragment.setArguments(bundle);
+        }
+
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, homeFragment);
+        fragmentTransaction.commit();
     }
 
     @Override

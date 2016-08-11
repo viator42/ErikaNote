@@ -16,4 +16,6 @@ public class StaticValues {
     public final static int WEEKLY = 2;
     public final static int MONTHLY = 3;
 
+    public final static int PAGE_COUNT = 20;
+
 }

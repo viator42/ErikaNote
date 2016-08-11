@@ -1,5 +1,6 @@
 package com.viator42.erikanote.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -23,6 +24,20 @@ public class CommonUtils {
     public static long getCurrentTimestamp()
     {
         return System.currentTimeMillis();
+    }
+
+    // 时间戳转换为日期字符串
+    public static String timestampToDate(long timestamp)
+    {
+        return new SimpleDateFormat("yyyy-MM-dd").format(timestamp);
+
+    }
+
+    // 时间戳转换为日期+时间字符串
+    public static String timestampToDatetime(long timestamp)
+    {
+        return new SimpleDateFormat("yyyy-MM-dd \n HH:mm").format(timestamp);
+
     }
 
 }

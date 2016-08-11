@@ -11,4 +11,12 @@
     <string name="title_activity_insert_schedule">InsertScheduleActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_income_spend">IncomeSpendActivity</string>
+
+    <string name="nav_home">主页</string>
+    <string name="nav_schedule">计划</string>
+    <string name="nav_income_spend">列表</string>
+    <string name="add_income_spend">记账</string>
+    <string name="income">收入</string>
+    <string name="spend">支出</string>
+
 </resources>

@@ -47,13 +47,13 @@ public class IncomeSpendActivity extends AppCompatActivity
         Bundle incomeBundle = new Bundle();
         incomeBundle.putInt("type", StaticValues.INCOME);
         incomeFragment.setArguments(incomeBundle);
-        adapter.addFragment(incomeFragment, "Income");
+        adapter.addFragment(incomeFragment, getResources().getString(R.string.income));
 
         IncomeSpendListFragment spendFragment = new IncomeSpendListFragment();
         Bundle spendBundle = new Bundle();
         spendBundle.putInt("type", StaticValues.SPEND);
         spendFragment.setArguments(spendBundle);
-        adapter.addFragment(spendFragment, "Spend");
+        adapter.addFragment(spendFragment, getResources().getString(R.string.spend));
 //        adapter.addFragment(new TabFragment(), "Category 3");
         viewPager.setAdapter(adapter);
     }

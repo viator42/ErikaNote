@@ -2,7 +2,6 @@ package com.viator42.erikanote.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,12 +21,9 @@ import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.Schedule;
 import com.viator42.erikanote.receiver.ScheduleReceiver;
-import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 import com.viator42.erikanote.widget.DateTimePickerDialog;
 import com.viator42.erikanote.widget.PickerCompleteListener;
-
-import java.util.Calendar;
 
 public class InsertScheduleActivity extends AppCompatActivity {
     private AppContext appContext;
@@ -162,6 +158,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 finish();
             }
         });
+        confirmBtn = (Button) findViewById(R.id.confirm);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

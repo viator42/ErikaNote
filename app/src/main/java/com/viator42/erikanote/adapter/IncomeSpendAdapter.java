@@ -37,7 +37,7 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
     @Override
     public void onBindViewHolder(IncomeSpendAdapter.ViewHolder holder, int position) {
         holder.name.setText(list.get(position).get("name").toString());
-        holder.type.setText(list.get(position).get("type").toString());
+        holder.incomeSpend.setText(list.get(position).get("incomeSpend").toString());
         holder.money.setText(list.get(position).get("money").toString());
         holder.createTime.setText(list.get(position).get("createTime").toString());
         holder.comment.setText(list.get(position).get("comment").toString());
@@ -49,7 +49,7 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView type;
+        TextView incomeSpend;
         TextView name;
         TextView money;
         TextView createTime;
@@ -58,7 +58,7 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView)itemView.findViewById(R.id.name);
-            type = (TextView) itemView.findViewById(R.id.type);
+            incomeSpend = (TextView) itemView.findViewById(R.id.income_spend);
             money = (TextView) itemView.findViewById(R.id.money);
             createTime = (TextView) itemView.findViewById(R.id.create_time);
             comment = (TextView) itemView.findViewById(R.id.comment);

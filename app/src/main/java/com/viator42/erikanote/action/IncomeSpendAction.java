@@ -43,14 +43,14 @@ public class IncomeSpendAction {
         ArrayList<IncomeSpend> result = new ArrayList<IncomeSpend>();
 
         SQLiteDatabase sqLiteDatabase = eDbHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from income_spend where income_spend=?",
-                new String[]{Integer.toString(param.incomeSpend)});
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from income_spend where income_spend=? limit ?,?",
+                new String[]{Integer.toString(param.incomeSpend), Integer.toString(param.min), Integer.toString(param.max)});
         while(cursor.moveToNext()) {
             IncomeSpend incomeSpend = new IncomeSpend();
             incomeSpend.id = cursor.getLong(cursor.getColumnIndex("id"));
             incomeSpend.name = cursor.getString(cursor.getColumnIndex("name"));
             incomeSpend.comment = cursor.getString(cursor.getColumnIndex("comment"));
-            incomeSpend.money = cursor.getDouble(cursor.getColumnIndex("comment"));
+            incomeSpend.money = cursor.getDouble(cursor.getColumnIndex("money"));
             incomeSpend.incomeSpend = cursor.getInt(cursor.getColumnIndex("income_spend"));
             incomeSpend.type = cursor.getInt(cursor.getColumnIndex("type"));
             incomeSpend.createTime = cursor.getLong(cursor.getColumnIndex("create_time"));
