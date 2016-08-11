@@ -20,6 +20,7 @@ public class DevActivity extends AppCompatActivity {
     private Button alarmOnceBtn;
     private Button alarmLaterBtn;
     private Button alarmRepeateBtn;
+    private Button cancelAlarmBtn;
     private AppContext appContext;
 
     @Override
@@ -72,5 +73,16 @@ public class DevActivity extends AppCompatActivity {
             }
         });
 
+        cancelAlarmBtn = (Button) findViewById(R.id.cancel_alarm);
+        cancelAlarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(DevActivity.this, ScheduleReceiver.class);
+                PendingIntent pi = PendingIntent.getBroadcast(DevActivity.this, 2, intent, PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                am.cancel(pi);
+
+            }
+        });
     }
 }

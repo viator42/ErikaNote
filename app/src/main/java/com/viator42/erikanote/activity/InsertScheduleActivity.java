@@ -21,6 +21,7 @@ import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.Schedule;
 import com.viator42.erikanote.receiver.ScheduleReceiver;
+import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 import com.viator42.erikanote.widget.DateTimePickerDialog;
 import com.viator42.erikanote.widget.PickerCompleteListener;
@@ -171,13 +172,17 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 {
                     case StaticValues.TYPE_ONCE:
                         schedule.alarmTime = dateTimePickerDialog.getTimestamp();
+                        if(schedule.alarmTime < CommonUtils.getCurrentTimestamp())
+                        {
+                            Snackbar.make(view, "不能设置过去的时间", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
 
                         break;
                     case StaticValues.TYPE_REPEAT:
                         schedule.feq = feq;
 
                         break;
-
                 }
 
                 if(!schedule.insertValidation())
@@ -195,11 +200,11 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 {
                     case StaticValues.TYPE_ONCE:
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                                InsertScheduleActivity.this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+                                InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
                         appContext.alarmManager.set(AlarmManager.RTC,
                                 schedule.alarmTime,
                                 pendingIntent);
-
+                        
                         break;
 
                     case StaticValues.TYPE_REPEAT:

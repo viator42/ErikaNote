@@ -1,19 +1,12 @@
 package com.viator42.erikanote.action;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 
 import com.viator42.erikanote.model.Schedule;
-import com.viator42.erikanote.receiver.ScheduleReceiver;
 import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.EDbHelper;
-import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
 
@@ -70,4 +63,10 @@ public class ScheduleAction {
 
         return result;
     }
+
+    public boolean remove(EDbHelper eDbHelper, int id)
+    {
+        return false;
+    }
+
 }

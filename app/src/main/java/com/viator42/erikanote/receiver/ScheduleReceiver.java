@@ -14,5 +14,11 @@ public class ScheduleReceiver  extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         Log.d("ErikaNote", bundle.getString("msg"));
+        //弹窗提醒
+
+        //删除schedule
+
+
+
     }
 }

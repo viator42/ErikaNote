@@ -28,4 +28,14 @@
             android:text="ALARM_REPEATE"
             android:id="@+id/alarm_repeate" />
     </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:text="cancel_alarm"
+            android:id="@+id/cancel_alarm"
+            android:layout_column="0" />
+    </TableRow>
 </TableLayout>

@@ -16,6 +16,10 @@ public class StaticValues {
     public final static int WEEKLY = 2;
     public final static int MONTHLY = 3;
 
+    //删除类型,
+    public final static int REMOVE_TYPE_FRESH = 1;
+    public final static int REMOVE_TYPE_USED = 2;
+
     public final static int PAGE_COUNT = 20;
 
 }
