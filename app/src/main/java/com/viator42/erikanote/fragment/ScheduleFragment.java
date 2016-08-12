@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
@@ -17,6 +22,7 @@ import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.activity.InsertScheduleActivity;
 import com.viator42.erikanote.adapter.ScheduleAdapter;
 import com.viator42.erikanote.model.Schedule;
+import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,6 +100,22 @@ public class ScheduleFragment extends Fragment {
         warningLayout.setVisibility(View.GONE);
         listView = (ListView) view.findViewById(R.id.list);
 
+        registerForContextMenu(listView);
+        listView.setOnCreateContextMenuListener(new ListView.OnCreateContextMenuListener(){
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v,
+                                            ContextMenu.ContextMenuInfo menuInfo) {
+                // TODO Auto-generated method stub
+
+//                Toast.makeText(getActivity(), ""+menuInfo, Toast.LENGTH_LONG).show();;
+                //添加菜单项
+                menu.add(Menu.NONE, StaticValues.CONTEXT_MENU_ITEM_EDIT ,1 , "修改");
+                menu.add(Menu.NONE, StaticValues.CONTEXT_MENU_ITEM_REMOVE ,2 , "删除");
+
+            }
+
+        });
+
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,12 +123,38 @@ public class ScheduleFragment extends Fragment {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 Intent intent = new Intent(getActivity(), InsertScheduleActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("actionType", StaticValues.ACTION_INSERT);
+                intent.putExtras(bundle);
                 startActivity(intent);
 
             }
         });
 
         return view;
+    }
+
+    public boolean onContextItemSelected(MenuItem item){
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId())
+        {
+            case StaticValues.CONTEXT_MENU_ITEM_EDIT:
+                Schedule schedule = scheduleList.get(menuInfo.position);
+
+                Intent intent = new Intent(getActivity(), InsertScheduleActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("actionType", StaticValues.ACTION_UPDATE);
+                bundle.putParcelable("schedule", schedule);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+                break;
+            case StaticValues.CONTEXT_MENU_ITEM_REMOVE:
+                Toast.makeText(getActivity(), "删除"+menuInfo.position, Toast.LENGTH_LONG).show();
+                break;
+        }
+        return super.onContextItemSelected(item);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

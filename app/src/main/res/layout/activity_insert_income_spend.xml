@@ -1,79 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
+    android:fitsSystemWindows="true"
     tools:context="com.viator42.erikanote.activity.InsertIncomeSpendActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="名称"
-            android:id="@+id/name" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="备注"
-            android:id="@+id/comment" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="金额"
-            android:inputType="number"
-            android:id="@+id/money" />
-    </android.support.design.widget.TextInputLayout>
-
-    <RadioGroup
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="收入"
-            android:id="@+id/income"
-            android:layout_weight="1" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="支出"
-            android:id="@+id/spend"
-            android:layout_weight="1" />
-    </RadioGroup>
+    </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <include layout="@layout/content_insert_income_spend" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CANCEL"
-            android:id="@+id/cancel" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="confirm"
-            android:id="@+id/confirm" />
-    </LinearLayout>
-
-</TableLayout>
+</android.support.design.widget.CoordinatorLayout>

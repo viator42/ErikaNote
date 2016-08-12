@@ -25,4 +25,10 @@ public class StaticValues {
 
     public final static int PAGE_COUNT = 20;
 
+    public final static int ACTION_INSERT = 1;
+    public final static int ACTION_UPDATE = 2;
+
+    public final static int REQUEST_CODE_UPDATE_INCOME_SPEND = 1000;
+    public final static int REQUEST_CODE_UPDATE_SCHEDULE = 1001;
+
 }

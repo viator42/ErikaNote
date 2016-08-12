@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.viator42.erikanote.model.IncomeSpend;
+import com.viator42.erikanote.model.Statistics;
 import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.EDbHelper;
 
@@ -62,4 +63,10 @@ public class IncomeSpendAction {
         return result;
     }
 
+    //统计
+    public Statistics statistics()
+    {
+        return null;
+
+    }
 }

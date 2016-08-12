@@ -2,6 +2,7 @@ package com.viator42.erikanote.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -24,11 +25,20 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
     private Button confirmBtn;
     private Button cancelBtn;
     private int type;
+    private IncomeSpend incomeSpend = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_income_spend);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null)
+        {
+            incomeSpend = bundle.getParcelable("incomeSpend");
+        }
 
         appContext = (AppContext) getApplicationContext();
         nameEditText = (EditText) findViewById(R.id.name);
@@ -76,7 +86,23 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         type = StaticValues.INCOME;
+        if(incomeSpend != null)
+        {
+            nameEditText.setText(incomeSpend.name);
+            commentEditText.setText(incomeSpend.comment);
+            moneyEditText.setText(String.valueOf(incomeSpend.money));
+            switch (incomeSpend.incomeSpend)
+            {
+                case StaticValues.INCOME:
+                    incomeRadioButton.setSelected(true);
+                    break;
+                case StaticValues.SPEND:
+                    spendRadioButton.setSelected(true);
+                    break;
+            }
+        }
+
     }
+
 }

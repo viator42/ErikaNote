@@ -15,7 +15,8 @@ public class Schedule extends BaseModel implements Parcelable
     public String name;     //名称
     public String comment;  //备注(选填
     public long createTime; //创建时间
-    public int type;        //类型 收入/支出 单次/多次
+    public int incomeSpend; //收入/支出
+    public int type;        //类型  单次/多次
     public int feq;         //多次的频率 每天/每周/每月
     public int feqValue;   //频率值 每天几点/每周周几/每月几号
     public long alarmTime;  //单次提醒时间
@@ -29,6 +30,7 @@ public class Schedule extends BaseModel implements Parcelable
         name = in.readString();
         comment = in.readString();
         createTime = in.readLong();
+        incomeSpend = in.readInt();
         type = in.readInt();
         feq = in.readInt();
         feqValue = in.readInt();
@@ -76,6 +78,7 @@ public class Schedule extends BaseModel implements Parcelable
         dest.writeString(name);
         dest.writeString(comment);
         dest.writeLong(createTime);
+        dest.writeInt(incomeSpend);
         dest.writeInt(type);
         dest.writeInt(feq);
         dest.writeInt(feqValue);

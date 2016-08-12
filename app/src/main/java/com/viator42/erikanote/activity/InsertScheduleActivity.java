@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -48,6 +47,8 @@ public class InsertScheduleActivity extends AppCompatActivity {
     private int incomeSpend = StaticValues.INCOME;
     private int type = StaticValues.TYPE_ONCE;
     private int feq = StaticValues.DAILY;
+    private Schedule schedule = null;
+    private int actionType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,23 +192,30 @@ public class InsertScheduleActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                     return;
                 }
-                //添加Alarm
-                Intent intent = new Intent(InsertScheduleActivity.this, ScheduleReceiver.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("obj", schedule);
-                intent.putExtras(bundle);
-                switch (schedule.type)
-                {
-                    case StaticValues.TYPE_ONCE:
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                                InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
-                        appContext.alarmManager.set(AlarmManager.RTC,
-                                schedule.alarmTime,
-                                pendingIntent);
-                        
-                        break;
 
-                    case StaticValues.TYPE_REPEAT:
+                switch (actionType)
+                {
+                    case StaticValues.ACTION_INSERT:
+                        schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
+                        if(schedule != null && schedule.success)
+                        {
+                            //添加Alarm
+                            Intent intent = new Intent(InsertScheduleActivity.this, ScheduleReceiver.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("obj", schedule);
+                            intent.putExtras(bundle);
+                            switch (schedule.type)
+                            {
+                                case StaticValues.TYPE_ONCE:
+                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                            InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
+                                    appContext.alarmManager.set(AlarmManager.RTC,
+                                            schedule.alarmTime,
+                                            pendingIntent);
+
+                                    break;
+
+                                case StaticValues.TYPE_REPEAT:
 //                        PendingIntent pi = PendingIntent.getBroadcast(DevActivity.this,1, intent, 0);
 //                        // Schedule the alarm!
 //                        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -217,28 +225,56 @@ public class InsertScheduleActivity extends AppCompatActivity {
 //                                5*1000, //5 secs
 //                                pi);
 
+                                    break;
+                            }
+
+                            finish();
+                        }
+                        else
+                        {
+                            Snackbar.make(view, "添加失败", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+
+                        break;
+                    case StaticValues.ACTION_UPDATE:
+                        schedule = new ScheduleAction().update(appContext.eDbHelper, schedule);
+                        if(schedule != null && schedule.success)
+                        {
+
+                        }
+                        else
+                        {
+                            Snackbar.make(view, "修改失败", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
                         break;
                 }
 
-                schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
-                if(schedule != null && schedule.success)
-                {
-                    finish();
-                }
-                else
-                {
-                    Snackbar.make(view, "添加失败", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
+            }
+        });
 
-            }
-        });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null)
+        {
+            actionType = bundle.getInt("actionType");
+            schedule = bundle.getParcelable("schedule");
+        }
+
+        if(schedule != null)
+        {
+            nameEditText.setText(schedule.name);
+            commentEditText.setText(schedule.comment);
+            moneyEditText.setText(String.valueOf(schedule.money));
+            changeScheduleType(schedule.type);
+//            switch ()
+//            {
+//                case StaticValues.TYPE_ONCE:
+//                    break;
+//                case StaticValues.TYPE_REPEAT:
+//                    break;
+//            }
+        }
 
     }
 

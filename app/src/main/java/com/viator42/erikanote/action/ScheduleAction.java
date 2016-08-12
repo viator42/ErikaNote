@@ -64,9 +64,43 @@ public class ScheduleAction {
         return result;
     }
 
-    public boolean remove(EDbHelper eDbHelper, int id)
+    public Schedule update(EDbHelper eDbHelper, Schedule schedule)
     {
-        return false;
+        try {
+            SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("name", schedule.name);
+            contentValues.put("comment", schedule.comment);
+            contentValues.put("money", schedule.money);
+            contentValues.put("type", schedule.type);
+            contentValues.put("feq", schedule.feq);
+            contentValues.put("feqValue", schedule.feqValue);
+            contentValues.put("alarmTime", schedule.alarmTime);
+
+            sqLiteDatabase.update("schedule", contentValues, "id=?", new String[]{String.valueOf(schedule.id)});
+            sqLiteDatabase.close();
+            schedule.success = true;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            schedule.success = false;
+        }
+        return schedule;
+    }
+
+    public boolean remove(EDbHelper eDbHelper, long id)
+    {
+        try
+        {
+            SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
+            sqLiteDatabase.delete("schedule", "id=?", new String[]{String.valueOf(id)});
+            sqLiteDatabase.close();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }

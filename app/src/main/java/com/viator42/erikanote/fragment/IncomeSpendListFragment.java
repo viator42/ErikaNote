@@ -7,14 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
@@ -23,8 +19,6 @@ import com.viator42.erikanote.adapter.IncomeSpendAdapter;
 import com.viator42.erikanote.model.IncomeSpend;
 import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,40 +86,10 @@ public class IncomeSpendListFragment extends Fragment {
                 reload();
             }
         });
-        registerForContextMenu(listView);
-        listView.setOnCreateContextMenuListener(new RecyclerView.OnCreateContextMenuListener(){
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v,
-                                            ContextMenu.ContextMenuInfo menuInfo) {
-                // TODO Auto-generated method stub
-
-                Toast.makeText(getActivity(), ""+menuInfo, Toast.LENGTH_LONG).show();;
-                //添加菜单项
-                menu.add(Menu.NONE, StaticValues.CONTEXT_MENU_ITEM_EDIT ,1 , "修改");
-                menu.add(Menu.NONE, StaticValues.CONTEXT_MENU_ITEM_REMOVE ,2 , "删除");
-
-            }
-
-        });
 
         reload();
 
         return view;
-    }
-
-    public boolean onContextItemSelected(MenuItem item){
-        switch (item.getItemId())
-        {
-            case StaticValues.CONTEXT_MENU_ITEM_EDIT:
-//                 = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                Toast.makeText(getActivity(), "修改"+menuInfo, Toast.LENGTH_LONG).show();
-                break;
-            case StaticValues.CONTEXT_MENU_ITEM_REMOVE:
-                Toast.makeText(getActivity(), "删除", Toast.LENGTH_LONG).show();
-                break;
-        }
-        return super.onContextItemSelected(item);
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
