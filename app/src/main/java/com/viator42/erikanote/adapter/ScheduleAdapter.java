@@ -54,7 +54,13 @@ public class ScheduleAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView =inflater.inflate(R.layout.schedule_item, null);
 
+            holder.incomeSpend=(TextView)convertView.findViewById(R.id.income_spend);
+            holder.type=(TextView)convertView.findViewById(R.id.type);
             holder.name=(TextView)convertView.findViewById(R.id.name);
+            holder.alarmTime=(TextView)convertView.findViewById(R.id.alarm_time);
+            holder.feq=(TextView)convertView.findViewById(R.id.feq);
+            holder.comment=(TextView)convertView.findViewById(R.id.comment);
+            holder.money=(TextView)convertView.findViewById(R.id.money);
 
             //为view设置标签
             convertView.setTag(holder);
@@ -62,7 +68,13 @@ public class ScheduleAdapter extends BaseAdapter {
             holder=(ViewHolder)convertView.getTag();
         }
 
+        holder.incomeSpend.setText(list.get(position).get("incomeSpend").toString());
+        holder.type.setText(list.get(position).get("type").toString());
         holder.name.setText(list.get(position).get("name").toString());
+        holder.alarmTime.setText(list.get(position).get("alarmTime").toString());
+        holder.feq.setText(list.get(position).get("feq").toString());
+        holder.comment.setText(list.get(position).get("comment").toString());
+        holder.money.setText(list.get(position).get("money").toString());
 
         width =View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
         height =View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
@@ -76,7 +88,13 @@ public class ScheduleAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        TextView incomeSpend;
+        TextView type;
         TextView name;
+        TextView alarmTime;
+        TextView feq;
+        TextView comment;
+        TextView money;
 
     }
 

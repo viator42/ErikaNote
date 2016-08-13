@@ -1,5 +1,6 @@
 package com.viator42.erikanote.activity;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.viator42.erikanote.AppContext;
+import com.viator42.erikanote.MainActivity;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.Schedule;
@@ -46,7 +48,8 @@ public class InsertScheduleActivity extends AppCompatActivity {
     private Button confirmBtn;
     private int incomeSpend = StaticValues.INCOME;
     private int type = StaticValues.TYPE_ONCE;
-    private int feq = StaticValues.DAILY;
+    private int feq = StaticValues.FEQ_DAILY;
+    private long alarmTime = 0;
     private Schedule schedule = null;
     private int actionType;
 
@@ -71,7 +74,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                     dateTimePickerDialog.setPickerCompleteListener(new PickerCompleteListener() {
                         @Override
                         public void complete() {
-                            alarmTimeTextView.setText(dateTimePickerDialog.getDateTimeText());
+                            changeAlarmTime(dateTimePickerDialog.getTimestamp());
                         }
                     });
                 }
@@ -128,7 +131,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    feq = StaticValues.DAILY;
+                    feq = StaticValues.FEQ_DAILY;
                 }
             }
         });
@@ -138,7 +141,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    feq = StaticValues.WEEKLY;
+                    feq = StaticValues.FEQ_WEEKLY;
                 }
             }
         });
@@ -148,7 +151,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    feq = StaticValues.MONTHLY;
+                    feq = StaticValues.FEQ_MONTHLY;
                 }
             }
         });
@@ -169,14 +172,16 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 schedule.comment = commentEditText.getText().toString();
                 schedule.money = Double.valueOf(moneyEditText.getText().toString());
                 schedule.type = type;
+                schedule.incomeSpend = incomeSpend;
+                schedule.alarmTime = alarmTime;
                 switch (type)
                 {
                     case StaticValues.TYPE_ONCE:
-                        schedule.alarmTime = dateTimePickerDialog.getTimestamp();
                         if(schedule.alarmTime < CommonUtils.getCurrentTimestamp())
                         {
                             Snackbar.make(view, "不能设置过去的时间", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                            break;
                         }
 
                         break;
@@ -199,35 +204,13 @@ public class InsertScheduleActivity extends AppCompatActivity {
                         schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
                         if(schedule != null && schedule.success)
                         {
-                            //添加Alarm
-                            Intent intent = new Intent(InsertScheduleActivity.this, ScheduleReceiver.class);
+                            insertAlarm(schedule);
+
+                            Intent intent = new Intent(InsertScheduleActivity.this, MainActivity.class);
                             Bundle bundle = new Bundle();
-                            bundle.putParcelable("obj", schedule);
+                            bundle.putParcelable("schedule", schedule);
                             intent.putExtras(bundle);
-                            switch (schedule.type)
-                            {
-                                case StaticValues.TYPE_ONCE:
-                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                                            InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
-                                    appContext.alarmManager.set(AlarmManager.RTC,
-                                            schedule.alarmTime,
-                                            pendingIntent);
-
-                                    break;
-
-                                case StaticValues.TYPE_REPEAT:
-//                        PendingIntent pi = PendingIntent.getBroadcast(DevActivity.this,1, intent, 0);
-//                        // Schedule the alarm!
-//                        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//
-//                        am.setRepeating(AlarmManager.RTC_WAKEUP,
-//                                cal.getTimeInMillis(),
-//                                5*1000, //5 secs
-//                                pi);
-
-                                    break;
-                            }
-
+                            setResult(Activity.RESULT_OK, intent);
                             finish();
                         }
                         else
@@ -241,7 +224,12 @@ public class InsertScheduleActivity extends AppCompatActivity {
                         schedule = new ScheduleAction().update(appContext.eDbHelper, schedule);
                         if(schedule != null && schedule.success)
                         {
-
+                            Intent intent = new Intent(InsertScheduleActivity.this, MainActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("schedule", schedule);
+                            intent.putExtras(bundle);
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
                         }
                         else
                         {
@@ -266,16 +254,35 @@ public class InsertScheduleActivity extends AppCompatActivity {
             nameEditText.setText(schedule.name);
             commentEditText.setText(schedule.comment);
             moneyEditText.setText(String.valueOf(schedule.money));
+            changeIncomeSpend(schedule.incomeSpend);
             changeScheduleType(schedule.type);
-//            switch ()
-//            {
-//                case StaticValues.TYPE_ONCE:
-//                    break;
-//                case StaticValues.TYPE_REPEAT:
-//                    break;
-//            }
+            changeSeq(schedule.feq);
+            switch (schedule.type)
+            {
+                case StaticValues.TYPE_ONCE:
+                    alarmTime = schedule.alarmTime;
+                    alarmTimeTextView.setText(CommonUtils.timestampToDatetime(schedule.alarmTime));
+                    break;
+                case StaticValues.TYPE_REPEAT:
+                    break;
+            }
+
         }
 
+    }
+
+    private void changeIncomeSpend(int incomeSpend)
+    {
+        this.incomeSpend = incomeSpend;
+        switch (incomeSpend)
+        {
+            case StaticValues.INCOME:
+                incomeRadioButton.setChecked(true);
+                break;
+            case StaticValues.SPEND:
+                spendRadioButton.setChecked(true);
+                break;
+        }
     }
 
     private void changeScheduleType(int type)
@@ -284,16 +291,80 @@ public class InsertScheduleActivity extends AppCompatActivity {
         switch (type)
         {
             case StaticValues.TYPE_ONCE:
+                onceRadioButton.setChecked(true);
                 onceContainer.setVisibility(View.VISIBLE);
                 repeatContainer.setVisibility(View.GONE);
                 break;
 
             case StaticValues.TYPE_REPEAT:
+                repeatRadioButton.setChecked(true);
                 repeatContainer.setVisibility(View.VISIBLE);
                 onceContainer.setVisibility(View.GONE);
                 break;
 
         }
+    }
+
+    private void changeSeq(int feq)
+    {
+        this.feq = feq;
+        switch (feq)
+        {
+            case StaticValues.FEQ_DAILY:
+                dailyRadioButton.setChecked(true);
+                break;
+            case StaticValues.FEQ_WEEKLY:
+                weeklyRadioButton.setChecked(true);
+                break;
+            case StaticValues.FEQ_MONTHLY:
+                monthlyRadioButton.setChecked(true);
+                break;
+        }
+
+    }
+
+    protected void changeAlarmTime(long alarmTime)
+    {
+        this.alarmTime = alarmTime;
+        alarmTimeTextView.setText(CommonUtils.timestampToDatetime(alarmTime));
+    }
+
+    //添加Alarm
+    private void insertAlarm(Schedule schedule)
+    {
+        Intent intent = new Intent(InsertScheduleActivity.this, ScheduleReceiver.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("obj", schedule);
+        intent.putExtras(bundle);
+        switch (schedule.type)
+        {
+            case StaticValues.TYPE_ONCE:
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
+                appContext.alarmManager.set(AlarmManager.RTC,
+                        schedule.alarmTime,
+                        pendingIntent);
+
+                break;
+
+            case StaticValues.TYPE_REPEAT:
+//                        PendingIntent pi = PendingIntent.getBroadcast(DevActivity.this,1, intent, 0);
+//                        // Schedule the alarm!
+//                        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//
+//                        am.setRepeating(AlarmManager.RTC_WAKEUP,
+//                                cal.getTimeInMillis(),
+//                                5*1000, //5 secs
+//                                pi);
+
+                break;
+        }
+    }
+
+    //更新Alarm
+    private void updateAlarm(Schedule schedule)
+    {
+
     }
 
 }

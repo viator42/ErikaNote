@@ -1,7 +1,11 @@
 package com.viator42.erikanote.fragment;
 
+import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +26,8 @@ import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.activity.InsertScheduleActivity;
 import com.viator42.erikanote.adapter.ScheduleAdapter;
 import com.viator42.erikanote.model.Schedule;
+import com.viator42.erikanote.receiver.ScheduleReceiver;
+import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
@@ -126,7 +132,7 @@ public class ScheduleFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("actionType", StaticValues.ACTION_INSERT);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, StaticValues.REQUEST_CODE_CREATE_SCHEDULE);
 
             }
         });
@@ -136,21 +142,48 @@ public class ScheduleFragment extends Fragment {
 
     public boolean onContextItemSelected(MenuItem item){
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final Schedule schedule = scheduleList.get(menuInfo.position);
         switch (item.getItemId())
         {
             case StaticValues.CONTEXT_MENU_ITEM_EDIT:
-                Schedule schedule = scheduleList.get(menuInfo.position);
-
                 Intent intent = new Intent(getActivity(), InsertScheduleActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("actionType", StaticValues.ACTION_UPDATE);
                 bundle.putParcelable("schedule", schedule);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, StaticValues.REQUEST_CODE_UPDATE_SCHEDULE);
 
                 break;
             case StaticValues.CONTEXT_MENU_ITEM_REMOVE:
-                Toast.makeText(getActivity(), "删除"+menuInfo.position, Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("确认删除该提醒?");
+                builder.setTitle("提示");
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+
+                        if(new ScheduleAction().remove(appContext.eDbHelper, schedule.id))
+                        {
+                            Intent intent =  new Intent(getActivity(), ScheduleReceiver.class);
+                            PendingIntent pi = PendingIntent.getBroadcast(getActivity(), (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
+                            AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                            am.cancel(pi);
+
+                            reload();
+                            Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.create().show();
+
+
                 break;
         }
         return super.onContextItemSelected(item);
@@ -209,11 +242,12 @@ public class ScheduleFragment extends Fragment {
                 line.put("name", schedule.name);
                 line.put("comment", schedule.comment);
                 line.put("money", schedule.money);
-                line.put("type", schedule.type);
-                line.put("alarmTime", schedule.alarmTime);
+                line.put("type", schedule.getTypeText());
+                line.put("alarmTime", CommonUtils.timestampToDatetime(schedule.alarmTime));
                 line.put("feq", schedule.feq);
                 line.put("feqValue", schedule.feqValue);
                 line.put("createTime", schedule.createTime);
+                line.put("incomeSpend", schedule.getIncomeSpendText());
 
                 list.add(line);
             }
@@ -226,7 +260,13 @@ public class ScheduleFragment extends Fragment {
         {
             warningLayout.setVisibility(View.VISIBLE);
         }
+    }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        reload();
+//        if (requestCode == StaticValues.) {
+//
+//        }
     }
 
 }

@@ -26,9 +26,11 @@ public class ScheduleAction {
             contentValues.put("feq", schedule.feq);
             contentValues.put("feq_value", schedule.feqValue);
             contentValues.put("alarm_time", schedule.alarmTime);
+            contentValues.put("income_spend", schedule.incomeSpend);
 
             SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
             schedule.id = sqLiteDatabase.insert("schedule", null, contentValues);
+            eDbHelper.close();
             schedule.success = true;
 
         }catch (Exception e)
@@ -55,7 +57,8 @@ public class ScheduleAction {
             schedule.createTime = cursor.getLong(cursor.getColumnIndex("create_time"));
             schedule.feq = cursor.getInt(cursor.getColumnIndex("feq"));
             schedule.feqValue = cursor.getInt(cursor.getColumnIndex("feq_value"));
-            schedule.alarmTime = cursor.getInt(cursor.getColumnIndex("alarm_time"));
+            schedule.alarmTime = cursor.getLong(cursor.getColumnIndex("alarm_time"));
+            schedule.incomeSpend = cursor.getInt(cursor.getColumnIndex("income_spend"));
 
             result.add(schedule);
         }
@@ -74,10 +77,11 @@ public class ScheduleAction {
             contentValues.put("money", schedule.money);
             contentValues.put("type", schedule.type);
             contentValues.put("feq", schedule.feq);
-            contentValues.put("feqValue", schedule.feqValue);
-            contentValues.put("alarmTime", schedule.alarmTime);
+            contentValues.put("feq_value", schedule.feqValue);
+            contentValues.put("alarm_time", schedule.alarmTime);
+            contentValues.put("income_spend", schedule.incomeSpend);
 
-            sqLiteDatabase.update("schedule", contentValues, "id=?", new String[]{String.valueOf(schedule.id)});
+            sqLiteDatabase.update("schedule", contentValues, "id = ?", new String[]{String.valueOf(schedule.id)});
             sqLiteDatabase.close();
             schedule.success = true;
         }catch (Exception e)
@@ -93,7 +97,7 @@ public class ScheduleAction {
         try
         {
             SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
-            sqLiteDatabase.delete("schedule", "id=?", new String[]{String.valueOf(id)});
+            sqLiteDatabase.delete("schedule", "id = ?", new String[]{String.valueOf(id)});
             sqLiteDatabase.close();
         }catch (Exception e)
         {

@@ -12,9 +12,9 @@ public class StaticValues {
     public final static int TYPE_REPEAT = 2;
 
     //schedule 频率
-    public final static int DAILY = 1;
-    public final static int WEEKLY = 2;
-    public final static int MONTHLY = 3;
+    public final static int FEQ_DAILY = 1;
+    public final static int FEQ_WEEKLY = 2;
+    public final static int FEQ_MONTHLY = 3;
 
     //删除类型,
     public final static int REMOVE_TYPE_FRESH = 1;
@@ -29,6 +29,7 @@ public class StaticValues {
     public final static int ACTION_UPDATE = 2;
 
     public final static int REQUEST_CODE_UPDATE_INCOME_SPEND = 1000;
-    public final static int REQUEST_CODE_UPDATE_SCHEDULE = 1001;
+    public final static int REQUEST_CODE_CREATE_SCHEDULE = 1001;
+    public final static int REQUEST_CODE_UPDATE_SCHEDULE = 1002;
 
 }

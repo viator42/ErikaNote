@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.viator42.erikanote.utils.CommonUtils;
+import com.viator42.erikanote.utils.StaticValues;
 
 /**
  * Created by Administrator on 2016/8/2.
@@ -84,4 +85,31 @@ public class Schedule extends BaseModel implements Parcelable
         dest.writeInt(feqValue);
         dest.writeLong(alarmTime);
     }
+
+    public String getTypeText()
+    {
+        switch (type)
+        {
+            case StaticValues.TYPE_ONCE:
+                return "单次";
+            case StaticValues.TYPE_REPEAT:
+                return "重复";
+            default:
+                return  "";
+        }
+    }
+
+    public String getIncomeSpendText()
+    {
+        switch (incomeSpend)
+        {
+            case StaticValues.INCOME:
+                return "收入";
+            case StaticValues.SPEND:
+                return "支出";
+            default:
+                return  "";
+        }
+    }
+
 }
