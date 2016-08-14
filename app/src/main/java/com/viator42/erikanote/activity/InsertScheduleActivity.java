@@ -167,7 +167,10 @@ public class InsertScheduleActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Schedule schedule = new Schedule();
+                if(schedule == null)
+                {
+                    schedule  = new Schedule();
+                }
                 schedule.name = nameEditText.getText().toString();
                 schedule.comment = commentEditText.getText().toString();
                 schedule.money = Double.valueOf(moneyEditText.getText().toString());

@@ -30,7 +30,7 @@ public class ScheduleAction {
 
             SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
             schedule.id = sqLiteDatabase.insert("schedule", null, contentValues);
-            eDbHelper.close();
+            sqLiteDatabase.close();
             schedule.success = true;
 
         }catch (Exception e)
@@ -62,6 +62,7 @@ public class ScheduleAction {
 
             result.add(schedule);
         }
+        cursor.close();
         sqLiteDatabase.close();
 
         return result;
@@ -71,6 +72,8 @@ public class ScheduleAction {
     {
         try {
             SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
+            /*
+            //系统不支持
             ContentValues contentValues = new ContentValues();
             contentValues.put("name", schedule.name);
             contentValues.put("comment", schedule.comment);
@@ -80,8 +83,19 @@ public class ScheduleAction {
             contentValues.put("feq_value", schedule.feqValue);
             contentValues.put("alarm_time", schedule.alarmTime);
             contentValues.put("income_spend", schedule.incomeSpend);
-
-            sqLiteDatabase.update("schedule", contentValues, "id = ?", new String[]{String.valueOf(schedule.id)});
+            sqLiteDatabase.update("schedule", contentValues, "id=?", new String[]{String.valueOf(schedule.id)});
+            */
+            sqLiteDatabase.execSQL(
+                    "update schedule set name=?, comment=?, money=?, type=?, feq=?, feq_value=?, alarm_time=?, income_spend=? where id=?",
+                    new String[]{schedule.name,
+                            schedule.comment,
+                            String.valueOf(schedule.money),
+                            String.valueOf(schedule.type),
+                            String.valueOf(schedule.feq),
+                            String.valueOf(schedule.feqValue),
+                            String.valueOf(schedule.alarmTime),
+                            String.valueOf(schedule.incomeSpend),
+                            Long.toString(schedule.id)});
             sqLiteDatabase.close();
             schedule.success = true;
         }catch (Exception e)
@@ -97,7 +111,8 @@ public class ScheduleAction {
         try
         {
             SQLiteDatabase sqLiteDatabase = eDbHelper.getWritableDatabase();
-            sqLiteDatabase.delete("schedule", "id = ?", new String[]{String.valueOf(id)});
+            sqLiteDatabase.execSQL("delete from schedule where id=?", new String[]{String.valueOf(id)});
+            //sqLiteDatabase.delete("schedule", "id=?", new String[]{String.valueOf(id)});  //系统不支持
             sqLiteDatabase.close();
         }catch (Exception e)
         {
