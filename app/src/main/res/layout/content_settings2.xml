@@ -10,6 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.viator42.erikanote.activity.SettingsActivity"
-    tools:showIn="@layout/activity_settings">
+    tools:showIn="@layout/activity_settings2">
 
 </RelativeLayout>
