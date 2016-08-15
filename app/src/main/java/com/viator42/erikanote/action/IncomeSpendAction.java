@@ -66,7 +66,12 @@ public class IncomeSpendAction {
     //统计
     public Statistics statistics()
     {
-        return null;
+        //统计当天本周本月的总数 余额
+        Statistics statistics = new Statistics();
+
+
+
+        return statistics;
 
     }
 }

@@ -26,6 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
                 Intent intent = new Intent(SettingsActivity.this, DevActivity.class);
                 startActivity(intent);
+
+                //设定余额 名字 使用refActivity
+
             }
         });
     }

@@ -37,5 +37,12 @@
             android:text="cancel_alarm"
             android:id="@+id/cancel_alarm"
             android:layout_column="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="notification"
+            android:id="@+id/notification"
+            android:layout_column="1" />
     </TableRow>
 </TableLayout>

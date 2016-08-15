@@ -263,10 +263,9 @@ public class ScheduleFragment extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        reload();
-//        if (requestCode == StaticValues.) {
-//
-//        }
+        if (requestCode == StaticValues.REQUEST_CODE_CREATE_SCHEDULE) {
+            reload();
+        }
     }
 
 }

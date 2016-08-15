@@ -10,6 +10,8 @@ public class Statistics {
     public double incomeToday;
     public double incomeWeekly;
     public double incomeMonthly;
+    public double totalIncome;
+    public double totalSpend;
     public double balance;
 
 }
