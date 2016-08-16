@@ -15,14 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.activity.IncomeSpendActivity;
 import com.viator42.erikanote.activity.Settings2Activity;
 import com.viator42.erikanote.fragment.HomeFragment;
 import com.viator42.erikanote.fragment.IncomeSpendListFragment;
 import com.viator42.erikanote.fragment.ScheduleFragment;
+import com.viator42.erikanote.model.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity
     private Fragment incomeSpendFragment = null;
 
     private TextView navNameTextView;
+    private ImageView headImgView;
+    private User user;
+    private AppContext appContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        appContext = (AppContext) getApplicationContext();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,7 +62,8 @@ public class MainActivity extends AppCompatActivity
 
         View headerLayout = navigationView.getHeaderView(0);
         navNameTextView = (TextView) headerLayout.findViewById(R.id.name);
-        navNameTextView.setText("aaaaa");
+
+        headImgView = (ImageView) headerLayout.findViewById(R.id.head_img);
 
         containerLayout = (RelativeLayout) findViewById(R.id.container);
 
@@ -83,6 +91,27 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //get user info
+        user = new RefAction().getUser(MainActivity.this);
+        if(user != null)
+        {
+            appContext.user = user;
+        }
+        else
+        {
+            user = new User();
+            appContext.user = user;
+        }
+
+        navNameTextView.setText(user.name);
+        headImgView.setImageDrawable(getResources().getDrawable(R.drawable.logo));
+
     }
 
     @Override

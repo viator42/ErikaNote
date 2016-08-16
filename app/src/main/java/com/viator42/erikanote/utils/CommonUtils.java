@@ -2,6 +2,8 @@ package com.viator42.erikanote.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/8/3.
@@ -40,4 +42,21 @@ public class CommonUtils {
 
     }
 
+    //本周的开始结束TimeStamp
+    public static HashMap startEndTimestampToday()
+    {
+        HashMap result = new HashMap<String, Long>();
+
+        return result;
+    }
+    //今天的开始结束TimeStamp
+    public static HashMap startEndTimestampWeekly()
+    {
+        return null;
+    }
+    //本月的开始结束TimeStamp
+    public static HashMap startEndTimestampMonthly()
+    {
+        return null;
+    }
 }

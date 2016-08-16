@@ -102,16 +102,9 @@ public class Settings2Activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        user = new RefAction().getUser(Settings2Activity.this);
-        if(user != null)
-        {
-            nameTextView.setText(user.name);
-            balanceTextView.setText(String.valueOf(user.balance));
-        }
-        else
-        {
-            user = new User();
-        }
+        user = appContext.user;
+        nameTextView.setText(user.name);
+        balanceTextView.setText(String.valueOf(user.balance));
 
     }
 

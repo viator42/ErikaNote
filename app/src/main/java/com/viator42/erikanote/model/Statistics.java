@@ -12,6 +12,5 @@ public class Statistics {
     public double incomeMonthly;
     public double totalIncome;
     public double totalSpend;
-    public double balance;
 
 }
