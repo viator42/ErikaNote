@@ -14,10 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.viator42.erikanote.activity.IncomeSpendActivity;
-import com.viator42.erikanote.activity.SettingsActivity;
+import com.viator42.erikanote.activity.Settings2Activity;
 import com.viator42.erikanote.fragment.HomeFragment;
 import com.viator42.erikanote.fragment.IncomeSpendListFragment;
 import com.viator42.erikanote.fragment.ScheduleFragment;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity
     private Fragment homeFragment = null;
     private Fragment scheduleFragment = null;
     private Fragment incomeSpendFragment = null;
+
+    private TextView navNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        navNameTextView = (TextView) headerLayout.findViewById(R.id.name);
+        navNameTextView.setText("aaaaa");
 
         containerLayout = (RelativeLayout) findViewById(R.id.container);
 
@@ -93,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(MainActivity.this, Settings2Activity.class);
             startActivity(intent);
             return true;
         }

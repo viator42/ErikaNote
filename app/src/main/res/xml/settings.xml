@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <EditTextPreference
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="AAA"
+        android:summary="aaaaaaaaa"
+        ></EditTextPreference>
+
+    <!--<header-->
+    <!--android:icon="@drawable/ic_info_black_24dp"-->
+    <!--android:title="AAA"-->
+    <!--android:summary="aaaaaaaaa"/>-->
+
+    <!--<header-->
+    <!--android:icon="@drawable/ic_notifications_black_24dp"-->
+    <!--android:title="BBB"-->
+    <!--android:summary="aaaaaaaaa"/>-->
+
+    <!--<header-->
+    <!--android:icon="@drawable/ic_sync_black_24dp"-->
+    <!--android:title="CCC"-->
+    <!--android:summary="aaaaaaaaa"/>-->
+
+</PreferenceScreen>

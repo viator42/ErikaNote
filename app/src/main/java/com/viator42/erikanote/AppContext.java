@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.content.Context;
 
+import com.viator42.erikanote.model.User;
 import com.viator42.erikanote.utils.EDbHelper;
 
 /**
@@ -12,6 +13,7 @@ import com.viator42.erikanote.utils.EDbHelper;
 public class AppContext extends Application {
     public EDbHelper eDbHelper;
     public AlarmManager alarmManager;
+    public User user;
 
     @Override
     public void onCreate() {
