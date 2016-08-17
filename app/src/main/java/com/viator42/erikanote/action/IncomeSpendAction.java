@@ -8,6 +8,7 @@ import com.viator42.erikanote.model.IncomeSpend;
 import com.viator42.erikanote.model.Statistics;
 import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.EDbHelper;
+import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
 
@@ -64,13 +65,58 @@ public class IncomeSpendAction {
     }
 
     //统计
-    public Statistics statistics()
+    public Statistics statistics(EDbHelper eDbHelper)
     {
         //统计当天本周本月的总数 余额
         Statistics statistics = new Statistics();
+        SQLiteDatabase sqLiteDatabase = eDbHelper.getReadableDatabase();
 
+        //当天
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from income_spend where create_time>? and create_time<?",
+                new String[]{Long.toString(CommonUtils.getDayStart()), Long.toString(CommonUtils.getDayEnds())});
+        while(cursor.moveToNext()) {
+            switch (cursor.getInt(cursor.getColumnIndex("income_spend")))
+            {
+                case StaticValues.INCOME:
+                    statistics.incomeToday += cursor.getDouble(cursor.getColumnIndex("money"));
+                    break;
+                case StaticValues.SPEND:
+                    statistics.spendToday += cursor.getDouble(cursor.getColumnIndex("money"));
+                    break;
+            }
+        }
 
+        //本周
+        cursor = sqLiteDatabase.rawQuery("select * from income_spend where create_time>? and create_time<?",
+                new String[]{Long.toString(CommonUtils.getTimesWeekStart()), Long.toString(CommonUtils.getTimesWeekEnds())});
+        while(cursor.moveToNext()) {
+            switch (cursor.getInt(cursor.getColumnIndex("income_spend")))
+            {
+                case StaticValues.INCOME:
+                    statistics.incomeWeekly += cursor.getDouble(cursor.getColumnIndex("money"));
+                    break;
+                case StaticValues.SPEND:
+                    statistics.spendWeekly += cursor.getDouble(cursor.getColumnIndex("money"));
+                    break;
+            }
+        }
 
+        //本月
+        cursor = sqLiteDatabase.rawQuery("select * from income_spend where create_time>? and create_time<?",
+                new String[]{Long.toString(CommonUtils.getMonthStart()), Long.toString(CommonUtils.getMonthEnds())});
+        while(cursor.moveToNext()) {
+            switch (cursor.getInt(cursor.getColumnIndex("income_spend")))
+            {
+                case StaticValues.INCOME:
+                    statistics.incomeMonthly += cursor.getDouble(cursor.getColumnIndex("money"));
+                    break;
+                case StaticValues.SPEND:
+                    statistics.spendMonthly += cursor.getDouble(cursor.getColumnIndex("money"));
+                    break;
+            }
+        }
+
+        sqLiteDatabase.close();
         return statistics;
 
     }

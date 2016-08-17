@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,140 +12,163 @@
     tools:context="com.viator42.erikanote.activity.InsertScheduleActivity"
     tools:showIn="@layout/activity_insert_schedule">
 
-    <android.support.design.widget.TextInputLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="名称"
-            android:id="@+id/name" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="名称"
+                android:id="@+id/name" />
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="备注"
-            android:id="@+id/comment" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="备注"
+                android:id="@+id/comment" />
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="金额"
-            android:inputType="number"
-            android:id="@+id/money" />
-    </android.support.design.widget.TextInputLayout>
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="收入"
-            android:id="@+id/income"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="支出"
-            android:id="@+id/spend"
-            android:layout_weight="1" />
-    </RadioGroup>
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="单次"
-            android:id="@+id/once"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="计划"
-            android:id="@+id/repeat"
-            android:layout_weight="1" />
-    </RadioGroup>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/once_container">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="提醒时间" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/alarm_time"
-            android:layout_weight="1" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设定"
-            android:id="@+id/alarm_time_set" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/repeat_container">
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="金额"
+                android:inputType="number"
+                android:id="@+id/money" />
+        </android.support.design.widget.TextInputLayout>
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="每天"
-                android:id="@+id/daily"
+                android:text="收入"
+                android:id="@+id/income"
                 android:layout_weight="1" />
 
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="每周"
-                android:id="@+id/weekly"
-                android:layout_weight="1" />
-
-            <RadioButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="每月"
-                android:id="@+id/monthly"
+                android:text="支出"
+                android:id="@+id/spend"
                 android:layout_weight="1" />
         </RadioGroup>
 
-    </LinearLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="单次"
+                android:id="@+id/once"
+                android:layout_weight="1" />
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="计划"
+                android:id="@+id/repeat"
+                android:layout_weight="1" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/once_container">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提醒时间" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/alarm_time"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设定"
+                android:id="@+id/alarm_time_set" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repeat_container">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:text="每天"
+                    android:id="@+id/daily"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:text="每周"
+                    android:id="@+id/weekly"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:text="每月"
+                    android:id="@+id/monthly"
+                    android:layout_weight="1" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/when"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:layout_width="95dp"
+                android:layout_height="28dp"
+                android:id="@+id/feq_value"
+                android:layout_marginLeft="8dp" />
+
+        </LinearLayout>
+
+    </TableLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <Button
             android:layout_width="0dp"
@@ -162,4 +185,4 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-</TableLayout>
+</RelativeLayout>

@@ -24,6 +24,7 @@ public class ScheduleReceiver  extends BroadcastReceiver {
 
         //弹窗提醒
 
+
         //删除schedule
         new ScheduleAction().remove(appContext.eDbHelper, schedule.id);
 

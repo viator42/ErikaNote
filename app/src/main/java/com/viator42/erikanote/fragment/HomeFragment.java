@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
+import com.viator42.erikanote.action.IncomeSpendAction;
 import com.viator42.erikanote.activity.InsertIncomeSpendActivity;
+import com.viator42.erikanote.model.Statistics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +27,16 @@ import com.viator42.erikanote.activity.InsertIncomeSpendActivity;
  */
 public class HomeFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
+    private ViewGroup incomeStatisticsCotainer;
+    private ViewGroup spendStatisticsCotainer;
+    private TextView incomeTodayTextView;
+    private TextView incomeWeeklyTextView;
+    private TextView incomeMonthTextView;
+    private TextView spendTodayTextView;
+    private TextView spendWeeklyTextView;
+    private TextView spendMonthTextView;
     private Button addBtn;
+    private AppContext appContext;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,12 +59,38 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appContext = (AppContext) getActivity().getApplicationContext();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        incomeStatisticsCotainer = (ViewGroup) view.findViewById(R.id.income_statistics);
+        spendStatisticsCotainer = (ViewGroup) view.findViewById(R.id.spend_statistics);
+        incomeTodayTextView = (TextView) view.findViewById(R.id.income_today);
+        incomeWeeklyTextView = (TextView) view.findViewById(R.id.income_weekly);
+        incomeMonthTextView = (TextView) view.findViewById(R.id.income_month);
+        spendTodayTextView = (TextView) view.findViewById(R.id.spend_today);
+        spendWeeklyTextView = (TextView) view.findViewById(R.id.spend_weekly);
+        spendMonthTextView = (TextView) view.findViewById(R.id.spend_month);
+
+        incomeStatisticsCotainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spendStatisticsCotainer.setVisibility(View.VISIBLE);
+                incomeStatisticsCotainer.setVisibility(View.GONE);
+            }
+        });
+        spendStatisticsCotainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeStatisticsCotainer.setVisibility(View.VISIBLE);
+                spendStatisticsCotainer.setVisibility(View.GONE);
+            }
+        });
+
         addBtn = (Button) view.findViewById(R.id.add);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +101,22 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        spendStatisticsCotainer.setVisibility(View.VISIBLE);
+        incomeStatisticsCotainer.setVisibility(View.GONE);
+
+        Statistics statistics = new IncomeSpendAction().statistics(appContext.eDbHelper);
+        incomeTodayTextView.setText(String.valueOf(statistics.incomeToday));
+        incomeWeeklyTextView.setText(String.valueOf(statistics.incomeWeekly));
+        incomeMonthTextView.setText(String.valueOf(statistics.incomeMonthly));
+        spendTodayTextView.setText(String.valueOf(statistics.spendToday));
+        spendWeeklyTextView.setText(String.valueOf(statistics.spendWeekly));
+        spendMonthTextView.setText(String.valueOf(statistics.spendMonthly));
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

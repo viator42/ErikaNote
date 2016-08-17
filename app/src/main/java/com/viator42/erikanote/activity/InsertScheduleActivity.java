@@ -10,10 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viator42.erikanote.AppContext;
@@ -26,6 +29,10 @@ import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 import com.viator42.erikanote.widget.DateTimePickerDialog;
 import com.viator42.erikanote.widget.PickerCompleteListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InsertScheduleActivity extends AppCompatActivity {
     private AppContext appContext;
@@ -49,10 +56,16 @@ public class InsertScheduleActivity extends AppCompatActivity {
     private int incomeSpend = StaticValues.INCOME;
     private int type = StaticValues.TYPE_ONCE;
     private int feq = StaticValues.FEQ_DAILY;
+    private int feqValue;
     private long alarmTime = 0;
     private Schedule schedule = null;
     private int actionType;
-
+    private Spinner feqValueSpinner;
+    private TextView whenTextView;
+    private ArrayList<Map<String, Object>> hourData;
+    private ArrayList<Map<String, Object>> weekData;
+    private ArrayList<Map<String, Object>> monthData;
+    private SimpleAdapter feqValueSpinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +145,21 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     feq = StaticValues.FEQ_DAILY;
+                    whenTextView.setText("几点");
+                    feqValueSpinnerAdapter = new SimpleAdapter(InsertScheduleActivity.this, hourData, R.layout.spinner_item, new String[] {"name"}, new int[] {R.id.name});
+                    feqValueSpinner.setAdapter(feqValueSpinnerAdapter);
+                    feqValueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            feqValue = (int) ((Map) feqValueSpinner.getItemAtPosition(i)).get("id");
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
                 }
             }
         });
@@ -142,6 +170,9 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     feq = StaticValues.FEQ_WEEKLY;
+                    whenTextView.setText("星期几");
+                    feqValueSpinnerAdapter = new SimpleAdapter(InsertScheduleActivity.this, weekData, R.layout.spinner_item, new String[] {"name"}, new int[] {R.id.name});
+                    feqValueSpinner.setAdapter(feqValueSpinnerAdapter);
                 }
             }
         });
@@ -152,9 +183,15 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 if(isChecked)
                 {
                     feq = StaticValues.FEQ_MONTHLY;
+                    whenTextView.setText("几号");
+                    feqValueSpinnerAdapter = new SimpleAdapter(InsertScheduleActivity.this, monthData, R.layout.spinner_item, new String[] {"name"}, new int[] {R.id.name});
+                    feqValueSpinner.setAdapter(feqValueSpinnerAdapter);
                 }
             }
         });
+
+        feqValueSpinner = (Spinner) findViewById(R.id.feq_value);
+        whenTextView = (TextView) findViewById(R.id.when);
 
         cancelBtn = (Button) findViewById(R.id.cancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +227,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                         break;
                     case StaticValues.TYPE_REPEAT:
                         schedule.feq = feq;
-
+                        schedule.feqValue = feqValue;
                         break;
                 }
 
@@ -272,6 +309,38 @@ public class InsertScheduleActivity extends AppCompatActivity {
 
         }
 
+        hourData = new ArrayList<Map<String, Object>>();
+        for(int a=0; a<=23; a++)
+        {
+            Map line = new HashMap();
+            line.put("id", a);
+            line.put("name", a);
+
+            hourData.add(line);
+        }
+
+        weekData = new ArrayList<Map<String, Object>>();
+        for(int a=1; a<=7; a++)
+        {
+            Map line = new HashMap();
+            line.put("id", a);
+            line.put("name", a);
+
+            weekData.add(line);
+        }
+
+        monthData = new ArrayList<Map<String, Object>>();
+        for(int a=1; a<=30; a++)
+        {
+            Map line = new HashMap();
+            line.put("id", a);
+            line.put("name", a);
+
+            monthData.add(line);
+        }
+
+        onceContainer.setVisibility(View.GONE);
+        repeatContainer.setVisibility(View.GONE);
     }
 
     private void changeIncomeSpend(int incomeSpend)
@@ -362,6 +431,11 @@ public class InsertScheduleActivity extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    private void setFeqValue()
+    {
+
     }
 
     //更新Alarm

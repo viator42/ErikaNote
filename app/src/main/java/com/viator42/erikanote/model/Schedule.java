@@ -64,6 +64,7 @@ public class Schedule extends BaseModel implements Parcelable
             msg = "请填写金额";
         }
 
+
         return result;
     }
 
