@@ -134,6 +134,10 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         }
+        if(id == android.R.id.home)
+        {
+            this.onBackPressed();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -201,4 +205,5 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
 }

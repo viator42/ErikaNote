@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.viator42.erikanote.R;
+import com.viator42.erikanote.model.Schedule;
+import com.viator42.erikanote.utils.CommonUtils;
+import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +56,10 @@ public class ScheduleAdapter extends BaseAdapter {
         if (convertView == null){
             holder = new ViewHolder();
             convertView =inflater.inflate(R.layout.schedule_item, null);
-
             holder.incomeSpend=(TextView)convertView.findViewById(R.id.income_spend);
-            holder.type=(TextView)convertView.findViewById(R.id.type);
             holder.name=(TextView)convertView.findViewById(R.id.name);
             holder.alarmTime=(TextView)convertView.findViewById(R.id.alarm_time);
-            holder.feq=(TextView)convertView.findViewById(R.id.feq);
+            holder.type=(TextView)convertView.findViewById(R.id.type);
             holder.comment=(TextView)convertView.findViewById(R.id.comment);
             holder.money=(TextView)convertView.findViewById(R.id.money);
 
@@ -68,13 +69,43 @@ public class ScheduleAdapter extends BaseAdapter {
             holder=(ViewHolder)convertView.getTag();
         }
 
-        holder.incomeSpend.setText(list.get(position).get("incomeSpend").toString());
-        holder.type.setText(list.get(position).get("type").toString());
-        holder.name.setText(list.get(position).get("name").toString());
+        Schedule schedule = (Schedule) list.get(position).get("schedule");
+        holder.incomeSpend.setText(schedule.getIncomeSpendText());
+        holder.name.setText(schedule.name);
+        holder.comment.setText(schedule.comment);
+        holder.money.setText(String.valueOf(schedule.money));
+        holder.type.setText(schedule.getTypeText());
+        switch (schedule.type)
+        {
+            case StaticValues.TYPE_ONCE:
+                holder.alarmTime.setText(CommonUtils.timestampToDatetime(schedule.alarmTime));
+
+                break;
+            case StaticValues.TYPE_REPEAT:
+                switch (schedule.feq)
+                {
+                    case StaticValues.FEQ_DAILY:
+                        holder.alarmTime.setText("每天的" + schedule.feqValue + "点");
+                        break;
+                    case StaticValues.FEQ_WEEKLY:
+                        holder.alarmTime.setText("每周的周" + schedule.feqValue);
+                        break;
+                    case StaticValues.FEQ_MONTHLY:
+                        holder.alarmTime.setText("每月的" + schedule.feqValue + "号");
+                        break;
+
+                }
+
+                break;
+
+        }
+        /*
+
+
         holder.alarmTime.setText(list.get(position).get("alarmTime").toString());
         holder.feq.setText(list.get(position).get("feq").toString());
-        holder.comment.setText(list.get(position).get("comment").toString());
-        holder.money.setText(list.get(position).get("money").toString());
+
+        */
 
         width =View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
         height =View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
@@ -89,10 +120,9 @@ public class ScheduleAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView incomeSpend;
-        TextView type;
         TextView name;
         TextView alarmTime;
-        TextView feq;
+        TextView type;
         TextView comment;
         TextView money;
 

@@ -44,6 +44,7 @@ public class IncomeSpendListFragment extends Fragment {
     private int type;
     private int currentCount = 0;
     private AdapterView.AdapterContextMenuInfo menuInfo;
+    private ViewGroup warningLayout;
 
     public IncomeSpendListFragment() {
         // Required empty public constructor
@@ -86,6 +87,8 @@ public class IncomeSpendListFragment extends Fragment {
                 reload();
             }
         });
+        warningLayout = (ViewGroup) view.findViewById(R.id.warning);
+        warningLayout.setVisibility(View.GONE);
 
         reload();
 
@@ -152,6 +155,15 @@ public class IncomeSpendListFragment extends Fragment {
         {
             listData = new ArrayList<Map<String,Object>>();
         }
+        if(!incomeSpends.isEmpty())
+        {
+            warningLayout.setVisibility(View.GONE);
+        }
+        else
+        {
+            warningLayout.setVisibility(View.VISIBLE);
+        }
+
         for (IncomeSpend incomeSpend: incomeSpends)
         {
             Map line = new HashMap();
@@ -166,7 +178,6 @@ public class IncomeSpendListFragment extends Fragment {
 
             listData.add(line);
         }
-
         if(incomeSpendAdapter == null)
         {
             incomeSpendAdapter = new IncomeSpendAdapter(getActivity(), listData);
@@ -177,6 +188,7 @@ public class IncomeSpendListFragment extends Fragment {
         {
             incomeSpendAdapter.notifyDataSetChanged();
         }
+
     }
 
 }
