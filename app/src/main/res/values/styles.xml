@@ -17,4 +17,26 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    //user style
+    <style name="BtnStyle" parent="android:style/TextAppearance.Holo.Widget.Button">
+        <item name="android:background">@color/btn_normal</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:minHeight">28dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="BtnStyleActive" parent="android:style/TextAppearance.Holo.Widget.Button">
+        <item name="android:background">@color/btn_highlight</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:minHeight">28dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="titleStyle" parent="android:style/TextAppearance.Holo.Widget.Button">
+        <item name="android:background">@color/btn_highlight</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:minHeight">28dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>

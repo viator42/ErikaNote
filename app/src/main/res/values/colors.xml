@@ -2,6 +2,17 @@
 <resources>
     <color name="colorPrimary">#57D2F7</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>`
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="btn_highlight">#FF4081</color>
+    <color name="btn_disable">#999999</color>
+    <color name="btn_normal">#009999</color>
+
+    <color name="bg_income">#33CCCC</color>
+    <color name="bg_spend">#CC3333</color>
+
+    <color name="text_button">#FFFFFF</color>
+    <color name="text_normal">#ff404040</color>
+    <color name="text_white">#FFFFFF</color>
 
 </resources>
