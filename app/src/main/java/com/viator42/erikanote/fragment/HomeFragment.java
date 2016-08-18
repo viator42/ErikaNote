@@ -9,13 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
+import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.activity.InsertIncomeSpendActivity;
+import com.viator42.erikanote.adapter.ScheduleAdapter;
+import com.viator42.erikanote.model.Schedule;
 import com.viator42.erikanote.model.Statistics;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +46,10 @@ public class HomeFragment extends Fragment {
     private TextView spendMonthTextView;
     private Button addBtn;
     private AppContext appContext;
+    private ListView dueListView;
+    private ScheduleAdapter dueScheduleAdapter;
+    private ArrayList<Schedule> dueScheduleList;
+    private List<Map<String, Object>> dueListData;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -75,6 +88,7 @@ public class HomeFragment extends Fragment {
         spendTodayTextView = (TextView) view.findViewById(R.id.spend_today);
         spendWeeklyTextView = (TextView) view.findViewById(R.id.spend_weekly);
         spendMonthTextView = (TextView) view.findViewById(R.id.spend_month);
+        dueListView = (ListView) view.findViewById(R.id.due_list);
 
         incomeStatisticsCotainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +131,7 @@ public class HomeFragment extends Fragment {
         spendWeeklyTextView.setText(String.valueOf(statistics.spendWeekly));
         spendMonthTextView.setText(String.valueOf(statistics.spendMonthly));
 
+        reload();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -157,4 +172,41 @@ public class HomeFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private void load()
+    {
+        dueListView.removeAllViewsInLayout();
+        dueListData = null;
+
+        load();
+    }
+
+    private void reload()
+    {
+        dueScheduleList = new ScheduleAction().due(appContext.eDbHelper);
+        if(dueListData == null)
+        {
+            dueListData  = new ArrayList<Map<String, Object>>();
+        }
+        for (Schedule schedule: dueScheduleList)
+        {
+            Map line = new HashMap();
+            line.put("id", schedule.id);
+            line.put("schedule", schedule);
+
+            dueListData.add(line);
+        }
+
+        if(dueScheduleAdapter == null)
+        {
+            dueScheduleAdapter = new ScheduleAdapter(dueListData, getActivity());
+            dueListView.setAdapter(dueScheduleAdapter);
+        }
+        else
+        {
+            dueScheduleAdapter.notifyDataSetChanged();
+        }
+
+    }
+
 }

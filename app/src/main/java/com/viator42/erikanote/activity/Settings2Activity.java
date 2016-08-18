@@ -2,11 +2,13 @@ package com.viator42.erikanote.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ public class Settings2Activity extends AppCompatActivity {
     private TextView nameTextView;
     private TextView balanceTextView;
     private User user;
+    private Button devBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,15 @@ public class Settings2Activity extends AppCompatActivity {
         });
         nameTextView = (TextView) findViewById(R.id.name);
         balanceTextView = (TextView) findViewById(R.id.balance);
+
+        devBtn = (Button) findViewById(R.id.dev);
+        devBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings2Activity.this, DevActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

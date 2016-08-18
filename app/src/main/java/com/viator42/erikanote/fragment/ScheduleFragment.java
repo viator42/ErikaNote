@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,7 +28,6 @@ import com.viator42.erikanote.activity.InsertScheduleActivity;
 import com.viator42.erikanote.adapter.ScheduleAdapter;
 import com.viator42.erikanote.model.Schedule;
 import com.viator42.erikanote.receiver.ScheduleReceiver;
-import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
@@ -59,6 +59,9 @@ public class ScheduleFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private ArrayList<Schedule> scheduleList;
     private AppContext appContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ScheduleAdapter scheduleAdapter;
+    private List<Map<String, Object>> listData;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -133,6 +136,16 @@ public class ScheduleFragment extends Fragment {
                 bundle.putInt("actionType", StaticValues.ACTION_INSERT);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, StaticValues.REQUEST_CODE_CREATE_SCHEDULE);
+
+            }
+        });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                reload();
 
             }
         });
@@ -229,37 +242,51 @@ public class ScheduleFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void load()
+    {
+        listView.removeAllViewsInLayout();
+        listData = null;
+
+        load();
+    }
+
     private void reload()
     {
+        warningLayout.setVisibility(View.GONE);
+
         scheduleList = new ScheduleAction().list(appContext.eDbHelper);
+        swipeRefreshLayout.setRefreshing(false);
         if(!scheduleList.isEmpty())
         {
-            List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-            for (Schedule schedule: scheduleList)
-            {
-                Map line = new HashMap();
-                line.put("id", schedule.id);
-                line.put("name", schedule.name);
-                line.put("comment", schedule.comment);
-                line.put("money", schedule.money);
-                line.put("type", schedule.getTypeText());
-                line.put("alarmTime", CommonUtils.timestampToDatetime(schedule.alarmTime));
-                line.put("feq", schedule.feq);
-                line.put("feqValue", schedule.feqValue);
-                line.put("createTime", schedule.createTime);
-                line.put("incomeSpend", schedule.getIncomeSpendText());
-
-                list.add(line);
-            }
-
-            ScheduleAdapter adapter = new ScheduleAdapter(list, getActivity());
-            listView.setAdapter(adapter);
-
+            warningLayout.setVisibility(View.GONE);
         }
         else
         {
             warningLayout.setVisibility(View.VISIBLE);
         }
+        if(listData == null)
+        {
+            listData  = new ArrayList<Map<String, Object>>();
+        }
+        for (Schedule schedule: scheduleList)
+        {
+            Map line = new HashMap();
+            line.put("id", schedule.id);
+            line.put("schedule", schedule);
+
+            listData.add(line);
+        }
+
+        if(scheduleAdapter == null)
+        {
+            scheduleAdapter = new ScheduleAdapter(listData, getActivity());
+            listView.setAdapter(scheduleAdapter);
+        }
+        else
+        {
+            scheduleAdapter.notifyDataSetChanged();
+        }
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -97,9 +97,9 @@ public class DevActivity extends AppCompatActivity {
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                         DevActivity.this);
                 mBuilder.setSmallIcon(R.drawable.ic_menu_camera);
-                mBuilder.setContentTitle("5 new message");
-                mBuilder.setContentText("twain@android.com");
-                mBuilder.setTicker("New message");//第一次提示消息的时候显示在通知栏上
+                mBuilder.setContentTitle("Title");
+                mBuilder.setContentText("Content");
+                mBuilder.setTicker("setTicker");//第一次提示消息的时候显示在通知栏上
                 mBuilder.setNumber(12);
                 mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 //                mBuilder.setLargeIcon(btm);

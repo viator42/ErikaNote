@@ -63,4 +63,11 @@
             android:gravity="center"
             android:layout_marginRight="8dp" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DEV"
+        android:id="@+id/dev"
+        android:visibility="visible" />
 </TableLayout>
