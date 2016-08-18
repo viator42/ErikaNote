@@ -228,6 +228,19 @@ public class InsertScheduleActivity extends AppCompatActivity {
                     case StaticValues.TYPE_REPEAT:
                         schedule.feq = feq;
                         schedule.feqValue = feqValue;
+                        switch (feq)
+                        {
+                            case StaticValues.FEQ_DAILY:
+                                schedule.alarmTime = CommonUtils.getCurrentTimestamp() + (3600 * 24 * 1000);
+                                break;
+                            case StaticValues.FEQ_WEEKLY:
+                                schedule.alarmTime = CommonUtils.getCurrentTimestamp() + (3600 * 24 * 1000);
+                                break;
+                            case StaticValues.FEQ_MONTHLY:
+                                schedule.alarmTime = CommonUtils.getCurrentTimestamp() + (3600 * 24 * 1000);
+                                break;
+                        }
+
                         break;
                 }
 
@@ -408,11 +421,13 @@ public class InsertScheduleActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable("obj", schedule);
         intent.putExtras(bundle);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
+
         switch (schedule.type)
         {
             case StaticValues.TYPE_ONCE:
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                        InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
+                //单次提醒
                 appContext.alarmManager.set(AlarmManager.RTC,
                         schedule.alarmTime,
                         pendingIntent);
@@ -420,15 +435,28 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 break;
 
             case StaticValues.TYPE_REPEAT:
-//                        PendingIntent pi = PendingIntent.getBroadcast(DevActivity.this,1, intent, 0);
-//                        // Schedule the alarm!
-//                        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//
-//                        am.setRepeating(AlarmManager.RTC_WAKEUP,
-//                                cal.getTimeInMillis(),
-//                                5*1000, //5 secs
-//                                pi);
-
+                //重复提醒
+                switch (schedule.feq)
+                {
+                    case StaticValues.FEQ_DAILY:
+                        appContext.alarmManager.setRepeating(AlarmManager.RTC,
+                                schedule.alarmTime,
+                                3600 * 24 * 1000,
+                                pendingIntent);
+                        break;
+                    case StaticValues.FEQ_WEEKLY:
+                        appContext.alarmManager.setRepeating(AlarmManager.RTC,
+                                schedule.alarmTime,
+                                3600 * 24 * 1000 * 7,
+                                pendingIntent);
+                        break;
+                    case StaticValues.FEQ_MONTHLY:
+                        appContext.alarmManager.setRepeating(AlarmManager.RTC,
+                                schedule.alarmTime,
+                                3600 * 24 * 1000 * 30,
+                                pendingIntent);
+                        break;
+                }
                 break;
         }
     }

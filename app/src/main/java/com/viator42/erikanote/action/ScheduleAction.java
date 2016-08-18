@@ -48,24 +48,29 @@ public class ScheduleAction {
         SQLiteDatabase sqLiteDatabase = eDbHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from schedule", null);
         while(cursor.moveToNext()) {
-            Schedule schedule = new Schedule();
-            schedule.id = cursor.getLong(cursor.getColumnIndex("id"));
-            schedule.type = cursor.getInt(cursor.getColumnIndex("type"));
-            schedule.money = cursor.getDouble(cursor.getColumnIndex("money"));
-            schedule.name = cursor.getString(cursor.getColumnIndex("name"));
-            schedule.comment = cursor.getString(cursor.getColumnIndex("comment"));
-            schedule.createTime = cursor.getLong(cursor.getColumnIndex("create_time"));
-            schedule.feq = cursor.getInt(cursor.getColumnIndex("feq"));
-            schedule.feqValue = cursor.getInt(cursor.getColumnIndex("feq_value"));
-            schedule.alarmTime = cursor.getLong(cursor.getColumnIndex("alarm_time"));
-            schedule.incomeSpend = cursor.getInt(cursor.getColumnIndex("income_spend"));
-
-            result.add(schedule);
+            result.add(getFromCursor(cursor));
         }
         cursor.close();
         sqLiteDatabase.close();
 
         return result;
+    }
+
+    private Schedule getFromCursor(Cursor cursor)
+    {
+        Schedule schedule = new Schedule();
+        schedule.id = cursor.getLong(cursor.getColumnIndex("id"));
+        schedule.type = cursor.getInt(cursor.getColumnIndex("type"));
+        schedule.money = cursor.getDouble(cursor.getColumnIndex("money"));
+        schedule.name = cursor.getString(cursor.getColumnIndex("name"));
+        schedule.comment = cursor.getString(cursor.getColumnIndex("comment"));
+        schedule.createTime = cursor.getLong(cursor.getColumnIndex("create_time"));
+        schedule.feq = cursor.getInt(cursor.getColumnIndex("feq"));
+        schedule.feqValue = cursor.getInt(cursor.getColumnIndex("feq_value"));
+        schedule.alarmTime = cursor.getLong(cursor.getColumnIndex("alarm_time"));
+        schedule.incomeSpend = cursor.getInt(cursor.getColumnIndex("income_spend"));
+
+        return schedule;
     }
 
     public Schedule update(EDbHelper eDbHelper, Schedule schedule)
@@ -120,6 +125,23 @@ public class ScheduleAction {
             return false;
         }
         return true;
+    }
+
+    // 即将到期的提醒
+    public ArrayList<Schedule> due(EDbHelper eDbHelper)
+    {
+        ArrayList<Schedule> result = new ArrayList<Schedule>();
+
+        SQLiteDatabase sqLiteDatabase = eDbHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from schedule where alarm_time>? and alarm_time>?",
+                new String[]{String.valueOf(CommonUtils.getDayStart()), String.valueOf(CommonUtils.getDayEnds())});
+        while(cursor.moveToNext()) {
+            result.add(getFromCursor(cursor));
+        }
+        cursor.close();
+        sqLiteDatabase.close();
+
+        return result;
     }
 
 }

@@ -60,6 +60,8 @@ public class ScheduleFragment extends Fragment {
     private ArrayList<Schedule> scheduleList;
     private AppContext appContext;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ScheduleAdapter scheduleAdapter;
+    private List<Map<String, Object>> listData;
 
     public ScheduleFragment() {
         // Required empty public constructor
@@ -240,6 +242,14 @@ public class ScheduleFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void load()
+    {
+        listView.removeAllViewsInLayout();
+        listData = null;
+
+        load();
+    }
+
     private void reload()
     {
         warningLayout.setVisibility(View.GONE);
@@ -248,23 +258,35 @@ public class ScheduleFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(false);
         if(!scheduleList.isEmpty())
         {
-            List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-            for (Schedule schedule: scheduleList)
-            {
-                Map line = new HashMap();
-                line.put("id", schedule.id);
-                line.put("schedule", schedule);
-
-                list.add(line);
-            }
-
-            ScheduleAdapter adapter = new ScheduleAdapter(list, getActivity());
-            listView.setAdapter(adapter);
+            warningLayout.setVisibility(View.GONE);
         }
         else
         {
             warningLayout.setVisibility(View.VISIBLE);
         }
+        if(listData == null)
+        {
+            listData  = new ArrayList<Map<String, Object>>();
+        }
+        for (Schedule schedule: scheduleList)
+        {
+            Map line = new HashMap();
+            line.put("id", schedule.id);
+            line.put("schedule", schedule);
+
+            listData.add(line);
+        }
+
+        if(scheduleAdapter == null)
+        {
+            scheduleAdapter = new ScheduleAdapter(listData, getActivity());
+            listView.setAdapter(scheduleAdapter);
+        }
+        else
+        {
+            scheduleAdapter.notifyDataSetChanged();
+        }
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
