@@ -1,132 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
+        android:layout_height="50dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/name"
+            android:singleLine="true"
+            android:minWidth="100dp"
+            android:gravity="center_vertical"
+            android:text="AAAAA"
+            android:layout_marginLeft="8dp"
+            android:textSize="22dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/name"
-                android:singleLine="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="100dp"
-                android:gravity="center_vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="类型"
+            android:layout_marginLeft="8dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="类型"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/income_spend"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/income_spend"
-                android:gravity="center"
-                android:singleLine="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:text="提醒类型"
-                        android:id="@+id/textView"
-                        android:gravity="center"
-                        android:layout_marginLeft="8dp" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/type"
-                        android:layout_marginLeft="8dp"
-                        android:singleLine="true"
-                        android:gravity="center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:text="提醒时间"
-                        android:gravity="center"
-                        android:layout_marginLeft="8dp" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/alarm_time"
-                        android:layout_marginLeft="8dp"
-                        android:singleLine="true"
-                        android:gravity="center_vertical" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/comment"
-                android:layout_toLeftOf="@+id/money"
-                android:layout_toStartOf="@+id/money"
-                android:layout_below="@+id/name"
-                android:layout_weight="1"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="0"
-                android:id="@+id/money"
-                android:minWidth="50dp"
-                android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:singleLine="true" />
-
-        </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="提醒类型"
+                    android:id="@+id/textView"
+                    android:gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/type"
+                    android:layout_marginLeft="8dp"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="提醒时间"
+                    android:gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alarm_time"
+                    android:layout_marginLeft="8dp"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/comment"
+            android:layout_toLeftOf="@+id/money"
+            android:layout_toStartOf="@+id/money"
+            android:layout_below="@+id/name"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="aaaaa"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0"
+            android:id="@+id/money"
+            android:minWidth="50dp"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:singleLine="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
