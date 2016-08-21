@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#57D2F7</color>
+    <color name="colorPrimary">#BFBFBF</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
-    <color name="btn_highlight">#FF4081</color>
+    <color name="navHeaderBg">#BFDBD8</color>
+    <color name="btn_highlight">#DBCBB8</color>
     <color name="btn_disable">#999999</color>
     <color name="btn_normal">#009999</color>
 
     <color name="bg_income">#33CCCC</color>
-    <color name="bg_spend">#CC3333</color>
+    <color name="bg_spend">#CC9999</color>
 
     <color name="text_button">#FFFFFF</color>
     <color name="text_normal">#ff404040</color>

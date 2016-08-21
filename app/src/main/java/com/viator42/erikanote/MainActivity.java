@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         navNameTextView.setText(user.name);
-        headImgView.setImageDrawable(getResources().getDrawable(R.drawable.logo));
+        headImgView.setImageDrawable(getResources().getDrawable(R.drawable.user));
 
     }
 
