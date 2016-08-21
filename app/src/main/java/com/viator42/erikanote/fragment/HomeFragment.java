@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
     private ScheduleAdapter dueScheduleAdapter;
     private ArrayList<Schedule> dueScheduleList;
     private List<Map<String, Object>> dueListData;
+    private TextView dueWarningTextView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -113,6 +114,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        dueWarningTextView = (TextView) view.findViewById(R.id.due_warning);
 
         return view;
     }
@@ -188,6 +190,16 @@ public class HomeFragment extends Fragment {
         {
             dueListData  = new ArrayList<Map<String, Object>>();
         }
+        if(dueScheduleList.isEmpty())
+        {
+            dueWarningTextView.setText(getResources().getString(R.string.due_nothing));
+            dueWarningTextView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            dueWarningTextView.setVisibility(View.GONE);
+        }
+
         for (Schedule schedule: dueScheduleList)
         {
             Map line = new HashMap();

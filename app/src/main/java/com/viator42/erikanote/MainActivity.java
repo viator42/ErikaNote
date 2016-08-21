@@ -20,12 +20,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.viator42.erikanote.action.RefAction;
+import com.viator42.erikanote.activity.AboutActivity;
 import com.viator42.erikanote.activity.IncomeSpendActivity;
 import com.viator42.erikanote.activity.Settings2Activity;
 import com.viator42.erikanote.fragment.HomeFragment;
 import com.viator42.erikanote.fragment.IncomeSpendListFragment;
 import com.viator42.erikanote.fragment.ScheduleFragment;
 import com.viator42.erikanote.model.User;
+import com.viator42.erikanote.utils.CommonUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -109,7 +111,18 @@ public class MainActivity extends AppCompatActivity
             appContext.user = user;
         }
 
-        navNameTextView.setText(user.name);
+        if(!CommonUtils.isValueEmpty(user.name))
+        {
+            navNameTextView.setText(user.name);
+
+        }
+        navNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Settings2Activity.class);
+                startActivity(intent);
+            }
+        });
         headImgView.setImageDrawable(getResources().getDrawable(R.drawable.user));
 
     }
@@ -131,6 +144,11 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(MainActivity.this, Settings2Activity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_about) {
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(intent);
             return true;
         }

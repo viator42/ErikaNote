@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">Erika Note</string>
+    <string name="app_name">财来记账</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="blog">http://viator42.github.io/</string>
+    <string name="github">https://github.com/viator42</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -14,11 +15,30 @@
     <string name="title_activity_insert_income_spend">记账</string>
 
     <string name="nav_home">主页</string>
-    <string name="nav_schedule">计划</string>
+    <string name="nav_schedule">提醒</string>
     <string name="nav_income_spend">列表</string>
-    <string name="add_income_spend">记账</string>
+    <string name="add_income_spend">收支</string>
+    <string name="settings">设置</string>
+    <string name="about">关于</string>
     <string name="income">收入</string>
     <string name="spend">支出</string>
-
+    <string name="statistics">统计</string>
+    <string name="income_statistics">收入统计</string>
+    <string name="spend_statistics">支出统计</string>
+    <string name="due">即将到期</string>
+    <string name="due_nothing">没有即将到期的收支</string>
+    <string name="today">今天</string>
+    <string name="weekly">本周</string>
+    <string name="month">本月</string>
+    <string name="new_income_spend">记一笔</string>
+    <string name="name">名称</string>
+    <string name="comment">备注(可以不填)</string>
+    <string name="money">金额</string>
+    <string name="type">类型</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="nothing">没有记录</string>
+    <string name="balance">余额</string>
+    <string name="title_activity_about">关于</string>
 
 </resources>

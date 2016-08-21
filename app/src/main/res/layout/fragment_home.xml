@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="收入统计"
+            android:text="@string/income_statistics"
             android:textColor="@color/text_normal" />
 
         <LinearLayout
@@ -35,7 +35,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今天"
+                    android:text="@string/today"
                     android:textColor="@color/text_white" />
 
                 <TextView
@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="本周"
+                    android:text="@string/weekly"
                     android:textColor="@color/text_white" />
 
                 <TextView
@@ -81,7 +81,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="本月"
+                    android:text="@string/month"
                     android:textColor="@color/text_white" />
 
                 <TextView
@@ -108,7 +108,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="支出统计"
+            android:text="@string/spend_statistics"
             android:textColor="@color/text_normal" />
 
         <LinearLayout
@@ -127,7 +127,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今天"
+                    android:text="@string/today"
                     android:textColor="@color/text_white" />
 
                 <TextView
@@ -150,7 +150,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="本周"
+                    android:text="@string/weekly"
                     android:textColor="@color/text_white" />
 
                 <TextView
@@ -173,7 +173,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="本月"
+                    android:text="@string/weekly"
                     android:textColor="@color/text_white" />
 
                 <TextView
@@ -192,7 +192,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="记一笔"
+        android:text="@string/new_income_spend"
         android:id="@+id/add"
         android:layout_margin="8dp"
         style="@style/BtnStyleActive" />
@@ -200,14 +200,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="即将到期"
+        android:text="@string/due"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:textColor="@color/text_normal" />
 
-    <ListView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/due_list"
-        android:layout_margin="8dp" />
+        android:layout_margin="8dp"
+        android:minHeight="100dp">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/due_list" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/due_warning"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
 </TableLayout>

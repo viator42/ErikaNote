@@ -169,12 +169,13 @@ public class IncomeSpendListFragment extends Fragment {
             Map line = new HashMap();
 
             line.put("id", incomeSpend.id);
-            line.put("name", incomeSpend.name);
-            line.put("type", incomeSpend.type);
-            line.put("incomeSpend", incomeSpend.getIncomeSpendName());
-            line.put("money", incomeSpend.money);
-            line.put("createTime", CommonUtils.timestampToDatetime(incomeSpend.createTime));
-            line.put("comment", incomeSpend.comment);
+            line.put("obj", incomeSpend);
+//            line.put("name", incomeSpend.name);
+//            line.put("type", incomeSpend.type);
+//            line.put("incomeSpend", incomeSpend.getIncomeSpendName());
+//            line.put("money", incomeSpend.money);
+//            line.put("createTime", CommonUtils.timestampToDatetime(incomeSpend.createTime));
+//            line.put("comment", incomeSpend.comment);
 
             listData.add(line);
         }

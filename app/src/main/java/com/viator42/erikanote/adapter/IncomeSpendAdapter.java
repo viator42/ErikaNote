@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.viator42.erikanote.R;
+import com.viator42.erikanote.model.IncomeSpend;
+import com.viator42.erikanote.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +52,11 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
 
     @Override
     public void onBindViewHolder(IncomeSpendAdapter.ViewHolder holder, int position) {
-        holder.name.setText(list.get(position).get("name").toString());
-        holder.incomeSpend.setText(list.get(position).get("incomeSpend").toString());
-        holder.money.setText(list.get(position).get("money").toString());
-        holder.createTime.setText(list.get(position).get("createTime").toString());
-        holder.comment.setText(list.get(position).get("comment").toString());
+        IncomeSpend incomeSpend = (IncomeSpend) list.get(position).get("obj");
+        holder.name.setText(incomeSpend.name);
+        holder.money.setText(String.valueOf(incomeSpend.money));
+        holder.createTime.setText(CommonUtils.timestampToDatetime(incomeSpend.createTime));
+        holder.comment.setText(incomeSpend.comment);
     }
 
     @Override
@@ -63,7 +65,6 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView incomeSpend;
         TextView name;
         TextView money;
         TextView createTime;
@@ -72,7 +73,6 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView)itemView.findViewById(R.id.name);
-            incomeSpend = (TextView) itemView.findViewById(R.id.income_spend);
             money = (TextView) itemView.findViewById(R.id.money);
             createTime = (TextView) itemView.findViewById(R.id.create_time);
             comment = (TextView) itemView.findViewById(R.id.comment);

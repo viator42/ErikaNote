@@ -1,28 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="75dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:id="@+id/income_spend"
-        android:gravity="center"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:minWidth="38dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/name"
-        android:singleLine="true"
-        android:layout_alignBottom="@+id/income_spend"
-        android:layout_toRightOf="@+id/income_spend"
-        android:layout_toEndOf="@+id/income_spend"
-        android:layout_marginLeft="8dp"
-        android:gravity="center"
-        android:minWidth="100dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="38dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/name"
+            android:singleLine="true"
+            android:layout_marginLeft="8dp"
+            android:minWidth="100dp"
+            android:layout_alignRight="@+id/comment"
+            android:layout_alignEnd="@+id/comment"
+            android:gravity="center_vertical"
+            android:layout_marginRight="8dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/create_time"
+                android:singleLine="true"
+                android:layout_below="@+id/name"
+                android:layout_alignLeft="@+id/comment"
+                android:layout_alignStart="@+id/comment"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/comment"
+                android:layout_below="@+id/name"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:gravity="center_vertical"
+                android:singleLine="true" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,28 +65,7 @@
         android:layout_alignParentEnd="true"
         android:minWidth="60dp"
         android:singleLine="true"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_marginRight="8dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/create_time"
-        android:layout_alignBottom="@+id/name"
-        android:layout_toRightOf="@+id/name"
-        android:layout_toEndOf="@+id/name"
-        android:layout_marginLeft="8dp"
-        android:singleLine="true"
-        android:minWidth="75dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/comment"
-        android:layout_below="@+id/income_spend"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/money"
-        android:layout_toStartOf="@+id/money"
-        android:layout_margin="8dp" />
-
-</RelativeLayout>
+</LinearLayout>

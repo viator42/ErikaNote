@@ -22,7 +22,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="名称"
+                android:hint="@string/name"
                 android:id="@+id/name" />
         </android.support.design.widget.TextInputLayout>
 
@@ -32,7 +32,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="备注"
+                android:hint="@string/comment"
                 android:id="@+id/comment" />
         </android.support.design.widget.TextInputLayout>
 
@@ -42,7 +42,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="金额"
+                android:hint="@string/money"
                 android:inputType="number"
                 android:id="@+id/money" />
         </android.support.design.widget.TextInputLayout>
@@ -50,19 +50,20 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="收入"
+                android:text="@string/income"
                 android:id="@+id/income"
                 android:layout_weight="1" />
 
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="支出"
+                android:text="@string/spend"
                 android:id="@+id/spend"
                 android:layout_weight="1" />
         </RadioGroup>
@@ -70,7 +71,8 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
             <RadioButton
                 android:layout_width="0dp"
@@ -90,37 +92,43 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/once_container">
+            android:layout_height="75dp"
+            android:id="@+id/once_container"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="提醒时间" />
+                android:text="提醒时间"
+                android:layout_marginLeft="8dp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/alarm_time"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="设定"
-                android:id="@+id/alarm_time_set" />
+                android:id="@+id/alarm_time_set"
+                android:layout_marginRight="8dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:id="@+id/repeat_container">
 
             <RadioGroup
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
 
                 <RadioButton
                     android:layout_width="0dp"
@@ -134,29 +142,37 @@
                     android:layout_height="fill_parent"
                     android:text="每周"
                     android:id="@+id/weekly"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_marginLeft="8dp" />
 
                 <RadioButton
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:text="每月"
                     android:id="@+id/monthly"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:layout_marginLeft="8dp" />
             </RadioGroup>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/when"
-                android:layout_marginLeft="8dp"
-                android:gravity="center"
-                android:layout_weight="1" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Spinner
-                android:layout_width="95dp"
-                android:layout_height="28dp"
-                android:id="@+id/feq_value"
-                android:layout_marginLeft="8dp" />
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/when"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center" />
+
+                <Spinner
+                    android:layout_width="95dp"
+                    android:layout_height="28dp"
+                    android:id="@+id/feq_value"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
