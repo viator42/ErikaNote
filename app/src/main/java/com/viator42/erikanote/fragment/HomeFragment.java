@@ -22,6 +22,7 @@ import com.viator42.erikanote.activity.InsertIncomeSpendActivity;
 import com.viator42.erikanote.adapter.ScheduleAdapter;
 import com.viator42.erikanote.model.Schedule;
 import com.viator42.erikanote.model.Statistics;
+import com.viator42.erikanote.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +54,10 @@ public class HomeFragment extends Fragment {
     private ArrayList<Schedule> dueScheduleList;
     private List<Map<String, Object>> dueListData;
     private TextView dueWarningTextView;
+    private TextView balanceTextView;
+    private TextView totalIncomeTextView;
+    private TextView totalSpendTextView;
+    private User user;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -83,6 +88,9 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        balanceTextView = (TextView) view.findViewById(R.id.balance);
+        totalIncomeTextView = (TextView) view.findViewById(R.id.total_income);
+        totalSpendTextView = (TextView) view.findViewById(R.id.total_spend);
         incomeStatisticsCotainer = (ViewGroup) view.findViewById(R.id.income_statistics);
         spendStatisticsCotainer = (ViewGroup) view.findViewById(R.id.spend_statistics);
         incomeTodayTextView = (TextView) view.findViewById(R.id.income_today);
@@ -171,6 +179,14 @@ public class HomeFragment extends Fragment {
 
     private void reload()
     {
+        user = appContext.user;
+        if(user != null)
+        {
+            balanceTextView.setText(String.valueOf(user.balance));
+            totalIncomeTextView.setText(String.valueOf(user.totalIncome));
+            totalSpendTextView.setText(String.valueOf(user.totalSpend));
+        }
+
         Statistics statistics = new IncomeSpendAction().statistics(appContext.eDbHelper);
         incomeTodayTextView.setText(String.valueOf(statistics.incomeToday));
         incomeWeeklyTextView.setText(String.valueOf(statistics.incomeWeekly));

@@ -10,7 +10,4 @@ public class Statistics {
     public double incomeToday = 0;
     public double incomeWeekly = 0;
     public double incomeMonthly = 0;
-    public double totalIncome = 0;
-    public double totalSpend = 0;
-
 }
