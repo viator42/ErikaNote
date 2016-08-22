@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -35,6 +36,14 @@ public class Settings2Activity extends AppCompatActivity {
         appContext = (AppContext) getApplicationContext();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_keyboard_backspace_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar.setSubtitle(getResources().getString(R.string.settings_subtitle));
 
         nameContainer = (ViewGroup) findViewById(R.id.name_container);
         nameContainer.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +80,7 @@ public class Settings2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText balanceEditText = new EditText(Settings2Activity.this);
-                balanceEditText.setText(String.valueOf(user.balance));
+                balanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 AlertDialog.Builder builder = new AlertDialog.Builder(Settings2Activity.this);
                 builder.setView(balanceEditText);
                 builder.setTitle("余额");

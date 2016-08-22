@@ -33,6 +33,13 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert_income_spend);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_keyboard_backspace_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null)

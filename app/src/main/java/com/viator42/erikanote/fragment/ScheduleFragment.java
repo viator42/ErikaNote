@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
+import com.viator42.erikanote.MainActivity;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.activity.InsertScheduleActivity;
@@ -71,16 +73,12 @@ public class ScheduleFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ScheduleFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static ScheduleFragment newInstance(String param1, String param2) {
         ScheduleFragment fragment = new ScheduleFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -89,16 +87,6 @@ public class ScheduleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appContext = (AppContext) getActivity().getApplicationContext();
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        reload();
     }
 
     @Override
@@ -149,6 +137,11 @@ public class ScheduleFragment extends Fragment {
 
             }
         });
+        reload();
+
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Toolbar toolbar = mainActivity.getToolbar();
+        toolbar.setTitle(getResources().getString(R.string.nav_schedule));
 
         return view;
     }
@@ -242,15 +235,16 @@ public class ScheduleFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void load()
+    private void reload()
     {
         listView.removeAllViewsInLayout();
-        listData = null;
-
+        if(listData != null) {
+            listData.clear();
+        }
         load();
     }
 
-    private void reload()
+    private void load()
     {
         warningLayout.setVisibility(View.GONE);
 

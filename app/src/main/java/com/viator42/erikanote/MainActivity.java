@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.activity.AboutActivity;
@@ -44,12 +45,14 @@ public class MainActivity extends AppCompatActivity
     private ImageView headImgView;
     private User user;
     private AppContext appContext;
+    private Toolbar toolbar;
+    private boolean exitConfirm = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         appContext = (AppContext) getApplicationContext();
 
@@ -91,7 +94,15 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(exitConfirm)
+            {
+                super.onBackPressed();
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.click_exit), Toast.LENGTH_SHORT).show();
+                exitConfirm = true;
+            }
         }
     }
 
@@ -125,6 +136,12 @@ public class MainActivity extends AppCompatActivity
         });
         headImgView.setImageDrawable(getResources().getDrawable(R.drawable.user));
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        exitConfirm = false;
     }
 
     @Override
@@ -169,28 +186,14 @@ public class MainActivity extends AppCompatActivity
         switch (id)
         {
             case R.id.nav_home:
-                if(homeFragment == null)
-                {
-                    homeFragment = new HomeFragment();
-                    Bundle bundle = new Bundle();
-                    homeFragment.setArguments(bundle);
-                }
-
-                fragmentManager = getFragmentManager();
+                homeFragment = new HomeFragment();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container, homeFragment);
                 fragmentTransaction.commit();
                 break;
 
             case R.id.nav_schedule:
-                if(scheduleFragment == null)
-                {
-                    scheduleFragment = new ScheduleFragment();
-                    Bundle bundle = new Bundle();
-                    scheduleFragment.setArguments(bundle);
-                }
-
-                fragmentManager = getFragmentManager();
+                scheduleFragment = new ScheduleFragment();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container, scheduleFragment);
                 fragmentTransaction.commit();
@@ -199,17 +202,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_income_spend:
                 Intent intent = new Intent(MainActivity.this, IncomeSpendActivity.class);
                 startActivity(intent);
-//                if(incomeSpendFragment == null)
-//                {
-//                    incomeSpendFragment = new IncomeSpendFragment();
-//                    Bundle bundle = new Bundle();
-//                    incomeSpendFragment.setArguments(bundle);
-//                }
-//
-//                fragmentManager = getFragmentManager();
-//                fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.container, incomeSpendFragment);
-//                fragmentTransaction.commit();
                 break;
 
         }
@@ -224,4 +216,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public void setToolbar(Toolbar toolbar) {
+        this.toolbar = toolbar;
+    }
 }

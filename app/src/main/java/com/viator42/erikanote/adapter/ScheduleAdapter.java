@@ -72,7 +72,10 @@ public class ScheduleAdapter extends BaseAdapter {
         Schedule schedule = (Schedule) list.get(position).get("schedule");
         holder.incomeSpend.setText(schedule.getIncomeSpendText());
         holder.name.setText(schedule.name);
-        holder.comment.setText(schedule.comment);
+        if(!CommonUtils.isValueEmpty(schedule.comment))
+        {
+            holder.comment.setText(schedule.comment);
+        }
         holder.money.setText(String.valueOf(schedule.money));
         holder.type.setText(schedule.getTypeText());
         switch (schedule.type)

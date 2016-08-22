@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.fragment.IncomeSpendListFragment;
@@ -30,6 +31,13 @@ public class IncomeSpendActivity extends AppCompatActivity
         setContentView(R.layout.activity_income_spend);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_keyboard_backspace_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {

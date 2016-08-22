@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viator42.erikanote.AppContext;
+import com.viator42.erikanote.MainActivity;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
 import com.viator42.erikanote.action.ScheduleAction;
@@ -116,24 +118,16 @@ public class HomeFragment extends Fragment {
         });
         dueWarningTextView = (TextView) view.findViewById(R.id.due_warning);
 
-        return view;
-    }
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Toolbar toolbar = mainActivity.getToolbar();
+        toolbar.setTitle(getResources().getString(R.string.app_name));
 
-    @Override
-    public void onStart() {
-        super.onStart();
         spendStatisticsCotainer.setVisibility(View.VISIBLE);
         incomeStatisticsCotainer.setVisibility(View.GONE);
 
-        Statistics statistics = new IncomeSpendAction().statistics(appContext.eDbHelper);
-        incomeTodayTextView.setText(String.valueOf(statistics.incomeToday));
-        incomeWeeklyTextView.setText(String.valueOf(statistics.incomeWeekly));
-        incomeMonthTextView.setText(String.valueOf(statistics.incomeMonthly));
-        spendTodayTextView.setText(String.valueOf(statistics.spendToday));
-        spendWeeklyTextView.setText(String.valueOf(statistics.spendWeekly));
-        spendMonthTextView.setText(String.valueOf(statistics.spendMonthly));
-
         reload();
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -175,16 +169,19 @@ public class HomeFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void load()
+    private void reload()
     {
+        Statistics statistics = new IncomeSpendAction().statistics(appContext.eDbHelper);
+        incomeTodayTextView.setText(String.valueOf(statistics.incomeToday));
+        incomeWeeklyTextView.setText(String.valueOf(statistics.incomeWeekly));
+        incomeMonthTextView.setText(String.valueOf(statistics.incomeMonthly));
+        spendTodayTextView.setText(String.valueOf(statistics.spendToday));
+        spendWeeklyTextView.setText(String.valueOf(statistics.spendWeekly));
+        spendMonthTextView.setText(String.valueOf(statistics.spendMonthly));
+
         dueListView.removeAllViewsInLayout();
         dueListData = null;
 
-        load();
-    }
-
-    private void reload()
-    {
         dueScheduleList = new ScheduleAction().due(appContext.eDbHelper);
         if(dueListData == null)
         {

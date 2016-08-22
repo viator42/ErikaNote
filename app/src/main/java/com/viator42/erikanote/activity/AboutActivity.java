@@ -1,24 +1,25 @@
 package com.viator42.erikanote.activity;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
 
+import static com.viator42.erikanote.R.id.version_name;
+
 public class AboutActivity extends AppCompatActivity {
     private TextView blogBtn;
     private TextView githubBtn;
     private AppContext appContext;
+    private TextView versionNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,25 @@ public class AboutActivity extends AppCompatActivity {
                 appContext.openUrlinBrowser(AboutActivity.this, getResources().getString(R.string.github));
             }
         });
+        versionNameTextView = (TextView) findViewById(version_name);
+        versionNameTextView.setText(getAppVersionName(AboutActivity.this));
 
     }
 
+    //获取当前版本号
+    private String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo("cn.testgethandsetinfo", 0);
+            versionName = packageInfo.versionName;
+//            packageInfo.versionCode;
+            if (TextUtils.isEmpty(versionName)) {
+                return "";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
 }

@@ -37,4 +37,5 @@ public class AppContext extends Application {
         intent.setData(content_url);
         context.startActivity(intent);
     }
+
 }

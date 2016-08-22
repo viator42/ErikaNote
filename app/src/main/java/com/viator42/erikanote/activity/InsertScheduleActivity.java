@@ -72,6 +72,14 @@ public class InsertScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_keyboard_backspace_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         appContext = (AppContext) getApplicationContext();
         nameEditText = (EditText) findViewById(R.id.name);
         commentEditText = (EditText) findViewById(R.id.comment);
