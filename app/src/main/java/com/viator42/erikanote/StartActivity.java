@@ -1,18 +1,66 @@
 package com.viator42.erikanote;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
-public class StartActivity extends AppCompatActivity {
+import com.viator42.erikanote.action.RefAction;
+import com.viator42.erikanote.model.User;
+import com.viator42.erikanote.utils.StaticValues;
+
+public class StartActivity extends Activity {
+    private long currentTimeMil;
+    private AppContext appContext;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_start);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_start);
+        appContext = (AppContext) getApplicationContext();
+        currentTimeMil = System.currentTimeMillis();
 
-        Intent intent = new Intent(StartActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        //get user info
+        user = new RefAction().getUser(StartActivity.this);
+        if(user != null)
+        {
+            appContext.user = user;
+        }
+        else
+        {
+            user = new User();
+            appContext.user = user;
+            new RefAction().setUser(StartActivity.this, user);
+        }
+
+        new LoadTask().start();
     }
+
+    public class LoadTask extends Thread
+    {
+        @Override
+        public void run() {
+
+            long timeInterval = System.currentTimeMillis() - currentTimeMil;
+            if(timeInterval < StaticValues.splashTime)
+            {
+                try {
+                    sleep(StaticValues.splashTime - timeInterval);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 }

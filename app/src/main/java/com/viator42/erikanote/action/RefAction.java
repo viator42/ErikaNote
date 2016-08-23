@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.viator42.erikanote.model.User;
+import com.viator42.erikanote.utils.StaticValues;
 
 /**
  * Created by Administrator on 2016/8/2.
@@ -55,4 +56,35 @@ public class RefAction {
 
         return user;
     }
+
+    public void balanceChange(Context context, int incomeSpend, double money)
+    {
+        SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        if(ref != null)
+        {
+            double balance = Double.valueOf(ref.getString("balance", "0"));
+            double totalIncome = Double.valueOf(ref.getString("totalIncome", "0"));
+            double totalSpend = Double.valueOf(ref.getString("totalSpend", "0"));
+
+            switch (incomeSpend)
+            {
+                case StaticValues.INCOME:
+                    balance += money;
+                    totalIncome += money;
+                    break;
+                case StaticValues.SPEND:
+                    balance -= money;
+                    totalSpend += money;
+                    break;
+            }
+
+            SharedPreferences.Editor editor = ref.edit();
+            editor.putString("balance", Double.toString(balance));
+            editor.putString("totalIncome", Double.toString(totalIncome));
+            editor.putString("totalSpend", Double.toString(totalSpend));
+            editor.commit();
+
+        }
+    }
+
 }

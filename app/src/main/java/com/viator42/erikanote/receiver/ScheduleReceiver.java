@@ -13,6 +13,7 @@ import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.MainActivity;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
+import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.IncomeSpend;
 import com.viator42.erikanote.model.Schedule;
@@ -62,10 +63,9 @@ public class ScheduleReceiver  extends BroadcastReceiver {
         incomeSpend.incomeSpend = schedule.incomeSpend;
         incomeSpend.money = schedule.money;
         incomeSpend.createTime = CommonUtils.getCurrentTimestamp();
-
         new IncomeSpendAction().insert(appContext.eDbHelper, incomeSpend);
 
-
-
+        //余额计算
+        new RefAction().balanceChange(context, incomeSpend.incomeSpend, incomeSpend.money);
     }
 }

@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.activity.AboutActivity;
 import com.viator42.erikanote.activity.IncomeSpendActivity;
 import com.viator42.erikanote.activity.Settings2Activity;
@@ -109,18 +108,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-
-        //get user info
-        user = new RefAction().getUser(MainActivity.this);
-        if(user != null)
-        {
-            appContext.user = user;
-        }
-        else
-        {
-            user = new User();
-            appContext.user = user;
-        }
+        user = appContext.user;
 
         if(!CommonUtils.isValueEmpty(user.name))
         {
