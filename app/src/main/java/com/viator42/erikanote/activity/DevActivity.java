@@ -15,8 +15,12 @@ import android.widget.Button;
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.MainActivity;
 import com.viator42.erikanote.R;
+import com.viator42.erikanote.action.IncomeSpendAction;
+import com.viator42.erikanote.action.RefAction;
+import com.viator42.erikanote.model.IncomeSpend;
 import com.viator42.erikanote.receiver.ScheduleReceiver;
 import com.viator42.erikanote.utils.CommonUtils;
+import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.Calendar;
 
@@ -26,6 +30,7 @@ public class DevActivity extends AppCompatActivity {
     private Button alarmRepeateBtn;
     private Button cancelAlarmBtn;
     private Button notificationBtn;
+    private Button addTestDataBtn;
     private AppContext appContext;
 
     @Override
@@ -117,6 +122,33 @@ public class DevActivity extends AppCompatActivity {
                 NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 mNotificationManager.notify(0, mBuilder.build());
 
+            }
+        });
+
+        addTestDataBtn = (Button) findViewById(R.id.add_test_data);
+        addTestDataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int a=0; a<1000; a++)
+                {
+                    IncomeSpend incomeSpend = new IncomeSpend();
+                    incomeSpend.name = "TEST_DATA_"+a;
+                    incomeSpend.comment = "TEST_DATA_COMMENT"+a;
+                    incomeSpend.money = a;
+                    incomeSpend.incomeSpend = StaticValues.INCOME;
+                    if((a%2) == 0)
+                    {
+                        incomeSpend.type = StaticValues.TYPE_ONCE;
+                    }
+                    else
+                    {
+                        incomeSpend.type = StaticValues.SPEND;
+                    }
+
+                    new IncomeSpendAction().insert(appContext.eDbHelper, incomeSpend);
+                    new RefAction().balanceChange(DevActivity.this, incomeSpend.incomeSpend, incomeSpend.money);
+
+                }
             }
         });
     }
