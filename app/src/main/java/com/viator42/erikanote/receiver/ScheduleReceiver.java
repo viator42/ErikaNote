@@ -18,6 +18,7 @@ import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.IncomeSpend;
 import com.viator42.erikanote.model.Schedule;
 import com.viator42.erikanote.utils.CommonUtils;
+import com.viator42.erikanote.utils.StaticValues;
 
 /**
  * Created by Administrator on 2016/8/3.
@@ -56,9 +57,6 @@ public class ScheduleReceiver  extends BroadcastReceiver {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(0, mBuilder.build());
 
-        //删除schedule
-        new ScheduleAction().remove(appContext.eDbHelper, schedule.id);
-
         //添加incomeSpend
         IncomeSpend incomeSpend = new IncomeSpend();
         incomeSpend.name = schedule.name;
@@ -70,5 +68,33 @@ public class ScheduleReceiver  extends BroadcastReceiver {
 
         //余额计算
         new RefAction().balanceChange(context, incomeSpend.incomeSpend, incomeSpend.money);
+
+        switch (schedule.type)
+        {
+            case StaticValues.TYPE_ONCE:
+                //删除schedule
+                new ScheduleAction().remove(appContext.eDbHelper, schedule.id);
+
+                break;
+            case StaticValues.TYPE_REPEAT:
+                //创建下一个
+                switch (schedule.feq)
+                {
+                    case StaticValues.FEQ_DAILY:
+                        schedule.alarmTime = CommonUtils.getTimeNextDay(schedule.feqValue);
+                        break;
+                    case StaticValues.FEQ_WEEKLY:
+                        schedule.alarmTime = CommonUtils.getTimeNextWeek(schedule.feqValue);
+                        break;
+                    case StaticValues.FEQ_MONTHLY:
+                        schedule.alarmTime = CommonUtils.getTimeNextMonth(schedule.feqValue);
+                        break;
+                }
+                appContext.insertAlarm(context, schedule);
+                //更新schedule
+                new ScheduleAction().update(appContext.eDbHelper, schedule);
+
+                break;
+        }
     }
 }

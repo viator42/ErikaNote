@@ -1,8 +1,6 @@
 package com.viator42.erikanote.activity;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -24,7 +22,6 @@ import com.viator42.erikanote.MainActivity;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.ScheduleAction;
 import com.viator42.erikanote.model.Schedule;
-import com.viator42.erikanote.receiver.ScheduleReceiver;
 import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 import com.viator42.erikanote.widget.DateTimePickerDialog;
@@ -265,7 +262,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                         schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
                         if(schedule != null && schedule.success)
                         {
-                            insertAlarm(schedule);
+                            appContext.insertAlarm(InsertScheduleActivity.this, schedule);
 
                             Intent intent = new Intent(InsertScheduleActivity.this, MainActivity.class);
                             Bundle bundle = new Bundle();
@@ -420,53 +417,6 @@ public class InsertScheduleActivity extends AppCompatActivity {
     {
         this.alarmTime = alarmTime;
         alarmTimeTextView.setText(CommonUtils.timestampToDatetime(alarmTime));
-    }
-
-    //添加Alarm
-    private void insertAlarm(Schedule schedule)
-    {
-        Intent intent = new Intent(InsertScheduleActivity.this, ScheduleReceiver.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("obj", schedule);
-        intent.putExtras(bundle);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                InsertScheduleActivity.this, (int) schedule.id, intent, PendingIntent.FLAG_ONE_SHOT);
-
-        switch (schedule.type)
-        {
-            case StaticValues.TYPE_ONCE:
-                //单次提醒
-                appContext.alarmManager.set(AlarmManager.RTC,
-                        schedule.alarmTime,
-                        pendingIntent);
-
-                break;
-
-            case StaticValues.TYPE_REPEAT:
-                //重复提醒
-                switch (schedule.feq)
-                {
-                    case StaticValues.FEQ_DAILY:
-                        appContext.alarmManager.setRepeating(AlarmManager.RTC,
-                                schedule.alarmTime,
-                                3600 * 24 * 1000,
-                                pendingIntent);
-                        break;
-                    case StaticValues.FEQ_WEEKLY:
-                        appContext.alarmManager.setRepeating(AlarmManager.RTC,
-                                schedule.alarmTime,
-                                3600 * 24 * 1000 * 7,
-                                pendingIntent);
-                        break;
-                    case StaticValues.FEQ_MONTHLY:
-                        appContext.alarmManager.setRepeating(AlarmManager.RTC,
-                                schedule.alarmTime,
-                                3600 * 24 * 1000 * 30,
-                                pendingIntent);
-                        break;
-                }
-                break;
-        }
     }
 
     private void setFeqValue()

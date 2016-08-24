@@ -90,6 +90,41 @@ public class CommonUtils {
         return cal.getTime().getTime()+ (7 * 24 * 60 * 60 * 1000);
     }
 
+    //获得第二天的指定时间
+    public static long getTimeNextDay(int feqValue){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1);
+        cal.set(Calendar.HOUR, feqValue);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+
+        return cal.getTime().getTime();
+    }
+
+    //获得下周的指定时间
+    public static long getTimeNextWeek(int feqValue){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.WEEK_OF_YEAR, cal.get(Calendar.WEEK_OF_YEAR) + 1);
+        cal.set(Calendar.DAY_OF_WEEK, feqValue);
+        cal.set(Calendar.HOUR, 15);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+
+        return cal.getTime().getTime();
+    }
+
+    //获得下个月的指定时间
+    public static long getTimeNextMonth(int feqValue){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
+        cal.set(Calendar.DAY_OF_MONTH, feqValue);
+        cal.set(Calendar.HOUR, 15);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+
+        return cal.getTime().getTime();
+    }
+
     //计算两个时间点的间隔
     public static String timeInterval(long startTime, long endTime)
     {
