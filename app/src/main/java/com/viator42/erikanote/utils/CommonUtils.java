@@ -90,6 +90,50 @@ public class CommonUtils {
         return cal.getTime().getTime()+ (7 * 24 * 60 * 60 * 1000);
     }
 
+    //计算两个时间点的间隔
+    public static String timeInterval(long startTime, long endTime)
+    {
+        StringBuffer result = new StringBuffer();
+        long interval = endTime - startTime;
+        if(interval < 0)
+        {
+            return null;
+        }
+        long dayTime = 3600 * 24 *1000;
+        if(interval > dayTime);
+        {
+            long dayTimeCount = (interval / dayTime);
+            if(dayTimeCount > 0)
+            {
+                result.append(dayTimeCount + "天");
+                interval = interval % dayTime;
+            }
+        }
+        long hourTime = 3600 * 1000;
+        if(interval > hourTime)
+        {
+            long hourTimeCount = (interval / hourTime);
+            if(hourTimeCount > 0)
+            {
+                result.append(hourTimeCount + "小时");
+                interval = interval % hourTime;
+            }
+        }
+        long minuteTime = 60 * 1000;
+        if(interval > minuteTime)
+        {
+            long minuteTimeCount = (interval / minuteTime);
+            if(minuteTimeCount > 0)
+            {
+                result.append(minuteTimeCount + "分");
+            }
+            else
+            {
+                result.append("小于一分钟");
+            }
+        }
 
+        return result.toString();
+    }
 
 }

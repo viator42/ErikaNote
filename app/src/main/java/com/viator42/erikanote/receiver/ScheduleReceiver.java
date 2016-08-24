@@ -32,11 +32,14 @@ public class ScheduleReceiver  extends BroadcastReceiver {
         //弹窗提醒
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 context);
-        mBuilder.setSmallIcon(R.drawable.ic_menu_camera);
-        mBuilder.setContentTitle("Title");
-        mBuilder.setContentText("Content");
-        mBuilder.setTicker("setTicker");//第一次提示消息的时候显示在通知栏上
-        mBuilder.setNumber(12);
+        mBuilder.setSmallIcon(R.drawable.icon);
+        mBuilder.setContentTitle(schedule.name);
+        if(!CommonUtils.isValueEmpty(schedule.comment))
+        {
+            mBuilder.setContentText(schedule.comment);
+        }
+//        mBuilder.setTicker("setTicker");//第一次提示消息的时候显示在通知栏上
+        mBuilder.setNumber((int) schedule.id);
         mBuilder.setDefaults(Notification.DEFAULT_SOUND);
 //                mBuilder.setLargeIcon(btm);
         mBuilder.setAutoCancel(true);//自己维护通知的消失
