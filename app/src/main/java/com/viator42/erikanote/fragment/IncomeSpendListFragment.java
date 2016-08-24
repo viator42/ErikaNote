@@ -7,17 +7,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
 import com.viator42.erikanote.adapter.IncomeSpendAdapter;
 import com.viator42.erikanote.model.IncomeSpend;
-import com.viator42.erikanote.utils.CommonUtils;
+import com.viator42.erikanote.utils.EndlessRecyclerOnScrollListener;
 import com.viator42.erikanote.utils.StaticValues;
 
 import java.util.ArrayList;
@@ -89,7 +91,14 @@ public class IncomeSpendListFragment extends Fragment {
         });
         warningLayout = (ViewGroup) view.findViewById(R.id.warning);
         warningLayout.setVisibility(View.GONE);
+        listView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                Log.v("recycler test", "load more");
+                load();
 
+            }
+        });
         reload();
 
         return view;
@@ -138,7 +147,7 @@ public class IncomeSpendListFragment extends Fragment {
     {
         listView.removeAllViewsInLayout();
         listData = null;
-
+        currentCount = 0;
         load();
     }
 
@@ -161,7 +170,14 @@ public class IncomeSpendListFragment extends Fragment {
         }
         else
         {
-            warningLayout.setVisibility(View.VISIBLE);
+            if(currentCount == 0)
+            {
+                warningLayout.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                Toast.makeText(getActivity(), "没有更多", Toast.LENGTH_SHORT).show();
+            }
         }
 
         for (IncomeSpend incomeSpend: incomeSpends)
@@ -170,13 +186,6 @@ public class IncomeSpendListFragment extends Fragment {
 
             line.put("id", incomeSpend.id);
             line.put("obj", incomeSpend);
-//            line.put("name", incomeSpend.name);
-//            line.put("type", incomeSpend.type);
-//            line.put("incomeSpend", incomeSpend.getIncomeSpendName());
-//            line.put("money", incomeSpend.money);
-//            line.put("createTime", CommonUtils.timestampToDatetime(incomeSpend.createTime));
-//            line.put("comment", incomeSpend.comment);
-
             listData.add(line);
         }
         if(incomeSpendAdapter == null)
