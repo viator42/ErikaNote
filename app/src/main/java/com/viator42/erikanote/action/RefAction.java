@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.viator42.erikanote.model.User;
+import com.viator42.erikanote.utils.StaticValues;
 
 /**
  * Created by Administrator on 2016/8/2.
@@ -20,6 +21,8 @@ public class RefAction {
         editor.putString("totalIncome", Double.toString(user.totalIncome));
         editor.putString("totalSpend", Double.toString(user.totalSpend));
         editor.putLong("openCount", user.openCount);
+        editor.putInt("defaultAlarmHour", user.defaultAlarmHour);
+        editor.putInt("defaultAlarmMinute", user.defaultAlarmMinute);
 
         editor.putLong("id", user.id);
         editor.putString("username", user.username);
@@ -45,6 +48,8 @@ public class RefAction {
             user.totalSpend = Double.valueOf(ref.getString("totalSpend", "0"));
             user.openCount = ref.getLong("openCount", 0);
             user.lastOpenTime = ref.getLong("lastOpenTime", 0);
+            user.defaultAlarmHour = ref.getInt("defaultAlarmHour", StaticValues.defaultAlarmHour);
+            user.defaultAlarmMinute = ref.getInt("defaultAlarmMinute", StaticValues.defaultAlarmMinute);
 
             user.id = ref.getLong("id", 0);
             user.username = ref.getString("username", null);
@@ -55,4 +60,35 @@ public class RefAction {
 
         return user;
     }
+
+    public void balanceChange(Context context, int incomeSpend, double money)
+    {
+        SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        if(ref != null)
+        {
+            double balance = Double.valueOf(ref.getString("balance", "0"));
+            double totalIncome = Double.valueOf(ref.getString("totalIncome", "0"));
+            double totalSpend = Double.valueOf(ref.getString("totalSpend", "0"));
+
+            switch (incomeSpend)
+            {
+                case StaticValues.INCOME:
+                    balance += money;
+                    totalIncome += money;
+                    break;
+                case StaticValues.SPEND:
+                    balance -= money;
+                    totalSpend += money;
+                    break;
+            }
+
+            SharedPreferences.Editor editor = ref.edit();
+            editor.putString("balance", Double.toString(balance));
+            editor.putString("totalIncome", Double.toString(totalIncome));
+            editor.putString("totalSpend", Double.toString(totalSpend));
+            editor.commit();
+
+        }
+    }
+
 }

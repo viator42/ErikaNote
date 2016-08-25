@@ -12,6 +12,8 @@ public class User extends BaseModel{
     public double totalSpend;
     public long openCount;
     public long lastOpenTime;
+    public int defaultAlarmHour;
+    public int defaultAlarmMinute;
     //------online------
     public long id;
     public String username;

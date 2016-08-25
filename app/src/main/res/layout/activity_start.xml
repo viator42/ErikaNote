@@ -7,6 +7,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.viator42.erikanote.StartActivity">
+    tools:context="com.viator42.erikanote.StartActivity"
+    android:background="@drawable/app_splash_bg">
 
+    <ImageView
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:id="@+id/logo"
+        android:src="@drawable/icon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:textSize="@dimen/app_title"
+        android:textColor="@color/text_normal" />
 </RelativeLayout>

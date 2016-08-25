@@ -44,5 +44,13 @@
             android:text="notification"
             android:id="@+id/notification"
             android:layout_column="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD_TEST_DATA"
+            android:id="@+id/add_test_data"
+            android:layout_column="2"
+            android:longClickable="false" />
     </TableRow>
 </TableLayout>

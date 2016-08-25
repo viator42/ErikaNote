@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
+import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.model.IncomeSpend;
 import com.viator42.erikanote.utils.StaticValues;
 
@@ -89,6 +90,7 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
                 incomeSpend.incomeSpend = type;
                 incomeSpend.type = StaticValues.TYPE_ONCE;
                 new IncomeSpendAction().insert(appContext.eDbHelper, incomeSpend);
+                new RefAction().balanceChange(InsertIncomeSpendActivity.this, incomeSpend.incomeSpend, incomeSpend.money);
 
                 finish();
             }

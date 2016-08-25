@@ -27,7 +27,9 @@
                 android:layout_height="match_parent"
                 android:text="版本号"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/category_sub"
+                android:textIsSelectable="false" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -42,7 +44,8 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/version_name"
                 android:layout_marginRight="8dp"
-                android:gravity="center_vertical" />
+                android:gravity="center_vertical"
+                android:textSize="@dimen/category_sub" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -54,7 +57,8 @@
                 android:layout_height="match_parent"
                 android:text="作者"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/category_sub" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -68,7 +72,8 @@
                 android:layout_marginRight="8dp"
                 android:gravity="center_vertical"
                 android:id="@+id/author"
-                android:text="@string/author" />
+                android:text="@string/author"
+                android:textSize="@dimen/category_sub" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -80,7 +85,8 @@
                 android:layout_height="match_parent"
                 android:text="博客"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/category_sub" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -94,7 +100,8 @@
                 android:layout_marginRight="8dp"
                 android:gravity="center_vertical"
                 android:id="@+id/blog"
-                android:text="@string/blog" />
+                android:text="@string/blog"
+                android:textSize="@dimen/category_sub" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -106,7 +113,8 @@
                 android:layout_height="match_parent"
                 android:text="Github"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/category_sub" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -120,7 +128,8 @@
                 android:layout_marginRight="8dp"
                 android:gravity="center_vertical"
                 android:id="@+id/github"
-                android:text="@string/github" />
+                android:text="@string/github"
+                android:textSize="@dimen/category_sub" />
         </LinearLayout>
     </TableLayout>
 </RelativeLayout>

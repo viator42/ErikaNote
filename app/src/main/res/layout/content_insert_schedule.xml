@@ -151,7 +151,8 @@
                     android:text="每月"
                     android:id="@+id/monthly"
                     android:layout_weight="1"
-                    android:layout_marginLeft="8dp" />
+                    android:layout_marginLeft="8dp"
+                    android:visibility="gone" />
             </RadioGroup>
 
             <LinearLayout

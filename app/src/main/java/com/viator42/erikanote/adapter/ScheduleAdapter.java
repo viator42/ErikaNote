@@ -62,6 +62,7 @@ public class ScheduleAdapter extends BaseAdapter {
             holder.type=(TextView)convertView.findViewById(R.id.type);
             holder.comment=(TextView)convertView.findViewById(R.id.comment);
             holder.money=(TextView)convertView.findViewById(R.id.money);
+            holder.interval=(TextView)convertView.findViewById(R.id.interval);
 
             //为view设置标签
             convertView.setTag(holder);
@@ -102,12 +103,10 @@ public class ScheduleAdapter extends BaseAdapter {
                 break;
 
         }
+        holder.interval.setText(CommonUtils.timeInterval(CommonUtils.getCurrentTimestamp(), schedule.alarmTime));
         /*
-
-
         holder.alarmTime.setText(list.get(position).get("alarmTime").toString());
         holder.feq.setText(list.get(position).get("feq").toString());
-
         */
 
         width =View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
@@ -128,7 +127,7 @@ public class ScheduleAdapter extends BaseAdapter {
         TextView type;
         TextView comment;
         TextView money;
-
+        TextView interval;
     }
 
 }

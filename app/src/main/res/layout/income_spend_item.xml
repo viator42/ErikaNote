@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="75dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,46 +11,73 @@
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="38dp"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/name"
             android:singleLine="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/margin_standard"
             android:minWidth="100dp"
             android:layout_alignRight="@+id/comment"
             android:layout_alignEnd="@+id/comment"
             android:gravity="center_vertical"
-            android:layout_marginRight="8dp" />
+            android:textSize="@dimen/table_title"
+            android:layout_marginTop="@dimen/margin_standard" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_standard"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginBottom="@dimen/margin_standard">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/create_time"
-                android:singleLine="true"
-                android:layout_below="@+id/name"
-                android:layout_alignLeft="@+id/comment"
-                android:layout_alignStart="@+id/comment"
-                android:layout_weight="1"
-                android:layout_marginLeft="8dp"
-                android:gravity="center_vertical" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/comment"
-                android:layout_below="@+id/name"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_weight="1"
-                android:layout_margin="4dp"
-                android:gravity="center_vertical"
-                android:singleLine="true" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="时间"
+                    android:id="@+id/textView" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/create_time"
+                    android:singleLine="true"
+                    android:layout_below="@+id/name"
+                    android:layout_alignLeft="@+id/comment"
+                    android:layout_alignStart="@+id/comment"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/table_content"
+                    android:layout_marginLeft="@dimen/margin_standard" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注"
+                    android:id="@+id/textView2" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/comment"
+                    android:layout_below="@+id/name"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textSize="@dimen/table_content"
+                    android:layout_marginLeft="@dimen/margin_standard" />
+            </TableRow>
+        </TableLayout>
 
     </LinearLayout>
 
@@ -66,6 +93,8 @@
         android:minWidth="60dp"
         android:singleLine="true"
         android:gravity="center"
-        android:layout_marginRight="8dp" />
+        android:textSize="@dimen/table_title"
+        android:layout_marginRight="@dimen/margin_standard"
+        android:layout_marginLeft="@dimen/margin_standard" />
 
 </LinearLayout>
