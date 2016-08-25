@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        headImgView.setImageDrawable(getResources().getDrawable(R.drawable.user));
+        headImgView.setImageDrawable(getResources().getDrawable(R.drawable.icon_s));
 
     }
 

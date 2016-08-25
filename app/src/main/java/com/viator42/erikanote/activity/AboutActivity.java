@@ -52,7 +52,7 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
         versionNameTextView = (TextView) findViewById(version_name);
-        versionNameTextView.setText(getAppVersionName(AboutActivity.this));
+        versionNameTextView.setText("v1.0");
 
     }
 
