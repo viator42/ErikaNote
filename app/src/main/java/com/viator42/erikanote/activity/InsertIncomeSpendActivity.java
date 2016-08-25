@@ -1,5 +1,6 @@
 package com.viator42.erikanote.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
     private Button cancelBtn;
     private int type;
     private IncomeSpend incomeSpend = null;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -32,6 +32,7 @@
     <string name="weekly">本周</string>
     <string name="month">本月</string>
     <string name="new_income_spend">记一笔</string>
+    <string name="title">标题</string>
     <string name="name">姓名</string>
     <string name="comment">备注(可以不填)</string>
     <string name="money">金额</string>

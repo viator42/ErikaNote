@@ -166,6 +166,7 @@ public class IncomeSpendListFragment extends Fragment {
         }
         if(!incomeSpends.isEmpty())
         {
+            currentCount += incomeSpends.size();
             warningLayout.setVisibility(View.GONE);
         }
         else
@@ -176,7 +177,10 @@ public class IncomeSpendListFragment extends Fragment {
             }
             else
             {
-                Toast.makeText(getActivity(), "没有更多", Toast.LENGTH_SHORT).show();
+                if(currentCount > StaticValues.PAGE_COUNT)
+                {
+                    Toast.makeText(getActivity(), "没有更多", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 

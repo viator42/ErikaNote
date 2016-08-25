@@ -92,7 +92,7 @@ public class ScheduleAdapter extends BaseAdapter {
                         holder.alarmTime.setText("每天的" + schedule.feqValue + "点");
                         break;
                     case StaticValues.FEQ_WEEKLY:
-                        holder.alarmTime.setText("每周的周" + schedule.feqValue);
+                        holder.alarmTime.setText("每周的周" + (schedule.feqValue + 1));
                         break;
                     case StaticValues.FEQ_MONTHLY:
                         holder.alarmTime.setText("每月的" + schedule.feqValue + "号");
