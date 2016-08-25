@@ -43,5 +43,6 @@
     <string name="title_activity_about">关于</string>
     <string name="settings_subtitle">点击设置项更改</string>
     <string name="click_exit">再次点击退出</string>
+    <string name="default_alarm_time">默认提醒时间</string>
 
 </resources>

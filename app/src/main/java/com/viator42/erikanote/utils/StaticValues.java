@@ -37,4 +37,6 @@ public class StaticValues {
     public final static int ADD = 1;
     public final static int MINUS = 2;
 
+    public final static int defaultAlarmHour = 18;
+    public final static int defaultAlarmMinute = 0;
 }

@@ -68,21 +68,18 @@ public class AppContext extends Application {
                 switch (schedule.feq)
                 {
                     case StaticValues.FEQ_DAILY:
-                        alarmManager.setRepeating(AlarmManager.RTC,
+                        alarmManager.set(AlarmManager.RTC,
                                 schedule.alarmTime,
-                                3600 * 24 * 1000,
                                 pendingIntent);
                         break;
                     case StaticValues.FEQ_WEEKLY:
-                        alarmManager.setRepeating(AlarmManager.RTC,
+                        alarmManager.set(AlarmManager.RTC,
                                 schedule.alarmTime,
-                                3600 * 24 * 1000 * 7,
                                 pendingIntent);
                         break;
                     case StaticValues.FEQ_MONTHLY:
-                        alarmManager.setRepeating(AlarmManager.RTC,
+                        alarmManager.set(AlarmManager.RTC,
                                 schedule.alarmTime,
-                                3600 * 24 * 1000 * 30,
                                 pendingIntent);
                         break;
                 }

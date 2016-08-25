@@ -84,10 +84,12 @@ public class ScheduleReceiver  extends BroadcastReceiver {
                         schedule.alarmTime = CommonUtils.getTimeNextDay(schedule.feqValue);
                         break;
                     case StaticValues.FEQ_WEEKLY:
-                        schedule.alarmTime = CommonUtils.getTimeNextWeek(schedule.feqValue);
+                        schedule.alarmTime = CommonUtils.getTimeNextWeek(schedule.feqValue,
+                                appContext.user.defaultAlarmHour, appContext.user.defaultAlarmMinute);
                         break;
                     case StaticValues.FEQ_MONTHLY:
-                        schedule.alarmTime = CommonUtils.getTimeNextMonth(schedule.feqValue);
+                        schedule.alarmTime = CommonUtils.getTimeNextMonth(schedule.feqValue,
+                                appContext.user.defaultAlarmHour, appContext.user.defaultAlarmMinute);
                         break;
                 }
                 appContext.insertAlarm(context, schedule);

@@ -102,24 +102,24 @@ public class CommonUtils {
     }
 
     //获得下周的指定时间
-    public static long getTimeNextWeek(int feqValue){
+    public static long getTimeNextWeek(int feqValue, int hour, int minute){
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.WEEK_OF_YEAR, cal.get(Calendar.WEEK_OF_YEAR) + 1);
         cal.set(Calendar.DAY_OF_WEEK, feqValue);
-        cal.set(Calendar.HOUR, 15);
-        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR, hour);
+        cal.set(Calendar.MINUTE, minute);
         cal.set(Calendar.SECOND, 0);
 
         return cal.getTime().getTime();
     }
 
     //获得下个月的指定时间
-    public static long getTimeNextMonth(int feqValue){
+    public static long getTimeNextMonth(int feqValue, int hour, int minute){
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
         cal.set(Calendar.DAY_OF_MONTH, feqValue);
-        cal.set(Calendar.HOUR, 15);
-        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR, hour);
+        cal.set(Calendar.MINUTE, minute);
         cal.set(Calendar.SECOND, 0);
 
         return cal.getTime().getTime();

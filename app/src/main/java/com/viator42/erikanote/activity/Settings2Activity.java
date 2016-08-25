@@ -19,15 +19,20 @@ import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.model.User;
 import com.viator42.erikanote.utils.CommonUtils;
+import com.viator42.erikanote.widget.PickerCompleteListener;
+import com.viator42.erikanote.widget.TimePickerDialog;
 
 public class Settings2Activity extends AppCompatActivity {
     private AppContext appContext;
     private ViewGroup nameContainer;
     private ViewGroup balanceContainer;
+    private ViewGroup defaultAlarmTimeContainer;
     private TextView nameTextView;
     private TextView balanceTextView;
+    private TextView defaultAlarmTimeTextView;
     private User user;
     private Button devBtn;
+    private TimePickerDialog timePickerDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +113,27 @@ public class Settings2Activity extends AppCompatActivity {
         nameTextView = (TextView) findViewById(R.id.name);
         balanceTextView = (TextView) findViewById(R.id.balance);
 
+        defaultAlarmTimeContainer = (ViewGroup) findViewById(R.id.default_alarm_time_container);
+        defaultAlarmTimeContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timePickerDialog == null)
+                {
+                    timePickerDialog = new TimePickerDialog(Settings2Activity.this);
+                    timePickerDialog.setPickerCompleteListener(new PickerCompleteListener() {
+                        @Override
+                        public void complete() {
+                            defaultAlarmTimeTextView.setText(timePickerDialog.getHour()+":"+timePickerDialog.getMinute());
+                            user.defaultAlarmHour = timePickerDialog.getHour();
+                            user.defaultAlarmMinute = timePickerDialog.getMinute();
+                        }
+                    });
+                }
+                timePickerDialog.show();
+            }
+        });
+        defaultAlarmTimeTextView = (TextView) findViewById(R.id.default_alarm_time);
+
         devBtn = (Button) findViewById(R.id.dev);
         devBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +152,7 @@ public class Settings2Activity extends AppCompatActivity {
         user = appContext.user;
         nameTextView.setText(user.name);
         balanceTextView.setText(String.valueOf(user.balance));
+        defaultAlarmTimeTextView.setText(String.valueOf(user.defaultAlarmHour)+":"+String.valueOf(user.defaultAlarmMinute));
 
     }
 

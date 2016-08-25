@@ -21,6 +21,8 @@ public class RefAction {
         editor.putString("totalIncome", Double.toString(user.totalIncome));
         editor.putString("totalSpend", Double.toString(user.totalSpend));
         editor.putLong("openCount", user.openCount);
+        editor.putInt("defaultAlarmHour", user.defaultAlarmHour);
+        editor.putInt("defaultAlarmMinute", user.defaultAlarmMinute);
 
         editor.putLong("id", user.id);
         editor.putString("username", user.username);
@@ -46,6 +48,8 @@ public class RefAction {
             user.totalSpend = Double.valueOf(ref.getString("totalSpend", "0"));
             user.openCount = ref.getLong("openCount", 0);
             user.lastOpenTime = ref.getLong("lastOpenTime", 0);
+            user.defaultAlarmHour = ref.getInt("defaultAlarmHour", StaticValues.defaultAlarmHour);
+            user.defaultAlarmMinute = ref.getInt("defaultAlarmMinute", StaticValues.defaultAlarmMinute);
 
             user.id = ref.getLong("id", 0);
             user.username = ref.getString("username", null);
