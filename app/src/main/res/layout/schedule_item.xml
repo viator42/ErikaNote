@@ -6,143 +6,132 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/name"
-                android:singleLine="true"
-                android:minWidth="100dp"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="8dp"
-                android:textSize="22dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:text="类型"
-                android:layout_marginLeft="8dp"
-                android:gravity="bottom"
-                android:layout_marginBottom="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:id="@+id/income_spend"
-                android:singleLine="true"
-                android:layout_marginLeft="8dp"
-                android:gravity="bottom"
-                android:layout_marginBottom="8dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/name"
+            android:singleLine="true"
+            android:minWidth="100dp"
+            android:layout_marginLeft="@dimen/margin_standard"
+            android:textSize="@dimen/table_title"
+            android:gravity="bottom"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginRight="@dimen/margin_standard" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_standard">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="提醒时间"
+                    android:gravity="center"
+                    android:textSize="@dimen/table_content" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alarm_time"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/table_content"
+                    android:layout_marginLeft="@dimen/margin_standard" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="还有"
+                    android:textSize="@dimen/table_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/interval"
+                    android:singleLine="true"
+                    android:textSize="@dimen/table_content"
+                    android:layout_marginLeft="@dimen/margin_standard" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="提醒类型"
+                    android:textSize="@dimen/table_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/type"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/table_content"
+                    android:layout_marginLeft="@dimen/margin_standard" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="类型"
+                    android:gravity="bottom"
+                    android:textSize="@dimen/table_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/income_spend"
+                    android:singleLine="true"
+                    android:gravity="bottom"
+                    android:textSize="@dimen/table_content"
+                    android:layout_marginLeft="@dimen/margin_standard" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/comment"
+                    android:layout_toLeftOf="@+id/money"
+                    android:layout_toStartOf="@+id/money"
+                    android:layout_below="@+id/name"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:textSize="@dimen/table_content"
+                    android:visibility="visible"
+                    android:layout_marginLeft="@dimen/margin_standard"
+                    android:singleLine="true" />
+            </TableRow>
+        </TableLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:text="提醒类型"
-                        android:id="@+id/textView"
-                        android:gravity="center"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="4dp" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/type"
-                        android:layout_marginLeft="8dp"
-                        android:singleLine="true"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:text="提醒时间"
-                        android:gravity="center"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="4dp" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/alarm_time"
-                        android:layout_marginLeft="8dp"
-                        android:singleLine="true"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="还有"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/interval"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="4dp"
-                        android:singleLine="true"
-                        android:layout_marginBottom="4dp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/comment"
-                android:layout_toLeftOf="@+id/money"
-                android:layout_toStartOf="@+id/money"
-                android:layout_below="@+id/name"
-                android:layout_weight="1"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -160,6 +149,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="4dp"
+        android:textSize="@dimen/table_title" />
 
 </LinearLayout>

@@ -15,7 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="余额" />
+            android:text="余额"
+            android:textSize="@dimen/category_title" />
 
         <TextView
             android:layout_width="0dp"
@@ -29,7 +30,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="总收入" />
+            android:text="总收入"
+            android:textSize="@dimen/category_title" />
 
         <TextView
             android:layout_width="0dp"
@@ -44,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="总支出"
-            android:id="@+id/textView5" />
+            android:id="@+id/textView5"
+            android:textSize="@dimen/category_title" />
 
         <TextView
             android:layout_width="0dp"
@@ -67,7 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/income_statistics"
-            android:textColor="@color/text_normal" />
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/category_title" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -86,7 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/today"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/category_sub" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,7 +114,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weekly"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/category_sub" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,7 +138,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/month"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/category_sub" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,7 +166,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/spend_statistics"
-            android:textColor="@color/text_normal" />
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/category_title" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -178,7 +186,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/today"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/category_sub" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -201,7 +210,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weekly"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/category_sub" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -224,7 +234,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weekly"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/category_sub" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -245,7 +256,8 @@
         android:text="@string/new_income_spend"
         android:id="@+id/add"
         android:layout_margin="8dp"
-        style="@style/BtnStyleActive" />
+        style="@style/BtnStyleActive"
+        android:textSize="@dimen/category_sub" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -253,7 +265,8 @@
         android:text="@string/due"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:textColor="@color/text_normal" />
+        android:textColor="@color/text_normal"
+        android:textSize="@dimen/category_title" />
 
     <RelativeLayout
         android:layout_width="match_parent"
