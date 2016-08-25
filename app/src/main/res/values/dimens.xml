@@ -8,7 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- ____________ErikaNote____________ -->
-    <dimen name="app_title">16dp</dimen>
+    <dimen name="app_title">24dp</dimen>
     <dimen name="category_title">16dp</dimen>
     <dimen name="category_sub">14dp</dimen>
     <dimen name="plain_text">12dp</dimen>
