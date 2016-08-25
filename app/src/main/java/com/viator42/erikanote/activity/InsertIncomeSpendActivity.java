@@ -83,6 +83,7 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                confirmBtn.setEnabled(false);
                 IncomeSpend incomeSpend = new IncomeSpend();
                 incomeSpend.name = nameEditText.getText().toString();
                 incomeSpend.comment = commentEditText.getText().toString();

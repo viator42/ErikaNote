@@ -256,6 +256,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                     return;
                 }
 
+                confirmBtn.setEnabled(false);
                 switch (actionType)
                 {
                     case StaticValues.ACTION_INSERT:
@@ -275,6 +276,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                         {
                             Snackbar.make(view, "添加失败", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                            confirmBtn.setEnabled(true);
                         }
 
                         break;
@@ -293,6 +295,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                         {
                             Snackbar.make(view, "修改失败", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                            confirmBtn.setEnabled(true);
                         }
                         break;
                 }

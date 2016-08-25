@@ -13,10 +13,33 @@
         android:layout_margin="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="余额"
-            android:textSize="@dimen/category_title" />
+            android:textSize="@dimen/category_title"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="总收入"
+            android:textSize="@dimen/category_title"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="总支出"
+            android:id="@+id/textView5"
+            android:textSize="@dimen/category_title"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="0dp"
@@ -25,13 +48,9 @@
             android:text="0"
             android:id="@+id/balance"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="总收入"
-            android:textSize="@dimen/category_title" />
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:singleLine="true" />
 
         <TextView
             android:layout_width="0dp"
@@ -40,14 +59,9 @@
             android:text="0"
             android:id="@+id/total_income"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="总支出"
-            android:id="@+id/textView5"
-            android:textSize="@dimen/category_title" />
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:singleLine="true" />
 
         <TextView
             android:layout_width="0dp"
@@ -56,7 +70,10 @@
             android:text="0"
             android:id="@+id/total_spend"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:layout_marginRight="8dp"
+            android:singleLine="true" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,14 +111,17 @@
                     android:textSize="@dimen/category_sub" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0"
                     android:id="@+id/income_today"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -118,14 +138,17 @@
                     android:textSize="@dimen/category_sub" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0"
                     android:id="@+id/income_weekly"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -142,14 +165,17 @@
                     android:textSize="@dimen/category_sub" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0"
                     android:id="@+id/income_month"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -190,14 +216,17 @@
                     android:textSize="@dimen/category_sub" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0"
                     android:id="@+id/spend_today"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -214,14 +243,17 @@
                     android:textSize="@dimen/category_sub" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0"
                     android:id="@+id/spend_weekly"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -238,14 +270,17 @@
                     android:textSize="@dimen/category_sub" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0"
                     android:id="@+id/spend_month"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/text_white" />
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="true" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
