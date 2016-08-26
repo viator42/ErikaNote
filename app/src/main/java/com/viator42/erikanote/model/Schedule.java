@@ -1,8 +1,10 @@
 package com.viator42.erikanote.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.viator42.erikanote.R;
 import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 
@@ -50,21 +52,39 @@ public class Schedule extends BaseModel implements Parcelable
         }
     };
 
-    public boolean insertValidation()
+    public boolean insertValidation(Context context)
     {
         boolean result = true;
         if(CommonUtils.isValueEmpty(name))
         {
-            result = false;
-            msg = "名称不能为空";
+            msg = context.getResources().getString(R.string.title_not_null);
+            return false;
         }
         if(money == 0)
         {
-            result = false;
-            msg = "请填写金额";
+            msg = context.getResources().getString(R.string.money_not_null);
+            return false;
         }
+        switch (type)
+        {
+            case StaticValues.TYPE_ONCE:
 
+                if(alarmTime < CommonUtils.getCurrentTimestamp())
+                {
+                    msg = context.getResources().getString(R.string.alarm_time_after_now);
+                    return false;
+                }
 
+                break;
+            case StaticValues.TYPE_REPEAT:
+                if(feq == 0 || feqValue == 0)
+                {
+                    msg = context.getResources().getString(R.string.feq_not_null);
+                    return false;
+                }
+
+                break;
+        }
         return result;
     }
 

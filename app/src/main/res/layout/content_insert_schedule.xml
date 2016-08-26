@@ -47,7 +47,8 @@
                 android:hint="@string/money"
                 android:id="@+id/money"
                 android:inputType="numberDecimal"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="0" />
         </android.support.design.widget.TextInputLayout>
 
         <RadioGroup

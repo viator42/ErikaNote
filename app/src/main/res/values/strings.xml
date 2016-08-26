@@ -45,5 +45,10 @@
     <string name="settings_subtitle">点击设置项更改</string>
     <string name="click_exit">再次点击退出</string>
     <string name="default_alarm_time">默认提醒时间</string>
+    <string name="title_not_null">名称不能为空</string>
+    <string name="money_not_null">金额不能为空</string>
+    <string name="alarm_time_not_null">提醒时间不能为空</string>
+    <string name="alarm_time_after_now">不能设置过去的时间</string>
+    <string name="feq_not_null">请选择提醒时间</string>
 
 </resources>

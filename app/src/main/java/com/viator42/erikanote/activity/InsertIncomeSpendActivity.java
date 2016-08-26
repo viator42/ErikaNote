@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.R;
@@ -86,19 +87,36 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 confirmBtn.setEnabled(false);
-                IncomeSpend incomeSpend = new IncomeSpend();
-                incomeSpend.name = nameEditText.getText().toString();
-                incomeSpend.comment = commentEditText.getText().toString();
-                incomeSpend.money = Double.valueOf(moneyEditText.getText().toString());
-                incomeSpend.incomeSpend = type;
-                incomeSpend.type = StaticValues.TYPE_ONCE;
-                new IncomeSpendAction().insert(appContext.eDbHelper, incomeSpend);
-                new RefAction().balanceChange(InsertIncomeSpendActivity.this, incomeSpend.incomeSpend, incomeSpend.money);
+                try
+                {
+                    IncomeSpend incomeSpend = new IncomeSpend();
+                    incomeSpend.name = nameEditText.getText().toString();
+                    incomeSpend.comment = commentEditText.getText().toString();
+                    incomeSpend.money = Double.valueOf(moneyEditText.getText().toString());
+                    incomeSpend.incomeSpend = type;
+                    incomeSpend.type = StaticValues.TYPE_ONCE;
+
+                    if(!incomeSpend.insertValidation(InsertIncomeSpendActivity.this))
+                    {
+                        Toast.makeText(InsertIncomeSpendActivity.this, incomeSpend.msg, Toast.LENGTH_SHORT).show();
+                        confirmBtn.setEnabled(true);
+                        return;
+                    }
+
+                    new IncomeSpendAction().insert(appContext.eDbHelper, incomeSpend);
+                    new RefAction().balanceChange(InsertIncomeSpendActivity.this, incomeSpend.incomeSpend, incomeSpend.money);
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    confirmBtn.setEnabled(true);
+                }
 
                 finish();
             }
         });
         type = StaticValues.INCOME;
+        changeIncomeSpend(type);
+
         if(incomeSpend != null)
         {
             nameEditText.setText(incomeSpend.name);
@@ -114,7 +132,20 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
 
+    private void changeIncomeSpend(int incomeSpend)
+    {
+        this.type = incomeSpend;
+        switch (incomeSpend)
+        {
+            case StaticValues.INCOME:
+                incomeRadioButton.setChecked(true);
+                break;
+            case StaticValues.SPEND:
+                spendRadioButton.setChecked(true);
+                break;
+        }
     }
 
 }

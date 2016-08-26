@@ -1,8 +1,11 @@
 package com.viator42.erikanote.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.viator42.erikanote.R;
+import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 
 /**
@@ -18,6 +21,7 @@ public class IncomeSpend extends BaseModel implements Parcelable{
     public int type;
     public int min;
     public int max;
+    public String msg;
 
     public IncomeSpend(){
     }
@@ -76,4 +80,23 @@ public class IncomeSpend extends BaseModel implements Parcelable{
         dest.writeInt(min);
         dest.writeInt(max);
     }
+
+    public boolean insertValidation(Context context)
+    {
+        boolean result = true;
+
+        if(CommonUtils.isValueEmpty(name))
+        {
+            msg = context.getResources().getString(R.string.title_not_null);
+            return false;
+        }
+        if(money == 0)
+        {
+            msg = context.getResources().getString(R.string.money_not_null);
+            return false;
+        }
+
+        return result;
+    }
+
 }

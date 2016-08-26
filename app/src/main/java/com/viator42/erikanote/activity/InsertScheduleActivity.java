@@ -76,6 +76,7 @@ public class InsertScheduleActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        initSpinnerData();
 
         appContext = (AppContext) getApplicationContext();
         nameEditText = (EditText) findViewById(R.id.name);
@@ -209,100 +210,82 @@ public class InsertScheduleActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(schedule == null)
-                {
-                    schedule  = new Schedule();
-                }
-                schedule.name = nameEditText.getText().toString();
-                schedule.comment = commentEditText.getText().toString();
-                schedule.money = Double.valueOf(moneyEditText.getText().toString());
-                schedule.type = type;
-                schedule.incomeSpend = incomeSpend;
-                schedule.alarmTime = alarmTime;
-                switch (type)
-                {
-                    case StaticValues.TYPE_ONCE:
-                        if(schedule.alarmTime < CommonUtils.getCurrentTimestamp())
-                        {
-                            Snackbar.make(view, "不能设置过去的时间", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                            break;
-                        }
-
-                        break;
-                    case StaticValues.TYPE_REPEAT:
-                        schedule.feq = feq;
-                        schedule.feqValue = feqValue;
-                        switch (feq)
-                        {
-                            case StaticValues.FEQ_DAILY:
-                                schedule.alarmTime = CommonUtils.getCurrentTimestamp() + (3600 * 24 * 1000);
-                                break;
-                            case StaticValues.FEQ_WEEKLY:
-                                schedule.alarmTime = CommonUtils.getCurrentTimestamp() + (3600 * 24 * 1000);
-                                break;
-                            case StaticValues.FEQ_MONTHLY:
-                                schedule.alarmTime = CommonUtils.getCurrentTimestamp() + (3600 * 24 * 1000);
-                                break;
-                        }
-
-                        break;
-                }
-
-                if(!schedule.insertValidation())
-                {
-                    Snackbar.make(view, schedule.msg, Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    return;
-                }
-
                 confirmBtn.setEnabled(false);
-                switch (actionType)
+                try{
+                    if(schedule == null)
+                    {
+                        schedule  = new Schedule();
+                    }
+                    schedule.name = nameEditText.getText().toString();
+                    schedule.comment = commentEditText.getText().toString();
+                    schedule.money = Double.valueOf(moneyEditText.getText().toString());
+                    schedule.type = type;
+                    schedule.incomeSpend = incomeSpend;
+                    schedule.alarmTime = alarmTime;
+                    schedule.feq = feq;
+                    schedule.feqValue = feqValue;
+
+                    if(!schedule.insertValidation(InsertScheduleActivity.this))
+                    {
+                        Snackbar.make(view, schedule.msg, Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        confirmBtn.setEnabled(true);
+                        return;
+                    }
+
+                    switch (actionType)
+                    {
+                        case StaticValues.ACTION_INSERT:
+                            schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
+                            if(schedule != null && schedule.success)
+                            {
+                                appContext.insertAlarm(InsertScheduleActivity.this, schedule);
+
+                                Intent intent = new Intent(InsertScheduleActivity.this, MainActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("schedule", schedule);
+                                intent.putExtras(bundle);
+                                setResult(Activity.RESULT_OK, intent);
+                                finish();
+                            }
+                            else
+                            {
+                                Snackbar.make(view, "添加失败", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                                confirmBtn.setEnabled(true);
+                            }
+
+                            break;
+                        case StaticValues.ACTION_UPDATE:
+                            schedule = new ScheduleAction().update(appContext.eDbHelper, schedule);
+                            if(schedule != null && schedule.success)
+                            {
+                                Intent intent = new Intent(InsertScheduleActivity.this, MainActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("schedule", schedule);
+                                intent.putExtras(bundle);
+                                setResult(Activity.RESULT_OK, intent);
+                                finish();
+                            }
+                            else
+                            {
+                                Snackbar.make(view, "修改失败", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                                confirmBtn.setEnabled(true);
+                            }
+                            break;
+                    }
+                }catch (Exception e)
                 {
-                    case StaticValues.ACTION_INSERT:
-                        schedule = new ScheduleAction().insert(appContext.eDbHelper, schedule);
-                        if(schedule != null && schedule.success)
-                        {
-                            appContext.insertAlarm(InsertScheduleActivity.this, schedule);
-
-                            Intent intent = new Intent(InsertScheduleActivity.this, MainActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("schedule", schedule);
-                            intent.putExtras(bundle);
-                            setResult(Activity.RESULT_OK, intent);
-                            finish();
-                        }
-                        else
-                        {
-                            Snackbar.make(view, "添加失败", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                            confirmBtn.setEnabled(true);
-                        }
-
-                        break;
-                    case StaticValues.ACTION_UPDATE:
-                        schedule = new ScheduleAction().update(appContext.eDbHelper, schedule);
-                        if(schedule != null && schedule.success)
-                        {
-                            Intent intent = new Intent(InsertScheduleActivity.this, MainActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("schedule", schedule);
-                            intent.putExtras(bundle);
-                            setResult(Activity.RESULT_OK, intent);
-                            finish();
-                        }
-                        else
-                        {
-                            Snackbar.make(view, "修改失败", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                            confirmBtn.setEnabled(true);
-                        }
-                        break;
+                    e.printStackTrace();
+                    confirmBtn.setEnabled(true);
                 }
+
 
             }
         });
 
+        //获取表单数据
         Bundle bundle = getIntent().getExtras();
         if(bundle != null)
         {
@@ -330,6 +313,13 @@ public class InsertScheduleActivity extends AppCompatActivity {
 
         }
 
+        onceContainer.setVisibility(View.GONE);
+        repeatContainer.setVisibility(View.GONE);
+
+    }
+
+    private void initSpinnerData()
+    {
         hourData = new ArrayList<Map<String, Object>>();
         for(int a=0; a<=23; a++)
         {
@@ -359,9 +349,6 @@ public class InsertScheduleActivity extends AppCompatActivity {
 
             monthData.add(line);
         }
-
-        onceContainer.setVisibility(View.GONE);
-        repeatContainer.setVisibility(View.GONE);
     }
 
     private void changeIncomeSpend(int incomeSpend)
