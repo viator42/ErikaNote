@@ -120,4 +120,10 @@ public class IncomeSpendAction {
         return statistics;
 
     }
+
+    //清除所有
+    public void clearAll(EDbHelper eDbHelper)
+    {
+
+    }
 }

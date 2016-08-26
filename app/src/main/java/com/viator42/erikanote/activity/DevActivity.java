@@ -31,6 +31,7 @@ public class DevActivity extends AppCompatActivity {
     private Button cancelAlarmBtn;
     private Button notificationBtn;
     private Button addTestDataBtn;
+    private Button clearAllData;
     private AppContext appContext;
 
     @Override
@@ -151,5 +152,16 @@ public class DevActivity extends AppCompatActivity {
                 }
             }
         });
+
+        clearAllData = (Button) findViewById(R.id.clear_all_data);
+        clearAllData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+
     }
 }

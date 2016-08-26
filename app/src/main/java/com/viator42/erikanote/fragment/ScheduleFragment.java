@@ -137,13 +137,18 @@ public class ScheduleFragment extends Fragment {
 
             }
         });
-        reload();
 
         MainActivity mainActivity = (MainActivity) getActivity();
         Toolbar toolbar = mainActivity.getToolbar();
         toolbar.setTitle(getResources().getString(R.string.nav_schedule));
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        reload();
     }
 
     public boolean onContextItemSelected(MenuItem item){

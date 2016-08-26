@@ -133,9 +133,13 @@ public class HomeFragment extends Fragment {
         spendStatisticsCotainer.setVisibility(View.VISIBLE);
         incomeStatisticsCotainer.setVisibility(View.GONE);
 
-        reload();
-
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        reload();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

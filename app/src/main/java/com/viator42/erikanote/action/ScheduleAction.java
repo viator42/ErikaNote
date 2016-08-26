@@ -144,4 +144,10 @@ public class ScheduleAction {
         return result;
     }
 
+    //清除所有
+    public void clearAll(EDbHelper eDbHelper)
+    {
+
+    }
+
 }

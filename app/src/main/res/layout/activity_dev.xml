@@ -53,4 +53,14 @@
             android:layout_column="2"
             android:longClickable="false" />
     </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:text="CLEAR_ALL_DATA"
+            android:id="@+id/clear_all_data"
+            android:layout_column="0" />
+    </TableRow>
 </TableLayout>
