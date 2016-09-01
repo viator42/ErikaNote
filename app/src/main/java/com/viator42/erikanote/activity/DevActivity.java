@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
 import com.viator42.erikanote.MainActivity;
@@ -21,6 +22,7 @@ import com.viator42.erikanote.model.IncomeSpend;
 import com.viator42.erikanote.receiver.ScheduleReceiver;
 import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
+import com.viator42.erikanote.widget.ErikaWidget;
 
 import java.util.Calendar;
 
@@ -33,6 +35,7 @@ public class DevActivity extends AppCompatActivity {
     private Button addTestDataBtn;
     private Button clearAllData;
     private AppContext appContext;
+    private ErikaWidget erikaWidget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +164,14 @@ public class DevActivity extends AppCompatActivity {
             }
         });
 
+        erikaWidget = (ErikaWidget) findViewById(R.id.erika_widget);
+        erikaWidget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DevActivity.this, "sssssssssss", Toast.LENGTH_SHORT).show();
 
+            }
+        });
 
     }
 }
