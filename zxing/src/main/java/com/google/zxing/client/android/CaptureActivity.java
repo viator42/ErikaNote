@@ -16,16 +16,6 @@
 
 package com.google.zxing.client.android;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.Result;
-import com.google.zxing.ResultMetadataType;
-import com.google.zxing.ResultPoint;
-import com.google.zxing.client.android.camera.CameraManager;
-import com.google.zxing.client.android.result.ResultButtonListener;
-import com.google.zxing.client.android.result.ResultHandler;
-import com.google.zxing.client.android.result.ResultHandlerFactory;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -44,9 +34,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -57,6 +44,15 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.Result;
+import com.google.zxing.ResultMetadataType;
+import com.google.zxing.ResultPoint;
+import com.google.zxing.client.android.camera.CameraManager;
+import com.google.zxing.client.android.result.ResultButtonListener;
+import com.google.zxing.client.android.result.ResultHandler;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -342,32 +338,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater menuInflater = getMenuInflater();
-    menuInflater.inflate(R.menu.capture, menu);
-    return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-    switch (item.getItemId()) {
-      case R.id.menu_settings:
-        intent.setClassName(this, PreferencesActivity.class.getName());
-        startActivity(intent);
-        break;
-      case R.id.menu_help:
-        intent.setClassName(this, HelpActivity.class.getName());
-        startActivity(intent);
-        break;
-      default:
-        return super.onOptionsItemSelected(item);
-    }
-    return true;
-  }
-
-  @Override
   public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     if (resultCode == RESULT_OK && requestCode == HISTORY_REQUEST_CODE) {
       int itemNumber = intent.getIntExtra(Intents.History.ITEM_NUMBER, -1);
@@ -417,6 +387,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   /**
    * A valid barcode has been found, so give an indication of success and show the results.
+   *  扫描条码成功的回调方法
    *
    * @param rawResult The contents of the barcode.
    * @param scaleFactor amount by which thumbnail was scaled
@@ -425,40 +396,43 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public void handleDecode(Result rawResult, Bitmap barcode, float scaleFactor) {
     inactivityTimer.onActivity();
     lastResult = rawResult;
-    ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
+//    ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
+//
+//    boolean fromLiveScan = barcode != null;
+//    if (fromLiveScan) {
+//      // Then not from history, so beep/vibrate and we have an image to draw on
+//      beepManager.playBeepSoundAndVibrate();
+//      drawResultPoints(barcode, scaleFactor, rawResult);
+//    }
+//
+//    switch (source) {
+//      case NATIVE_APP_INTENT:
+//      case PRODUCT_SEARCH_LINK:
+//        handleDecodeExternally(rawResult, resultHandler, barcode);
+//        break;
+//      case ZXING_LINK:
+//        if (scanFromWebPageManager == null || !scanFromWebPageManager.isScanFromWebPage()) {
+//          handleDecodeInternally(rawResult, resultHandler, barcode);
+//        } else {
+//          handleDecodeExternally(rawResult, resultHandler, barcode);
+//        }
+//        break;
+//      case NONE:
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        if (fromLiveScan && prefs.getBoolean(PreferencesActivity.KEY_BULK_MODE, false)) {
+//          Toast.makeText(getApplicationContext(),
+//                         getResources().getString(R.string.msg_bulk_mode_scanned) + " (" + rawResult.getText() + ')',
+//                         Toast.LENGTH_SHORT).show();
+//          // Wait a moment or else it will scan the same barcode continuously about 3 times
+//          restartPreviewAfterDelay(BULK_MODE_SCAN_DELAY_MS);
+//        } else {
+//          handleDecodeInternally(rawResult, resultHandler, barcode);
+//        }
+//        break;
+//    }
 
-    boolean fromLiveScan = barcode != null;
-    if (fromLiveScan) {
-      // Then not from history, so beep/vibrate and we have an image to draw on
-      beepManager.playBeepSoundAndVibrate();
-      drawResultPoints(barcode, scaleFactor, rawResult);
-    }
-
-    switch (source) {
-      case NATIVE_APP_INTENT:
-      case PRODUCT_SEARCH_LINK:
-        handleDecodeExternally(rawResult, resultHandler, barcode);
-        break;
-      case ZXING_LINK:
-        if (scanFromWebPageManager == null || !scanFromWebPageManager.isScanFromWebPage()) {
-          handleDecodeInternally(rawResult, resultHandler, barcode);
-        } else {
-          handleDecodeExternally(rawResult, resultHandler, barcode);
-        }
-        break;
-      case NONE:
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (fromLiveScan && prefs.getBoolean(PreferencesActivity.KEY_BULK_MODE, false)) {
-          Toast.makeText(getApplicationContext(),
-                         getResources().getString(R.string.msg_bulk_mode_scanned) + " (" + rawResult.getText() + ')',
-                         Toast.LENGTH_SHORT).show();
-          // Wait a moment or else it will scan the same barcode continuously about 3 times
-          restartPreviewAfterDelay(BULK_MODE_SCAN_DELAY_MS);
-        } else {
-          handleDecodeInternally(rawResult, resultHandler, barcode);
-        }
-        break;
-    }
+    Toast.makeText(getApplicationContext(),rawResult.getText(),
+            Toast.LENGTH_SHORT).show();
   }
 
   /**
