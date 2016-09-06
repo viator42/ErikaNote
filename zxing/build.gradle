@@ -1,12 +1,14 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'com.android.library'
+
 android {
     compileSdkVersion 23
-    buildToolsVersion "19.1.0"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.google.zxing.client.android"
-        minSdkVersion 15
-        targetSdkVersion 22
+//        applicationId "com.google.zxing.client.android"
+        minSdkVersion 11
+        targetSdkVersion 23
     }
 
     buildTypes {

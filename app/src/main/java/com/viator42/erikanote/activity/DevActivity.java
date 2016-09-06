@@ -36,6 +36,7 @@ public class DevActivity extends AppCompatActivity {
     private Button clearAllData;
     private AppContext appContext;
     private ErikaWidget erikaWidget;
+    private Button barcodeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +171,14 @@ public class DevActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(DevActivity.this, "sssssssssss", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        barcodeBtn = (Button) findViewById(R.id.barcode);
+        barcodeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(DevActivity.this, CaptureActivity.class);
             }
         });
 

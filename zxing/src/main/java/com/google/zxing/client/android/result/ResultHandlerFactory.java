@@ -35,8 +35,6 @@ public final class ResultHandlerFactory {
     switch (result.getType()) {
       case ADDRESSBOOK:
         return new AddressBookResultHandler(activity, result);
-      case EMAIL_ADDRESS:
-        return new EmailAddressResultHandler(activity, result);
       case PRODUCT:
         return new ProductResultHandler(activity, result, rawResult);
       case URI:
