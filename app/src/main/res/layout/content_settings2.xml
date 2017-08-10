@@ -5,68 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.viator42.erikanote.activity.SettingsActivity"
+    tools:context="com.viator42.erikanote.activity.Settings2Activity"
     tools:showIn="@layout/activity_settings2">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/name_container">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/name"
-            android:gravity="center"
-            android:layout_marginLeft="8dp"
-            android:textColor="@color/text_normal" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="20px"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="点击设置"
+        <EditText
             android:id="@+id/name"
-            android:gravity="center"
-            android:layout_marginRight="8dp"
-            android:textColor="@color/text_normal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/balance_container">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/balance"
-            android:gravity="center"
-            android:layout_marginLeft="8dp"
-            android:textColor="@color/text_normal" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="20px"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="0"
+            android:layout_marginLeft="@dimen/margin_standard"
+            android:layout_marginRight="@dimen/margin_standard"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:hint="@string/set_name" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
             android:id="@+id/balance"
-            android:gravity="center"
-            android:layout_marginRight="8dp"
-            android:textColor="@color/text_normal" />
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_standard"
+            android:layout_marginRight="@dimen/margin_standard"
+            android:hint="@string/set_balance" />
+    </android.support.design.widget.TextInputLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -81,20 +49,15 @@
             android:layout_marginLeft="8dp"
             android:textColor="@color/text_normal" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="20px"
-            android:layout_weight="1" />
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/default_alarm_time"
-            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
-            android:textColor="@color/text_normal"
-            android:text="点击设置" />
+            android:gravity="center"
+            android:text="点击设置"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_normal" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"

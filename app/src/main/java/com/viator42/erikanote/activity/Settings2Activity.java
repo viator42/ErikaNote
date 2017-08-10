@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
+import com.viator42.erikanote.MainActivity;
 import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.model.User;
@@ -24,15 +27,17 @@ import com.viator42.erikanote.widget.TimePickerDialog;
 
 public class Settings2Activity extends AppCompatActivity {
     private AppContext appContext;
-    private ViewGroup nameContainer;
-    private ViewGroup balanceContainer;
+//    private ViewGroup nameContainer;
+//    private ViewGroup balanceContainer;
     private ViewGroup defaultAlarmTimeContainer;
-    private TextView nameTextView;
-    private TextView balanceTextView;
+    public EditText nameEditText;
+    public EditText balanceEditText;
     private TextView defaultAlarmTimeTextView;
     private User user;
     private Button devBtn;
     private TimePickerDialog timePickerDialog = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,10 @@ public class Settings2Activity extends AppCompatActivity {
         });
         toolbar.setSubtitle(getResources().getString(R.string.settings_subtitle));
 
+        nameEditText = (EditText) findViewById(R.id.name);
+        balanceEditText = (EditText) findViewById(R.id.balance);
+
+        /*
         nameContainer = (ViewGroup) findViewById(R.id.name_container);
         nameContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +119,7 @@ public class Settings2Activity extends AppCompatActivity {
                 builder.create().show();
             }
         });
-        nameTextView = (TextView) findViewById(R.id.name);
-        balanceTextView = (TextView) findViewById(R.id.balance);
+        */
 
         defaultAlarmTimeContainer = (ViewGroup) findViewById(R.id.default_alarm_time_container);
         defaultAlarmTimeContainer.setOnClickListener(new View.OnClickListener() {
@@ -150,8 +158,9 @@ public class Settings2Activity extends AppCompatActivity {
         super.onStart();
 
         user = appContext.user;
-        nameTextView.setText(user.name);
-        balanceTextView.setText(String.valueOf(user.balance));
+        nameEditText.setText(user.name);
+        balanceEditText.setText(String.valueOf(user.balance));
+
         defaultAlarmTimeTextView.setText(String.valueOf(user.defaultAlarmHour)+":"+String.valueOf(user.defaultAlarmMinute));
 
     }
@@ -165,4 +174,52 @@ public class Settings2Activity extends AppCompatActivity {
         appContext.user = user;
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_confirm_change) {
+            confirmChange();
+            Settings2Activity.this.finish();
+            return true;
+        }
+        if (id == R.id.action_cancel_change) {
+            cancelChange();
+            Settings2Activity.this.finish();
+            return true;
+        }
+        if(id == android.R.id.home)
+        {
+            this.onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 确认修改
+     */
+    private void confirmChange() {
+
+    }
+
+    /**
+     * 取消修改
+     */
+    private void cancelChange() {
+
+    }
+
 }

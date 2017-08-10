@@ -50,5 +50,10 @@
     <string name="alarm_time_not_null">提醒时间不能为空</string>
     <string name="alarm_time_after_now">不能设置过去的时间</string>
     <string name="feq_not_null">请选择提醒时间</string>
+    <string name="set_name">设置姓名</string>
+    <string name="set_balance">设置余额</string>
+
+    <string name="confirm_change">确认修改</string>
+    <string name="cancel_change">取消</string>
 
 </resources>

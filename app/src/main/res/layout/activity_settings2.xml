@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.viator42.erikanote.activity.SettingsActivity">
+    tools:context="com.viator42.erikanote.activity.Settings2Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
