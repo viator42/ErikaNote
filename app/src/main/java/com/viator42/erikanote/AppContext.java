@@ -20,8 +20,8 @@ import com.viator42.erikanote.utils.StaticValues;
 public class AppContext extends Application {
     public EDbHelper eDbHelper;
     public AlarmManager alarmManager;
-    public User user;
-    public boolean firstOpen = false;   //第一次启动
+    public User user = null;
+    public boolean firstOpen = false; //是否首次开启
 
     @Override
     public void onCreate() {

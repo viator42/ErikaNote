@@ -13,7 +13,7 @@ import com.viator42.erikanote.utils.StaticValues;
 public class StartActivity extends Activity {
     private long currentTimeMil;
     private AppContext appContext;
-    private User user;
+    private User user = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +25,26 @@ public class StartActivity extends Activity {
         appContext = (AppContext) getApplicationContext();
         currentTimeMil = System.currentTimeMillis();
 
-        //get user info
+        //获取用户信息
         user = new RefAction().getUser(StartActivity.this);
         if(user != null)
         {
             appContext.user = user;
+            new RefAction().updateAppLastOpenTime(StartActivity.this, currentTimeMil);
         }
-        else
-        {
-            user = new User();
-            appContext.user = user;
+        else {
+            //创建用户信息
+            User user = new User();
+            user.name = getResources().getString(R.string.new_user_name);
+            user.balance = 0;
+            user.defaultAlarmHour = StaticValues.defaultAlarmHour;
+            user.defaultAlarmMinute = StaticValues.defaultAlarmMinute;
+            user.totalIncome = 0;
+            user.totalSpend = 0;
+            user.appLastOpenTime = currentTimeMil;
             new RefAction().setUser(StartActivity.this, user);
+
+            appContext.firstOpen = true;
         }
 
         new LoadTask().start();

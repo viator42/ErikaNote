@@ -88,9 +88,6 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, homeFragment);
         fragmentTransaction.commit();
-
-        int a = 75+'A';
-        Log.v("ushopping", String.valueOf(a));
     }
 
     @Override
@@ -116,19 +113,27 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         user = appContext.user;
 
-        if(!CommonUtils.isValueEmpty(user.name))
-        {
-            navNameTextView.setText(user.name);
-
+        if(appContext.firstOpen) {
+            appContext.firstOpen = false;
+            //进入设置页面
+            Intent intent = new Intent(MainActivity.this, Settings2Activity.class);
+            startActivity(intent);
         }
-        navNameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Settings2Activity.class);
-                startActivity(intent);
+        else {
+            if(!CommonUtils.isValueEmpty(user.name))
+            {
+                navNameTextView.setText(user.name);
+
             }
-        });
-        headImgView.setImageDrawable(getResources().getDrawable(R.drawable.icon_s));
+            navNameTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, Settings2Activity.class);
+                    startActivity(intent);
+                }
+            });
+            headImgView.setImageDrawable(getResources().getDrawable(R.drawable.icon_s));
+        }
 
     }
 

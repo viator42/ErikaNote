@@ -32,7 +32,7 @@ public class StaticValues {
     public final static int REQUEST_CODE_CREATE_SCHEDULE = 1001;
     public final static int REQUEST_CODE_UPDATE_SCHEDULE = 1002;
 
-    public final static int splashTime = 1000;
+    public final static int splashTime = 3000;
 
     public final static int ADD = 1;
     public final static int MINUS = 2;

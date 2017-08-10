@@ -19,18 +19,6 @@ public class EDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        /*
-        db.execSQL("create table if not exists user("
-                + "id integer primary key autoincrement,"
-                + "username varchar(64),"
-                + "password varchar(128),"
-                + "imie varchar(128),"
-                + "balance double,"
-                + "total_income double,"
-                + "total_spend double,"
-                + "register_time integer,"
-                + "last_login_time integer)");
-            */
         db.execSQL("create table if not exists income_spend("
                 + "id integer primary key autoincrement,"
                 + "create_time integer,"

@@ -37,8 +37,6 @@ public class Settings2Activity extends AppCompatActivity {
     private Button devBtn;
     private TimePickerDialog timePickerDialog = null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,11 +165,22 @@ public class Settings2Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-        //setuser
-        new RefAction().setUser(Settings2Activity.this, user);
-        appContext.user = user;
+        //询问是否保存修改
+        AlertDialog.Builder builder = new AlertDialog.Builder(Settings2Activity.this);
+        builder.setTitle("是否保存设置");
+        builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                confirmChange();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                cancelChange();
+            }
+        });
+        builder.create().show();
 
     }
 
@@ -212,14 +221,15 @@ public class Settings2Activity extends AppCompatActivity {
      * 确认修改
      */
     private void confirmChange() {
-
+        appContext.user = user;
+        new RefAction().saveSetings(Settings2Activity.this, user);
     }
 
     /**
      * 取消修改
      */
     private void cancelChange() {
-
+        Settings2Activity.this.finish();
     }
 
 }

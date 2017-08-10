@@ -10,29 +10,60 @@ import com.viator42.erikanote.utils.StaticValues;
  * Created by Administrator on 2016/8/2.
  */
 public class RefAction {
+    /**
+     * 用户信息写入ref
+     * @param context
+     * @param user
+     */
     public void setUser(Context context, User user)
     {
-        //用户信息写入ref
         SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = ref.edit();
-        editor.putString("imie", user.imie);
         editor.putString("name", user.name);
         editor.putString("balance", Double.toString(user.balance));
         editor.putString("totalIncome", Double.toString(user.totalIncome));
         editor.putString("totalSpend", Double.toString(user.totalSpend));
-        editor.putLong("openCount", user.openCount);
         editor.putInt("defaultAlarmHour", user.defaultAlarmHour);
         editor.putInt("defaultAlarmMinute", user.defaultAlarmMinute);
-
-        editor.putLong("id", user.id);
-        editor.putString("username", user.username);
-        editor.putString("password", user.password);
-        editor.putLong("registerTime", user.registerTime);
-        editor.putLong("lastLoginTime", user.lastLoginTime);
+        editor.putLong("appLastOpenTime", user.appLastOpenTime);
 
         editor.commit();
     }
 
+    /**
+     * 保存设置
+     * @param context
+     * @param appLastOpenTime
+     */
+    public void updateAppLastOpenTime(Context context, long appLastOpenTime) {
+        SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = ref.edit();
+        editor.putLong("appLastOpenTime", appLastOpenTime);
+
+        editor.commit();
+    }
+
+    /**
+     * 更新上一次开启的时间
+     * @param context
+     * @param user
+     */
+    public void saveSetings(Context context, User user) {
+        SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = ref.edit();
+        editor.putString("name", user.name);
+        editor.putString("balance", Double.toString(user.balance));
+        editor.putInt("defaultAlarmHour", user.defaultAlarmHour);
+        editor.putInt("defaultAlarmMinute", user.defaultAlarmMinute);
+
+        editor.commit();
+    }
+
+    /**
+     * ref获取用户信息
+     * @param context
+     * @return
+     */
     public User getUser(Context context)
     {
         User user = null;
@@ -41,26 +72,25 @@ public class RefAction {
         if(ref != null)
         {
             user = new User();
-            user.imie = ref.getString("imie", "");
             user.name = ref.getString("name", "");
             user.balance = Double.valueOf(ref.getString("balance", "0"));
             user.totalIncome = Double.valueOf(ref.getString("totalIncome", "0"));
             user.totalSpend = Double.valueOf(ref.getString("totalSpend", "0"));
-            user.openCount = ref.getLong("openCount", 0);
-            user.lastOpenTime = ref.getLong("lastOpenTime", 0);
+            user.appLastOpenTime = ref.getLong("appLastOpenTime", 0);
             user.defaultAlarmHour = ref.getInt("defaultAlarmHour", StaticValues.defaultAlarmHour);
             user.defaultAlarmMinute = ref.getInt("defaultAlarmMinute", StaticValues.defaultAlarmMinute);
 
-            user.id = ref.getLong("id", 0);
-            user.username = ref.getString("username", null);
-            user.password = ref.getString("password", null);
-            user.registerTime = ref.getLong("registerTime", 0);
-            user.lastLoginTime = ref.getLong("lastLoginTime", 0);
         }
 
         return user;
     }
 
+    /**
+     * 增加收入/支出
+     * @param context
+     * @param incomeSpend
+     * @param money
+     */
     public void balanceChange(Context context, int incomeSpend, double money)
     {
         SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
