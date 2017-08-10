@@ -33,7 +33,8 @@ import com.viator42.erikanote.utils.CommonUtils;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         IncomeSpendListFragment.OnFragmentInteractionListener,
-        HomeFragment.OnFragmentInteractionListener
+        HomeFragment.OnFragmentInteractionListener,
+        ScheduleFragment.OnFragmentInteractionListener
 {
     private RelativeLayout containerLayout;
     private FragmentManager fragmentManager;
