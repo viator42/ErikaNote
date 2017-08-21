@@ -140,7 +140,7 @@ public class ScheduleFragment extends Fragment {
 
         MainActivity mainActivity = (MainActivity) getActivity();
         Toolbar toolbar = mainActivity.getToolbar();
-        toolbar.setTitle(getResources().getString(R.string.nav_schedule));
+        toolbar.setTitle(getResources().getString(R.string.income_spend_excepted));
 
         return view;
     }

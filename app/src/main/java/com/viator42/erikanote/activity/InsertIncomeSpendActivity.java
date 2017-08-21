@@ -34,9 +34,9 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
     private Button cancelBtn;
     private int type;
     private IncomeSpend incomeSpend = null;
-    private ProgressDialog progressDialog;
     private ArrayList<IncomeSpendCategory> incomeSpendCategories;
     private RadioGroup incomeSpendCategoriesContainer;
+    private int categorySelected = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +100,7 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
                     incomeSpend.money = Double.valueOf(moneyEditText.getText().toString());
                     incomeSpend.incomeSpend = type;
                     incomeSpend.type = StaticValues.TYPE_ONCE;
+                    incomeSpend.category = categorySelected;
 
                     if(!incomeSpend.insertValidation(InsertIncomeSpendActivity.this))
                     {
@@ -146,7 +147,7 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
         super.onStart();
 
         incomeSpendCategories = appContext.incomeSpendCategories;
-        for(IncomeSpendCategory incomeSpendCategory: incomeSpendCategories) {
+        for(final IncomeSpendCategory incomeSpendCategory: incomeSpendCategories) {
             final RadioButton radioButton = new RadioButton(InsertIncomeSpendActivity.this);
             radioButton.setButtonDrawable(null);
             radioButton.setText(incomeSpendCategory.name);
@@ -160,6 +161,7 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked) {
+                        categorySelected = incomeSpendCategory.id;
                         radioButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     }
                     else {

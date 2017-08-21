@@ -41,7 +41,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.InsertScheduleActivity"
-            android:label="@string/title_activity_insert_schedule"
+            android:label="@string/title_activity_insert_income_spend_expected"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

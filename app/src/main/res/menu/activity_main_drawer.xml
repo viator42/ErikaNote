@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_schedule"
             android:icon="@drawable/ic_event_black_24dp"
-            android:title="@string/nav_schedule" />
+            android:title="@string/income_spend_excepted" />
         <item
             android:id="@+id/nav_income_spend"
             android:icon="@drawable/ic_assignment_black_24dp"

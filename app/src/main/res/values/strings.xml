@@ -10,12 +10,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_insert_income_spend_expected">添加预计收入支出</string>
     <string name="title_activity_insert_schedule">添加计划</string>
     <string name="title_activity_settings">设置</string>
     <string name="title_activity_income_spend">明细</string>
     <string name="title_activity_insert_income_spend">记账</string>
-
     <string name="nav_home">主页</string>
+    <string name="income_spend_excepted">预计收入支出</string>
     <string name="nav_schedule">提醒</string>
     <string name="nav_income_spend">列表</string>
     <string name="add_income_spend">收支</string>

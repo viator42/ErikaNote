@@ -16,6 +16,12 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/8/2.
  */
 public class IncomeSpendAction {
+    /**
+     * 添加
+     * @param eDbHelper
+     * @param incomeSpend
+     * @return
+     */
     public IncomeSpend insert(EDbHelper eDbHelper, IncomeSpend incomeSpend)
     {
         try {

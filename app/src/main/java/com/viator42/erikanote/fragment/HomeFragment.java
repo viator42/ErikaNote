@@ -101,21 +101,6 @@ public class HomeFragment extends Fragment {
         spendMonthTextView = (TextView) view.findViewById(R.id.spend_month);
         dueListView = (ListView) view.findViewById(R.id.due_list);
 
-        incomeStatisticsCotainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spendStatisticsCotainer.setVisibility(View.VISIBLE);
-                incomeStatisticsCotainer.setVisibility(View.GONE);
-            }
-        });
-        spendStatisticsCotainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                incomeStatisticsCotainer.setVisibility(View.VISIBLE);
-                spendStatisticsCotainer.setVisibility(View.GONE);
-            }
-        });
-
         addBtn = (Button) view.findViewById(R.id.add);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,15 +115,17 @@ public class HomeFragment extends Fragment {
         Toolbar toolbar = mainActivity.getToolbar();
         toolbar.setTitle(getResources().getString(R.string.app_name));
 
-        spendStatisticsCotainer.setVisibility(View.VISIBLE);
-        incomeStatisticsCotainer.setVisibility(View.GONE);
-
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         reload();
     }
 
