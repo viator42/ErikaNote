@@ -171,4 +171,12 @@ public class CommonUtils {
         return result.toString();
     }
 
+    public static long doubleToLong(double input) {
+        return (long) (input * 100);
+    }
+
+    public static double longToDouble(long input) {
+        return input / 100;
+    }
+
 }

@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.viator42.erikanote.model.IncomeSpendCategory;
 import com.viator42.erikanote.model.Schedule;
 import com.viator42.erikanote.model.User;
 import com.viator42.erikanote.receiver.ScheduleReceiver;
 import com.viator42.erikanote.utils.EDbHelper;
 import com.viator42.erikanote.utils.StaticValues;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/8/2.
@@ -22,6 +25,7 @@ public class AppContext extends Application {
     public AlarmManager alarmManager;
     public User user = null;
     public boolean firstOpen = false; //是否首次开启
+    public ArrayList<IncomeSpendCategory> incomeSpendCategories;
 
     @Override
     public void onCreate() {
@@ -32,7 +36,59 @@ public class AppContext extends Application {
         //alarm对象
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
+        initDataSet();
     }
+
+    /**
+     * 初始化数据集
+     */
+    private void initDataSet() {
+        //类别
+        incomeSpendCategories = new ArrayList<IncomeSpendCategory>();
+        IncomeSpendCategory incomeSpendCategory = new IncomeSpendCategory();
+        incomeSpendCategory.id = 1;
+        incomeSpendCategory.name = "飞机";
+        incomeSpendCategory.icon = R.drawable.ic_category_airplane;
+        incomeSpendCategories.add(incomeSpendCategory);
+
+        incomeSpendCategory = new IncomeSpendCategory();
+        incomeSpendCategory.id = 2;
+        incomeSpendCategory.name = "公交";
+        incomeSpendCategory.icon = R.drawable.ic_category_bus;
+        incomeSpendCategories.add(incomeSpendCategory);
+
+        incomeSpendCategory = new IncomeSpendCategory();
+        incomeSpendCategory.id = 3;
+        incomeSpendCategory.name = "汽车";
+        incomeSpendCategory.icon = R.drawable.ic_category_car;
+        incomeSpendCategories.add(incomeSpendCategory);
+
+        incomeSpendCategory = new IncomeSpendCategory();
+        incomeSpendCategory.id = 4;
+        incomeSpendCategory.name = "购物";
+        incomeSpendCategory.icon = R.drawable.ic_category_shopping;
+        incomeSpendCategories.add(incomeSpendCategory);
+
+        incomeSpendCategory = new IncomeSpendCategory();
+        incomeSpendCategory.id = 5;
+        incomeSpendCategory.name = "饮食";
+        incomeSpendCategory.icon = R.drawable.ic_category_food;
+        incomeSpendCategories.add(incomeSpendCategory);
+
+        incomeSpendCategory = new IncomeSpendCategory();
+        incomeSpendCategory.id = 6;
+        incomeSpendCategory.name = "房租";
+        incomeSpendCategory.icon = R.drawable.ic_category_housing;
+        incomeSpendCategories.add(incomeSpendCategory);
+
+        incomeSpendCategory = new IncomeSpendCategory();
+        incomeSpendCategory.id = 7;
+        incomeSpendCategory.name = "电话费";
+        incomeSpendCategory.icon = R.drawable.ic_category_phone;
+        incomeSpendCategories.add(incomeSpendCategory);
+
+    }
+
 
     //浏览器打开特定url
     public void openUrlinBrowser(Context context, String url)

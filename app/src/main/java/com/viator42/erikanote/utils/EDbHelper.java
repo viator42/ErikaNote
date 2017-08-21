@@ -22,7 +22,7 @@ public class EDbHelper extends SQLiteOpenHelper {
         db.execSQL("create table if not exists income_spend("
                 + "id integer primary key autoincrement,"
                 + "create_time integer,"
-                + "name varchar(45),"
+                + "category integer,"
                 + "comment varchar(128),"
                 + "money double,"
                 + "income_spend integer,"

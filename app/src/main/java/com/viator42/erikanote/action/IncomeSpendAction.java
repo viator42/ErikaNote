@@ -20,7 +20,7 @@ public class IncomeSpendAction {
     {
         try {
             ContentValues contentValues = new ContentValues();
-            contentValues.put("name", incomeSpend.name);
+            contentValues.put("category", incomeSpend.category);
             contentValues.put("comment", incomeSpend.comment);
             contentValues.put("money", incomeSpend.money);
             contentValues.put("income_spend", incomeSpend.incomeSpend);
@@ -50,7 +50,7 @@ public class IncomeSpendAction {
         while(cursor.moveToNext()) {
             IncomeSpend incomeSpend = new IncomeSpend();
             incomeSpend.id = cursor.getLong(cursor.getColumnIndex("id"));
-            incomeSpend.name = cursor.getString(cursor.getColumnIndex("name"));
+            incomeSpend.category = cursor.getInt(cursor.getColumnIndex("category"));
             incomeSpend.comment = cursor.getString(cursor.getColumnIndex("comment"));
             incomeSpend.money = cursor.getDouble(cursor.getColumnIndex("money"));
             incomeSpend.incomeSpend = cursor.getInt(cursor.getColumnIndex("income_spend"));

@@ -3,105 +3,99 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.viator42.erikanote.activity.InsertIncomeSpendActivity"
     tools:showIn="@layout/activity_insert_income_spend">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/title"
-            android:id="@+id/name"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/money"
-            android:id="@+id/money"
-            android:inputType="numberDecimal"
-            android:singleLine="true"
-            android:text="0" />
-    </android.support.design.widget.TextInputLayout>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/type"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp" />
+        android:text="@string/type" />
+
+    <RadioGroup
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/money"
+            android:inputType="numberDecimal"
+            android:text="0" />
+    </android.support.design.widget.TextInputLayout>
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp">
+        android:orientation="horizontal">
 
         <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/income"
             android:id="@+id/income"
-            android:layout_weight="1" />
-
-        <RadioButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/spend"
+            android:layout_weight="1"
+            android:cursorVisible="true"
+            android:text="@string/income" />
+
+        <RadioButton
             android:id="@+id/spend"
-            android:layout_weight="1" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/spend" />
     </RadioGroup>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp">
+
         <EditText
+            android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/comment"
-            android:id="@+id/comment"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp">
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"
             android:id="@+id/cancel"
-            android:layout_weight="1" />
-
-        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/confirm"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
+
+        <Button
             android:id="@+id/confirm"
-            android:layout_weight="1" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/confirm" />
     </LinearLayout>
 
 </TableLayout>

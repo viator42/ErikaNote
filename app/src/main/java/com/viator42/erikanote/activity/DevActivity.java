@@ -138,7 +138,7 @@ public class DevActivity extends AppCompatActivity {
                 for(int a=0; a<1000; a++)
                 {
                     IncomeSpend incomeSpend = new IncomeSpend();
-                    incomeSpend.name = "TEST_DATA_"+a;
+                    incomeSpend.category = 1;
                     incomeSpend.comment = "TEST_DATA_COMMENT"+a;
                     incomeSpend.money = a;
                     incomeSpend.incomeSpend = StaticValues.INCOME;

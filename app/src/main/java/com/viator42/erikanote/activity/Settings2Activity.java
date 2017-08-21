@@ -36,6 +36,7 @@ public class Settings2Activity extends AppCompatActivity {
     private User user;
     private Button devBtn;
     private TimePickerDialog timePickerDialog = null;
+    public Button resetAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,69 +56,6 @@ public class Settings2Activity extends AppCompatActivity {
 
         nameEditText = (EditText) findViewById(R.id.name);
         balanceEditText = (EditText) findViewById(R.id.balance);
-
-        /*
-        nameContainer = (ViewGroup) findViewById(R.id.name_container);
-        nameContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText nameEditText = new EditText(Settings2Activity.this);
-                nameEditText.setText(user.name);
-                AlertDialog.Builder builder = new AlertDialog.Builder(Settings2Activity.this);
-                builder.setView(nameEditText);
-                builder.setTitle("姓名");
-                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String name = nameEditText.getText().toString();
-                        if(!CommonUtils.isValueEmpty(name))
-                        {
-                            user.name = name;
-                            nameTextView.setText(name);
-                            dialogInterface.dismiss();
-                        }
-                        else
-                        {
-                            Toast.makeText(Settings2Activity.this, "姓名不能为空", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                builder.setNegativeButton("取消", null);
-                builder.create().show();
-            }
-        });
-
-        balanceContainer = (ViewGroup) findViewById(R.id.balance_container);
-        balanceContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText balanceEditText = new EditText(Settings2Activity.this);
-                balanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                AlertDialog.Builder builder = new AlertDialog.Builder(Settings2Activity.this);
-                builder.setView(balanceEditText);
-                builder.setTitle("余额");
-                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String balance = balanceEditText.getText().toString();
-                        if(!CommonUtils.isValueEmpty(balance))
-                        {
-                            user.balance = Double.valueOf(balance);
-                            balanceTextView.setText(balance);
-                            dialogInterface.dismiss();
-                        }
-                        else
-                        {
-                            Toast.makeText(Settings2Activity.this, "余额不能为空", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-                builder.setNegativeButton("取消", null);
-                builder.create().show();
-            }
-        });
-        */
 
         defaultAlarmTimeContainer = (ViewGroup) findViewById(R.id.default_alarm_time_container);
         defaultAlarmTimeContainer.setOnClickListener(new View.OnClickListener() {
@@ -149,13 +87,31 @@ public class Settings2Activity extends AppCompatActivity {
             }
         });
 
+        resetAll = (Button) findViewById(R.id.reset_all);
+        resetAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Settings2Activity.this);
+                builder.setTitle("sdf");
+                builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.create().show();
+            }
+        });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        user = appContext.user;
+        user = new RefAction().getUser(Settings2Activity.this);
+
         nameEditText.setText(user.name);
         balanceEditText.setText(String.valueOf(user.balance));
 
@@ -221,8 +177,21 @@ public class Settings2Activity extends AppCompatActivity {
      * 确认修改
      */
     private void confirmChange() {
-        appContext.user = user;
+        //判定为空
+        if(CommonUtils.isValueEmpty(nameEditText.getText().toString())) {
+            Toast.makeText(Settings2Activity.this, getResources().getString(R.string.name_not_null), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(CommonUtils.isValueEmpty(balanceEditText.getText().toString())) {
+            Toast.makeText(Settings2Activity.this, getResources().getString(R.string.balance_not_null), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        user.name = nameEditText.getText().toString();
+        user.balance = Double.valueOf(balanceEditText.getText().toString());
+
         new RefAction().saveSetings(Settings2Activity.this, user);
+        appContext.user = user;
     }
 
     /**

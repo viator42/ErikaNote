@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.viator42.erikanote.model.User;
+import com.viator42.erikanote.utils.CommonUtils;
 import com.viator42.erikanote.utils.StaticValues;
 
 /**
@@ -19,10 +20,12 @@ public class RefAction {
     {
         SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = ref.edit();
+        editor.putBoolean("exist", true);
+
         editor.putString("name", user.name);
-        editor.putString("balance", Double.toString(user.balance));
-        editor.putString("totalIncome", Double.toString(user.totalIncome));
-        editor.putString("totalSpend", Double.toString(user.totalSpend));
+        editor.putLong("balance", CommonUtils.doubleToLong(user.balance));
+        editor.putLong("totalIncome", CommonUtils.doubleToLong(user.totalIncome));
+        editor.putLong("totalSpend", CommonUtils.doubleToLong(user.totalSpend));
         editor.putInt("defaultAlarmHour", user.defaultAlarmHour);
         editor.putInt("defaultAlarmMinute", user.defaultAlarmMinute);
         editor.putLong("appLastOpenTime", user.appLastOpenTime);
@@ -31,7 +34,7 @@ public class RefAction {
     }
 
     /**
-     * 保存设置
+     * 更新上一次开启的时间
      * @param context
      * @param appLastOpenTime
      */
@@ -44,15 +47,16 @@ public class RefAction {
     }
 
     /**
-     * 更新上一次开启的时间
+     * 保存设置
      * @param context
      * @param user
      */
     public void saveSetings(Context context, User user) {
         SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = ref.edit();
+        editor.putBoolean("exist", true);
         editor.putString("name", user.name);
-        editor.putString("balance", Double.toString(user.balance));
+        editor.putLong("balance", CommonUtils.doubleToLong(user.balance));
         editor.putInt("defaultAlarmHour", user.defaultAlarmHour);
         editor.putInt("defaultAlarmMinute", user.defaultAlarmMinute);
 
@@ -71,15 +75,16 @@ public class RefAction {
 
         if(ref != null)
         {
-            user = new User();
-            user.name = ref.getString("name", "");
-            user.balance = Double.valueOf(ref.getString("balance", "0"));
-            user.totalIncome = Double.valueOf(ref.getString("totalIncome", "0"));
-            user.totalSpend = Double.valueOf(ref.getString("totalSpend", "0"));
-            user.appLastOpenTime = ref.getLong("appLastOpenTime", 0);
-            user.defaultAlarmHour = ref.getInt("defaultAlarmHour", StaticValues.defaultAlarmHour);
-            user.defaultAlarmMinute = ref.getInt("defaultAlarmMinute", StaticValues.defaultAlarmMinute);
-
+            if(ref.getBoolean("exist", false)) {
+                user = new User();
+                user.name = ref.getString("name", "");
+                user.balance = CommonUtils.longToDouble(ref.getLong("balance", 0));
+                user.totalIncome = CommonUtils.longToDouble(ref.getLong("totalIncome", 0));
+                user.totalSpend = CommonUtils.longToDouble(ref.getLong("totalSpend",0));
+                user.appLastOpenTime = ref.getLong("appLastOpenTime", 0);
+                user.defaultAlarmHour = ref.getInt("defaultAlarmHour", StaticValues.defaultAlarmHour);
+                user.defaultAlarmMinute = ref.getInt("defaultAlarmMinute", StaticValues.defaultAlarmMinute);
+            }
         }
 
         return user;
@@ -96,9 +101,9 @@ public class RefAction {
         SharedPreferences ref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         if(ref != null)
         {
-            double balance = Double.valueOf(ref.getString("balance", "0"));
-            double totalIncome = Double.valueOf(ref.getString("totalIncome", "0"));
-            double totalSpend = Double.valueOf(ref.getString("totalSpend", "0"));
+            double balance = CommonUtils.longToDouble(ref.getLong("balance", 0));
+            double totalIncome = CommonUtils.longToDouble(ref.getLong("totalIncome", 0));
+            double totalSpend = CommonUtils.longToDouble(ref.getLong("totalSpend", 0));
 
             switch (incomeSpend)
             {
@@ -113,12 +118,19 @@ public class RefAction {
             }
 
             SharedPreferences.Editor editor = ref.edit();
-            editor.putString("balance", Double.toString(balance));
-            editor.putString("totalIncome", Double.toString(totalIncome));
-            editor.putString("totalSpend", Double.toString(totalSpend));
+            editor.putLong("balance", CommonUtils.doubleToLong(balance));
+            editor.putLong("totalIncome", CommonUtils.doubleToLong(totalIncome));
+            editor.putLong("totalSpend", CommonUtils.doubleToLong(totalSpend));
             editor.commit();
 
         }
+    }
+
+    /**
+     * 初始化
+     */
+    public void resetAll() {
+
     }
 
 }

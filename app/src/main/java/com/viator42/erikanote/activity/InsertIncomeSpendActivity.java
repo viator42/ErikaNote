@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.viator42.erikanote.AppContext;
@@ -16,11 +19,13 @@ import com.viator42.erikanote.R;
 import com.viator42.erikanote.action.IncomeSpendAction;
 import com.viator42.erikanote.action.RefAction;
 import com.viator42.erikanote.model.IncomeSpend;
+import com.viator42.erikanote.model.IncomeSpendCategory;
 import com.viator42.erikanote.utils.StaticValues;
+
+import java.util.ArrayList;
 
 public class InsertIncomeSpendActivity extends AppCompatActivity {
     private AppContext appContext;
-    private EditText nameEditText;
     private EditText commentEditText;
     private EditText moneyEditText;
     private RadioButton incomeRadioButton;
@@ -30,6 +35,8 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
     private int type;
     private IncomeSpend incomeSpend = null;
     private ProgressDialog progressDialog;
+    private ArrayList<IncomeSpendCategory> incomeSpendCategories;
+    private RadioGroup incomeSpendCategoriesContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +59,6 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
         }
 
         appContext = (AppContext) getApplicationContext();
-        nameEditText = (EditText) findViewById(R.id.name);
         commentEditText = (EditText) findViewById(R.id.comment);
         moneyEditText = (EditText) findViewById(R.id.money);
         incomeRadioButton = (RadioButton) findViewById(R.id.income);
@@ -90,7 +96,6 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
                 try
                 {
                     IncomeSpend incomeSpend = new IncomeSpend();
-                    incomeSpend.name = nameEditText.getText().toString();
                     incomeSpend.comment = commentEditText.getText().toString();
                     incomeSpend.money = Double.valueOf(moneyEditText.getText().toString());
                     incomeSpend.incomeSpend = type;
@@ -119,7 +124,6 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
 
         if(incomeSpend != null)
         {
-            nameEditText.setText(incomeSpend.name);
             commentEditText.setText(incomeSpend.comment);
             moneyEditText.setText(String.valueOf(incomeSpend.money));
             switch (incomeSpend.incomeSpend)
@@ -132,6 +136,42 @@ public class InsertIncomeSpendActivity extends AppCompatActivity {
                     break;
             }
         }
+
+        incomeSpendCategoriesContainer = (RadioGroup) findViewById(R.id.categories);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        incomeSpendCategories = appContext.incomeSpendCategories;
+        for(IncomeSpendCategory incomeSpendCategory: incomeSpendCategories) {
+            final RadioButton radioButton = new RadioButton(InsertIncomeSpendActivity.this);
+            radioButton.setButtonDrawable(null);
+            radioButton.setText(incomeSpendCategory.name);
+//            radioButton.setBackgroundResource(incomeSpendCategory.icon);
+            radioButton.setPadding(16, 8, 16, 8);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);  // , 1是可选写的
+            lp.setMargins(16, 8, 16, 8);
+            radioButton.setLayoutParams(lp);
+
+            radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        radioButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    }
+                    else {
+                        radioButton.setBackgroundColor(getResources().getColor(R.color.text_white));
+                    }
+
+                }
+            });
+            incomeSpendCategoriesContainer.addView(radioButton);
+
+        }
+
     }
 
     private void changeIncomeSpend(int incomeSpend)

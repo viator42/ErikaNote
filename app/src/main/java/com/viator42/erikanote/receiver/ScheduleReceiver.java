@@ -59,7 +59,7 @@ public class ScheduleReceiver  extends BroadcastReceiver {
 
         //添加incomeSpend
         IncomeSpend incomeSpend = new IncomeSpend();
-        incomeSpend.name = schedule.name;
+//        incomeSpend.name = schedule.name;
         incomeSpend.comment = schedule.comment;
         incomeSpend.incomeSpend = schedule.incomeSpend;
         incomeSpend.money = schedule.money;

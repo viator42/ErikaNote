@@ -14,7 +14,7 @@ import com.viator42.erikanote.utils.StaticValues;
 public class IncomeSpend extends BaseModel implements Parcelable{
     public long id;
     public long createTime;
-    public String name;
+    public int category;
     public String comment;
     public double money;
     public int incomeSpend;
@@ -29,7 +29,7 @@ public class IncomeSpend extends BaseModel implements Parcelable{
     protected IncomeSpend(Parcel in) {
         id = in.readLong();
         createTime = in.readLong();
-        name = in.readString();
+        category = in.readInt();
         comment = in.readString();
         money = in.readDouble();
         incomeSpend = in.readInt();
@@ -72,7 +72,7 @@ public class IncomeSpend extends BaseModel implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeLong(createTime);
-        dest.writeString(name);
+        dest.writeInt(category);
         dest.writeString(comment);
         dest.writeDouble(money);
         dest.writeInt(incomeSpend);
@@ -85,9 +85,9 @@ public class IncomeSpend extends BaseModel implements Parcelable{
     {
         boolean result = true;
 
-        if(CommonUtils.isValueEmpty(name))
+        if(category == 0)
         {
-            msg = context.getResources().getString(R.string.title_not_null);
+            msg = context.getResources().getString(R.string.category_not_null);
             return false;
         }
         if(money == 0)

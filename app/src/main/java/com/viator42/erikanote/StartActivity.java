@@ -43,6 +43,7 @@ public class StartActivity extends Activity {
             user.totalSpend = 0;
             user.appLastOpenTime = currentTimeMil;
             new RefAction().setUser(StartActivity.this, user);
+            appContext.user = user;
 
             appContext.firstOpen = true;
         }

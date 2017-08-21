@@ -53,7 +53,7 @@ public class IncomeSpendAdapter extends RecyclerView.Adapter<IncomeSpendAdapter.
     @Override
     public void onBindViewHolder(IncomeSpendAdapter.ViewHolder holder, int position) {
         IncomeSpend incomeSpend = (IncomeSpend) list.get(position).get("obj");
-        holder.name.setText(incomeSpend.name);
+        holder.name.setText("");
         holder.money.setText(String.valueOf(incomeSpend.money));
         holder.createTime.setText(CommonUtils.timestampToDatetime(incomeSpend.createTime));
         holder.comment.setText(incomeSpend.comment);
