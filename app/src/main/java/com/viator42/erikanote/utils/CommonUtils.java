@@ -23,6 +23,7 @@ public class CommonUtils {
     //当前时间
     public static long getCurrentTimestamp()
     {
+//        return 123456;
         return System.currentTimeMillis();
     }
 

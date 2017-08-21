@@ -112,8 +112,10 @@ public class Settings2Activity extends AppCompatActivity {
 
         user = new RefAction().getUser(Settings2Activity.this);
 
-        nameEditText.setText(user.name);
-        balanceEditText.setText(String.valueOf(user.balance));
+        if(!appContext.firstOpen) {
+            nameEditText.setText(user.name);
+            balanceEditText.setText(String.valueOf(user.balance));
+        }
 
         defaultAlarmTimeTextView.setText(String.valueOf(user.defaultAlarmHour)+":"+String.valueOf(user.defaultAlarmMinute));
 

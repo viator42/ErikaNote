@@ -10,28 +10,29 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_standard"
+        android:layout_marginRight="@dimen/margin_standard"
+        android:layout_marginTop="8dp">
 
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_standard"
-            android:layout_marginRight="@dimen/margin_standard"
-            android:layout_marginTop="@dimen/margin_standard"
             android:hint="@string/set_name" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_standard"
+        android:layout_marginRight="@dimen/margin_standard"
+        android:layout_marginTop="@dimen/margin_standard">
 
         <EditText
             android:id="@+id/balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_standard"
-            android:layout_marginRight="@dimen/margin_standard"
             android:hint="@string/set_balance"
             android:inputType="numberDecimal" />
     </android.support.design.widget.TextInputLayout>
@@ -72,7 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_standard"
             android:layout_weight="1"
-            android:text="清除所有" />
+            android:text="清除所有"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
